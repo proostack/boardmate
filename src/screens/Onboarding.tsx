@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 import Button  from "../components/Buttons/Button";
 import React from "react";
+=======
+import React from 'react'
+>>>>>>> bf3f74c18813714bd42d9de82d0f4e20959d944f
 import Card from "../components/Card";
 import FormHeader from "../components/Headers/FormHeader";
 import { Box,Heading,Text } from "native-base";
@@ -11,10 +15,14 @@ const [email,setEmail]=React.useState<string>("")
 const [password,setPassword]=React.useState<string>("")
 const [show,setShow]=React.useState<boolean>(true)
 
+<<<<<<< HEAD
 const setVisibilty=()=>{
     setShow(!show)
 }
 console.log(show)
+=======
+function Onboarding(): JSX.Element {
+>>>>>>> bf3f74c18813714bd42d9de82d0f4e20959d944f
     return(
         <>
         {/* <Card /> */}
@@ -31,3 +39,4 @@ console.log(show)
         </>
     )
 }
+export default Onboarding
