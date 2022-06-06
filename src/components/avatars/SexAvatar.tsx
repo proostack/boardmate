@@ -6,7 +6,7 @@ interface Props{
   image:any;
   choose:boolean
 }
-const SexAvatar = (props:Props) => {
+const SexAvatar = (props:Props):JSX.Element => {
   return (
     <Box>
     <Box h={120} w={120} bgColor={props.choose?"accent_bg.50":"#F9F9FA"} borderRadius={60} justifyContent="center" alignItems="center">
