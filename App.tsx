@@ -14,12 +14,3 @@ export default function App() {
     </Provider>
   );
 }
-<<<<<<< HEAD
-
-else{
-  return null
-}
-
-}
-=======
->>>>>>> bf3f74c18813714bd42d9de82d0f4e20959d944f

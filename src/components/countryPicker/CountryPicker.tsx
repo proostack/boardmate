@@ -1,28 +1,31 @@
-import { Box } from 'native-base'
 import React, { useState } from 'react'
-import { View, Text, StyleSheet,TextInput, PixelRatio, Switch, Image} from 'react-native'
+import { TouchableOpacity } from 'react-native'
+import { Input, InputGroup, InputLeftAddon,  Box, Text, Image } from "native-base"
 import CountryPicker from 'react-native-country-picker-modal'
-import { CountryCode, Country} from './types'
+import { Country } from './types'
 import { Entypo } from '@expo/vector-icons';
 export default function App() {
   const [countryCode, setCountryCode] = useState('FR')
-  const [region,setRegion] = useState('')
+  const [callingCode, setCallingCode] = useState("")
+  const [region, setRegion] = useState('')
   const [country, setCountry] = useState("")
   const withCountryNameButton = (true)
-  const withFlag  = (true)
+  const withFlag = (true)
   const withEmoji = (false)
   const withFilter = (true)
-  const withAlphaFilter  = (true)
+  const withAlphaFilter = (true)
   const withCallingCode = (true)
   const withFlagButton = (true)
   const onSelect = (country: Country) => {
     setCountryCode(country.cca2)
     setCountry(country)
     setRegion(country.region)
+    setCallingCode(country.callingCode)
   }
+  console.log(countryCode)
   return (
     <>
-  
+<Text fontFamily="ReadexProRegular" mb={13}>Country</Text>
       <CountryPicker
         {...{
           countryCode,
@@ -35,31 +38,45 @@ export default function App() {
           onSelect,
           withFlagButton,
           region,
-          containerButtonStyle:{
-            backgroundColor:"#F9F9FA",
-            height:66,
-            fontSize:16,
-            alignItems:"center",
-            paddingLeft:30,
-            
+          containerButtonStyle: {
+            backgroundColor: "#F9F9FA",
+            height: 66,
+            fontSize: 16,
+            alignItems: "center",
+            paddingLeft: 10,
           },
-          renderFlagButton:(props)=>(
-          <Box flexDirection="row"  style={props.containerButtonStyle} onPress={()=>props.onOpen()}>
-      <Image style={{width:24,height:24,marginRight:16}} source={{uri:country.flag}}/>
-      <Entypo name="chevron-small-down" style={{marginRight:26}} size={24} color="#393939C2"/>
-      <Text  style={{fontSize:18,color:"#393939C2"}} >{country.name?country.name:"eee"}</Text>
-      
-          </Box>
+          
+          renderFlagButton: (props) => (
+          
+              <TouchableOpacity onPress={() => props.onOpen()} style={{width:"100%"}}>
+                <Box flexDirection="row" w="100%" style={props.containerButtonStyle}>
+
+                  <Box flexDirection="row" borderRightWidth={1} borderColor="#ECECEC">
+                  <Image style={{ width: 30, height: 24}} source={{ uri: country.flag }} alt="flag" />
+                  <Entypo name="chevron-small-down" style={{marginRight:10,marginLeft:10 }} size={24} color="#393939C2" />
+                  </Box>
+                  
+                  <Text style={{ fontSize: 18, color: "#393939C2", marginLeft: 16 }} >{country.name ? country.name : "select a country"}</Text>
+                </Box>
+              </TouchableOpacity>
           ),
-          renderCountryButton:()=>(<Text></Text>),
-      
+
         }}
         visible
       />
-      {/* <Text style={styles.instructions}>Press on the flag to open modal</Text> */}
-      {/* {country !== null && (
-        <Text style={styles.data}>{JSON.stringify(country, null, 2)}</Text>
-      )} */}
+
+     <Text mt={30} mb={13}  fontSize={16} fontFamily="ReadexProRegular">Phone number</Text>
+      <InputGroup  w={{
+        base: "100%",
+        md: "285"
+      }}  >
+        <InputLeftAddon height={66} variant="unstyled"  borderWidth={0} children={<Text borderRightWidth={1} borderColor="#ECECEC" color="#393939C2" fontSize={16} paddingRight={10}>{`+${callingCode}`}</Text>} w="40%" />
+        <Input borderRadius={12} keyboardType='number-pad' variant="unstyled" w={{
+          base: "60%",
+          md: "300"
+        }} bgColor="#F9F9FA"  placeholder="Phone no." fontSize={16}/>
+
+      </InputGroup>
     </>
   )
 }
