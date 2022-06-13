@@ -7,8 +7,7 @@ const Routes = (): JSX.Element => {
     
     const Stack = createNativeStackNavigator<Main>();
     return (
-      <Stack.Navigator
-       >
+      <Stack.Navigator>
         <Stack.Screen
           options={{ headerShown: false }}
           name="AuthNavigation"

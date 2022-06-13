@@ -1,7 +1,6 @@
 import * as React from 'react'
 import LoadAssets from './LoadAssets'
 import Routes from './Routes'
-
 const NavigationWrapper = (): JSX.Element => {
     const fonts = {
         // Mulish font

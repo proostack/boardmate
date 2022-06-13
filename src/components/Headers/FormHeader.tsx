@@ -6,11 +6,11 @@ text?:string;
 header:string
 }
 
-const FormHeader = (props:Props) => {
+const FormHeader = ({text,header}:Props):JSX.Element => {
   return (
     <Box>
-    <Heading textAlign="center" fontFamily="ReadexProBold">{props.header}</Heading>
-    <Text textAlign="center" mt={25} fontSize="12" fontFamily="ReadexProLight" opacity={.7} color="#393939">{props.text}</Text>
+    <Heading textAlign="center" fontFamily="ReadexProBold">{header}</Heading>
+    <Text textAlign="center" mt={25} fontSize="12" fontFamily="ReadexProLight" opacity={.7} color="#393939">{text}</Text>
     </Box>
   )
 }

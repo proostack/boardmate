@@ -22,6 +22,15 @@ export type AuthRoutes = {
   SignUp: undefined;
   ForgotPassword: undefined;
   PasswordReset: undefined;
+  ChooseHow: undefined;
+  Email: undefined;
+  Phone: undefined;
+  Country: undefined;
+  ResetPwd:undefined;
+  Username:undefined;
+  LoginPin:undefined;
+  ResetPin:undefined;
+  TransactionPin:undefined;
 };
 
 export type Main = {

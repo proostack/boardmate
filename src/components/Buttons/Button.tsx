@@ -1,16 +1,15 @@
 import React from 'react'
-import { Box, Container, Text, VStack, Button as NativeBtn } from "native-base";
-
+import { Text,  Button as NativeBtn } from "native-base";
 interface Props{
-text:string
+  text:string;
+  callback?:()=>void;
 }
 
-
-const Button = (props:Props) => {
+const Button = ({text,callback}:Props):JSX.Element => {
   return (
 
-    <NativeBtn  width="100%" fontFamily="ReadexProBold" p={0} height={62} backgroundColor="accent_bg.50" borderRadius={12}>
-    <Text fontFamily="ReadexProBold" fontSize={16} color="white">{props.text}</Text>
+    <NativeBtn onPress={callback} width="100%" fontFamily="ReadexProBold" p={0} height={62} backgroundColor="accent_bg.50" borderRadius={12}>
+    <Text fontFamily="ReadexProBold" fontSize={16} color="white">{text}</Text>
     </NativeBtn>
 
   )
