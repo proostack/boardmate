@@ -32,7 +32,7 @@ interface LoadAssetsProps {
   children: ReactElement | ReactElement[];
 }
 
-const LoadAssets = ({ assets, fonts, children }: LoadAssetsProps) => {
+const LoadAssets = ({ assets, fonts, children }: LoadAssetsProps):JSX.Element | null => {
   const [isNavigationReady, setIsNavigationReady] = useState(!__DEV__);
   const [initialState, setInitialState] = useState<InitialState | undefined>();
   const ready = useLoadAssets(assets || [], fonts || {});

@@ -5,7 +5,7 @@ import { store } from "./src/store/store";
 import { theme } from "./src/theme/globalStyles";
 import NavigationWrapper from "./src/navigation/index";
 
-export default function App() {
+export default function App():JSX.Element {
   return (
     <Provider store={store}>
       <NativeBaseProvider theme={theme}>
@@ -14,3 +14,6 @@ export default function App() {
     </Provider>
   );
 }
+
+
+

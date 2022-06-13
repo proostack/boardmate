@@ -1,13 +1,15 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    user: "first user"
+    user: {
+      phone:""
+    }
   },
   reducers: {
     setUserDetails(state, action: PayloadAction<string>) {
-      state.user = action.payload
+      state.user = {...state.user,phone:action.payload}
     }
   }
 })
