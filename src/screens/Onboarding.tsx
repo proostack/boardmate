@@ -6,7 +6,8 @@ import { Box,Heading,Text } from "native-base";
 import FaceBook_Google from "../components/FaceBook_Google";
 import InputField from "../components/InputField";
 import CountryPicker from "../components/countryPicker/CountryPicker";
-export default function Onboarding() {
+
+const Onboarding=()=> {
 const [email,setEmail]=React.useState<string>("")
 const [password,setPassword]=React.useState<string>("")
 const [show,setShow]=React.useState<boolean>(true)
@@ -31,3 +32,4 @@ console.log(show)
         </>
     )
 }
+export default Onboarding
