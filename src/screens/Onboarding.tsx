@@ -5,7 +5,7 @@ import OnBoarding from "../components/OnBoarding";
 
 import { AuthNavigationProps } from "../types/routes";
 
-export default function Onboarding({ navigation }: AuthNavigationProps<"Onboarding">):JSX.Element {
+const Onboarding=({ navigation }: AuthNavigationProps<"Onboarding">):JSX.Element =>{
     const onBoardProps = [
         {
             bgColor: "#F16FA6",
@@ -65,3 +65,4 @@ export default function Onboarding({ navigation }: AuthNavigationProps<"Onboardi
 
     )
 }
+export default Onboarding

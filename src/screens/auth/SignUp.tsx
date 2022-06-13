@@ -51,4 +51,3 @@ const handleNavigation = () => {
 };
 
 export default SignUp;
-
