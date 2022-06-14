@@ -6,11 +6,25 @@ import InputField from "../../components/InputField";
 import Button from "../../components/Buttons/Button";
 import FaceBook_Google from "../../components/FaceBook_Google";
 import { AuthNavigationProps } from "../../types/routes";
-const SignIn = ({navigation}: AuthNavigationProps<"Login">): JSX.Element => {
-  const [email, setEmail] = useState<string>("")
-  const [pwd, setPwd] = useState<string>("")
-  const [show, setShow] = useState<boolean>(true)
+import { Formik } from "formik";
+import * as yup from "yup";
 
+const signinSchema = yup.object({
+  email: yup.string().required().test('email_valid', 'Invalid email', (value):boolean => {
+    
+    return value ? /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value):false
+  }
+    ),
+  password: yup.string().required().min(6)
+})
+
+
+
+const SignIn = ({navigation}: AuthNavigationProps<"Login">): JSX.Element => {
+  // const [email, setEmail] = useState<string>("")
+  // const [password, setpassword] = useState<string>("")
+  const [show, setShow] = useState<boolean>(true)
+ 
   const setVisibilty = () => {
     setShow(!show)
   }
@@ -20,17 +34,36 @@ const SignIn = ({navigation}: AuthNavigationProps<"Login">): JSX.Element => {
         <Box mb={65}>
           <FormHeader text="Welcome back! Login to access your account 🤩" header="Login" />
         </Box>
-        <Center mb={15}>
-          <InputField input={email} getInput={setEmail} label="Email" />
-        </Center>
-        <InputField input={pwd} getInput={setPwd} label="Password" setVisibilty={setVisibilty} visibility={show} />
-        {/* <Onboarding /> */}
-        <Text textAlign="right" color="accent_bg.50" mt={30} mb={50} onPress={()=>navigation.navigate("ChooseHow")}>Forgot password?</Text>
-        
-        <Center mb={30}>
-        <Button text="Login" />
-        </Center>
 
+<Formik initialValues={{email:"",password:""}} validationSchema={signinSchema} onSubmit={(values) => {
+  console.log(values)
+}}> 
+{
+  ({handleSubmit,handleChange,values,errors,touched}) => (
+    <>
+  
+    <InputField input={values.email} getInput={handleChange('email')} label="Email" />
+
+    <Text color={"red.500"} mb={15}>{touched.email && errors.email}</Text>
+   
+
+
+
+  <InputField input={values.password} getInput={handleChange('password')} label="Password" setVisibilty={setVisibilty} visibility={show} />
+  <Text color={"red.500"}>{touched.password && errors.password}</Text>
+  {/* <Onboarding /> */}
+ 
+  <Text textAlign="right" color="accent_bg.50" mt={30} mb={50} onPress={()=>navigation.navigate("ChooseHow")}>Forgot password?</Text>
+  
+  <Center mb={30}>
+  <Button text="Login" callback={handleSubmit} />
+  </Center>
+  </>
+  )
+}
+
+       
+        </Formik>
         <FaceBook_Google/>
     
       </Box>
@@ -40,3 +73,4 @@ const SignIn = ({navigation}: AuthNavigationProps<"Login">): JSX.Element => {
 };
 
 export default SignIn;
+

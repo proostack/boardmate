@@ -14,6 +14,7 @@ const Routes = (): JSX.Element => {
           component={AuthNavigation}
         />
       </Stack.Navigator>
+      
     );
   };
   export default Routes;
