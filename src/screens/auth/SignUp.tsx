@@ -10,13 +10,9 @@ import * as yup from "yup";
 
 
 const signupSchema = yup.object({
-  email: yup.string().required().test('email_valid', 'Invalid email', (value):boolean => {
-    
-    return value ? /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value):false
-  }
-    ),
-    password: yup.string().required().min(6),
-    confirmPassword: yup.string().equals([yup.ref('password'),null], "Passwords must match").required()
+  email: yup.string().required("Input Email Address").required("This field is required").email('Invalid email address'),
+    password: yup.string().required("Input password").min(6),
+    confirmPassword: yup.string().equals([yup.ref('password'),null], "Passwords must match").required("Input Confirmed Password")
 })
 
 
@@ -47,15 +43,15 @@ handleNavigation()
       }}>
 {({handleSubmit,handleChange,values,errors,touched})=>(
   <>
-  <Center mb={15}>
-        <InputField input={values.email} getInput={handleChange('email')} label="Email" />
-        <Text color="red.500">{touched.email&&errors.email}</Text>
-      </Center>
-      <Center mb={15}>
-      <InputField input={values.password} getInput={handleChange('password')} label="Password" setVisibilty={setVisibilty} visibility={show} />
-      <Text color="red.500">{touched.password&&errors.password}</Text>
 
-      </Center>
+        <InputField input={values.email} getInput={handleChange('email')} label="Email" />
+        <Text mb={15} color="red.500">{touched.email&&errors.email}</Text>
+     
+     
+      <InputField input={values.password} getInput={handleChange('password')} label="Password" setVisibilty={setVisibilty} visibility={show} />
+      <Text mb={15} color="red.500">{touched.password&&errors.password}</Text>
+
+     
 
       <InputField input={values.confirmPassword} getInput={handleChange('confirmPassword')} label="Confirm Password" setVisibilty={setVisibilty} visibility={show} />
       <Text color="red.500">{touched.confirmPassword&&errors.confirmPassword}</Text>

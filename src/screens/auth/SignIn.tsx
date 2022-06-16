@@ -10,15 +10,15 @@ import { Formik } from "formik";
 import * as yup from "yup";
 
 const signinSchema = yup.object({
-  email: yup.string().required().test('email_valid', 'Invalid email', (value):boolean => {
-    
-    return value ? /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value):false
-  }
-    ),
-  password: yup.string().required().min(6)
+  email: yup.string().required("This field is required").email('Invalid email address'),
+  password: yup.string().required("This is a required field").min(6)
 })
 
-
+const submit=(email:string,password:string)=>{
+  return {
+    email,password
+  }
+}
 
 const SignIn = ({navigation}: AuthNavigationProps<"Login">): JSX.Element => {
   // const [email, setEmail] = useState<string>("")
@@ -35,8 +35,8 @@ const SignIn = ({navigation}: AuthNavigationProps<"Login">): JSX.Element => {
           <FormHeader text="Welcome back! Login to access your account 🤩" header="Login" />
         </Box>
 
-<Formik initialValues={{email:"",password:""}} validationSchema={signinSchema} onSubmit={(values) => {
-  console.log(values)
+<Formik initialValues={{email:"",password:""}} validationSchema={signinSchema} onSubmit={({email,password}) => {
+submit(email,password)
 }}> 
 {
   ({handleSubmit,handleChange,values,errors,touched}) => (
