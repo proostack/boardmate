@@ -1,4 +1,4 @@
-import {   RouteProp, CompositeNavigationProp } from "@react-navigation/native";
+import { RouteProp, CompositeNavigationProp } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 
@@ -9,10 +9,19 @@ export type AppRoutes = {
 
 export interface AuthNavigationProps<RouteName extends keyof AuthRoutes> {
   navigation: CompositeNavigationProp<
-  NativeStackNavigationProp<AuthRoutes, RouteName>,
-  DrawerNavigationProp<AppRoutes, "Home">
+    NativeStackNavigationProp<AuthRoutes, RouteName>,
+    DrawerNavigationProp<AppRoutes, "Home">
   >;
   route: RouteProp<AuthRoutes, RouteName>;
+}
+
+
+export interface DashBoardNavProps<RouteName extends keyof DashboardRoutes> {
+  navigation: CompositeNavigationProp<
+    NativeStackNavigationProp<DashboardRoutes, RouteName>,
+    DrawerNavigationProp<AppRoutes, "Home">
+  >;
+  route: RouteProp<DashboardRoutes, RouteName>;
 }
 
 export type AuthRoutes = {
@@ -26,13 +35,20 @@ export type AuthRoutes = {
   Email: undefined;
   Phone: undefined;
   Country: undefined;
-  ResetPwd:undefined;
-  Username:undefined;
-  LoginPin:undefined;
-  ResetPin:undefined;
-  TransactionPin:undefined;
+  ResetPwd: undefined;
+  Username: undefined;
+  LoginPin: undefined;
+  ResetPin: undefined;
+  TransactionPin: undefined;
+  Dashboard: undefined
 };
 
+export type DashboardRoutes = {
+  Games: undefined;
+  ChoosePlayer: undefined;
+  ChooseFriend:undefined
+}
 export type Main = {
-    AuthNavigation: undefined;
+  AuthNavigation: undefined;
+  DashboardNav: undefined;
 }

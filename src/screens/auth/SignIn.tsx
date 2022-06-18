@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { Box, Center,  Text} from "native-base";
-import Onboarding from "../Onboarding";
 import FormHeader from "../../components/Headers/FormHeader";
 import InputField from "../../components/InputField";
 import Button from "../../components/Buttons/Button";
 import FaceBook_Google from "../../components/FaceBook_Google";
-import { AuthNavigationProps } from "../../types/routes";
+import { AuthNavigationProps,DashBoardNavProps } from "../../types/routes";
 import { Formik } from "formik";
 import * as yup from "yup";
 
@@ -14,13 +13,9 @@ const signinSchema = yup.object({
   password: yup.string().required("This is a required field").min(6)
 })
 
-const submit=(email:string,password:string)=>{
-  return {
-    email,password
-  }
-}
 
-const SignIn = ({navigation}: AuthNavigationProps<"Login">): JSX.Element => {
+
+const SignIn = ({navigation}:AuthNavigationProps<"Login">): JSX.Element => {
   // const [email, setEmail] = useState<string>("")
   // const [password, setpassword] = useState<string>("")
   const [show, setShow] = useState<boolean>(true)
@@ -35,8 +30,8 @@ const SignIn = ({navigation}: AuthNavigationProps<"Login">): JSX.Element => {
           <FormHeader text="Welcome back! Login to access your account 🤩" header="Login" />
         </Box>
 
-<Formik initialValues={{email:"",password:""}} validationSchema={signinSchema} onSubmit={({email,password}) => {
-submit(email,password)
+<Formik initialValues={{email:"",password:""}} validationSchema={signinSchema} onSubmit={() => {
+navigation.navigate("Dashboard")
 }}> 
 {
   ({handleSubmit,handleChange,values,errors,touched}) => (

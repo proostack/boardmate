@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, Box, Container, Text, VStack } from "native-base";
+import { Image, Box,  Text, } from "native-base";
 
 
 const FaceBook_Google = () => {

@@ -14,6 +14,9 @@ import Username from "../screens/auth/Username";
 import LoginPin from "../screens/pin/LoginPin";
 import ResetPin from "../screens/pin/ResetPin";
 import TransactionPin from "../screens/pin/TransactionPin";
+import Games from "../screens/dashboard/Games";
+import DashboardNav from "./DashboardNav";
+
 const AuthNavigation = (): JSX.Element => {
   const Stack = createNativeStackNavigator<AuthRoutes>();
   return (
@@ -31,6 +34,7 @@ const AuthNavigation = (): JSX.Element => {
         <Stack.Screen name="LoginPin"  component={LoginPin}/>
         <Stack.Screen name="ResetPin"  component={ResetPin}/>
         <Stack.Screen name="TransactionPin"  component={TransactionPin}/>
+        <Stack.Screen name="Dashboard"  component={DashboardNav}/>
       </Stack.Navigator>
   );
 };
