@@ -1,6 +1,7 @@
 import { RouteProp, CompositeNavigationProp } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
+import { ImageSourcePropType } from "react-native";
 
 export type AppRoutes = {
   Authentication: undefined;
@@ -46,7 +47,10 @@ export type AuthRoutes = {
 export type DashboardRoutes = {
   Games: undefined;
   ChoosePlayer: undefined;
-  ChooseFriend:undefined
+  ChooseFriend:Readonly<{name?:string,image?:ImageSourcePropType}> | undefined;
+  PlayRandom: Readonly<{name?:string,image?:ImageSourcePropType}> | undefined;
+  ChallengeFriend: undefined;
+  WagerAmount: Readonly<{name?:string,image?:ImageSourcePropType}> | undefined;
 }
 export type Main = {
   AuthNavigation: undefined;

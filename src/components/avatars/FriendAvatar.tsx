@@ -7,7 +7,7 @@ interface Props {
   image: ImageSourcePropType;
   choose: boolean;
   name:string;
-  callback?:(id:number)=>void;
+  callback?:(id:number,name:string,image:ImageSourcePropType)=>void;
   id:number;
 }
 
@@ -17,7 +17,7 @@ const FriendAvatar = ({image,choose,active,name,id,callback}: Props): JSX.Elemen
 
 
   return (
-    <TouchableOpacity onPress={()=>callback&&callback(id)}>
+    <TouchableOpacity onPress={()=>callback&&callback(id,name,image)}>
     <Box>
       <Circle h={70} w={70} bgColor={choose ? "accent_bg.50" : "#F9F9FA"}>
         <Image source={image} alt="avatar" w={42} h={42}/>

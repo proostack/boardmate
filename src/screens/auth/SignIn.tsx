@@ -40,10 +40,6 @@ navigation.navigate("Dashboard")
     <InputField input={values.email} getInput={handleChange('email')} label="Email" />
 
     <Text color={"red.500"} mb={15}>{touched.email && errors.email}</Text>
-   
-
-
-
   <InputField input={values.password} getInput={handleChange('password')} label="Password" setVisibilty={setVisibilty} visibility={show} />
   <Text color={"red.500"}>{touched.password && errors.password}</Text>
   {/* <Onboarding /> */}
@@ -56,11 +52,8 @@ navigation.navigate("Dashboard")
   </>
   )
 }
-
-       
         </Formik>
         <FaceBook_Google/>
-    
       </Box>
     </Box>
 
@@ -68,4 +61,6 @@ navigation.navigate("Dashboard")
 };
 
 export default SignIn;
+
+
 
