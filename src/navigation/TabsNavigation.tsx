@@ -9,10 +9,9 @@ const Tabs=createBottomTabNavigator();
 const TabsNavigation = () => {
   return (
     <Tabs.Navigator>
-      {/* <Tabs.Screen name="Dashboard" component={DashboardNav} /> */}
+      <Tabs.Screen name="Dashboard" component={DashboardNav} />
     </Tabs.Navigator>
   )
 }
 
 export default TabsNavigation
-3007591940

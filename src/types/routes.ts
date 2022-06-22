@@ -25,6 +25,7 @@ export interface DashBoardNavProps<RouteName extends keyof DashboardRoutes> {
   route: RouteProp<DashboardRoutes, RouteName>;
 }
 
+
 export type AuthRoutes = {
   Onboarding: undefined;
   Welcome: undefined;
@@ -56,3 +57,4 @@ export type Main = {
   AuthNavigation: undefined;
   DashboardNav: undefined;
 }
+

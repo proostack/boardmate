@@ -7,6 +7,8 @@ import FaceBook_Google from "../../components/FaceBook_Google";
 import { AuthNavigationProps,DashBoardNavProps } from "../../types/routes";
 import { Formik } from "formik";
 import * as yup from "yup";
+import { useDispatch } from 'react-redux';
+import { setToken } from '../../store/user';
 
 const signinSchema = yup.object({
   email: yup.string().required("This field is required").email('Invalid email address'),
@@ -18,6 +20,8 @@ const signinSchema = yup.object({
 const SignIn = ({navigation}:AuthNavigationProps<"Login">): JSX.Element => {
   // const [email, setEmail] = useState<string>("")
   // const [password, setpassword] = useState<string>("")
+  const dispatch=useDispatch()
+
   const [show, setShow] = useState<boolean>(true)
  
   const setVisibilty = () => {
@@ -31,7 +35,8 @@ const SignIn = ({navigation}:AuthNavigationProps<"Login">): JSX.Element => {
         </Box>
 
 <Formik initialValues={{email:"",password:""}} validationSchema={signinSchema} onSubmit={() => {
-navigation.navigate("Dashboard")
+// navigation.navigate("Dashboard");
+dispatch(setToken())
 }}> 
 {
   ({handleSubmit,handleChange,values,errors,touched}) => (

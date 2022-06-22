@@ -42,11 +42,7 @@ Choose a player</Text>
 
   )}/>
 </SafeAreaView>
-
-
- 
 </Box>
-
    </Box> 
     </Center>
   )

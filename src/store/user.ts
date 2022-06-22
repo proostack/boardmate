@@ -3,8 +3,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 const userSlice = createSlice({
   name: "user",
   initialState: {
+    keyToken:false,
     user: {
-      
       phone:""
     },
     defaultUsers:[  
@@ -17,9 +17,12 @@ const userSlice = createSlice({
   reducers: {
     setUserDetails(state, action: PayloadAction<string>) {
       state.user = {...state.user,phone:action.payload}
+    },
+    setToken(state){
+state.keyToken=true
     }
   }
 })
 
-export const { setUserDetails } = userSlice.actions
+export const { setUserDetails,setToken } = userSlice.actions
 export default userSlice.reducer

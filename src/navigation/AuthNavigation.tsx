@@ -34,7 +34,7 @@ const AuthNavigation = (): JSX.Element => {
         <Stack.Screen name="LoginPin"  component={LoginPin}/>
         <Stack.Screen name="ResetPin"  component={ResetPin}/>
         <Stack.Screen name="TransactionPin"  component={TransactionPin}/>
-        <Stack.Screen name="Dashboard"  component={DashboardNav}/>
+        {/* <Stack.Screen name="Dashboard"  component={DashboardNav}/> */}
       </Stack.Navigator>
   );
 };
