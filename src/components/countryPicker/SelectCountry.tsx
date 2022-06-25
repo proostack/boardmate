@@ -29,7 +29,6 @@ export default function SelectCountry() {
     setCallingCode(country.callingCode)
     dispatch(setUserDetails(country.callingCode))
   }
-  // console.log(countryCode)
   return (
     <>
 <Text fontFamily="ReadexProRegular" mb={13}>Country</Text>

@@ -40,7 +40,6 @@ const Onboarding=({ navigation }: AuthNavigationProps<"Onboarding">):JSX.Element
     ]
 
     const { width } = useWindowDimensions()
-    // console.log(navigation.navigate)
 
     return (
 

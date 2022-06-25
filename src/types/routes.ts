@@ -25,6 +25,14 @@ export interface DashBoardNavProps<RouteName extends keyof DashboardRoutes> {
   route: RouteProp<DashboardRoutes, RouteName>;
 }
 
+export interface ProfileNavProps<RouteName extends keyof ProfileRoutes> {
+  navigation: CompositeNavigationProp<
+    NativeStackNavigationProp<ProfileRoutes, RouteName>,
+    DrawerNavigationProp<AppRoutes, "Home">
+  >;
+  route: RouteProp<ProfileRoutes, RouteName>;
+}
+
 
 export type AuthRoutes = {
   Onboarding: undefined;
@@ -58,3 +66,7 @@ export type Main = {
   DashboardNav: undefined;
 }
 
+export type ProfileRoutes={
+  Dashboard:undefined;
+  ProfileMenu:undefined;
+}

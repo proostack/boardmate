@@ -8,7 +8,6 @@ const amounts: { wager: number, choose: boolean }[] = [{ wager: 200, choose: fal
 
 
 const WagerAmount = ({ navigation,route }: DashBoardNavProps<"WagerAmount">): JSX.Element => {
-  console.log(route.params?.name)
   const [wagers, setWagers] = React.useState(amounts)
 
   const [wager, setWager] = React.useState<null | number>(null)

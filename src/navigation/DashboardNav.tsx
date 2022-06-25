@@ -8,6 +8,7 @@ import PlayRandom from '../screens/dashboard/PlayRandom';
 import ChallengeFriend from '../screens/dashboard/ChallengeFriend';
 import ChallengeWorld from '../screens/dashboard/WagerAmount';
 import WagerAmount from '../screens/dashboard/WagerAmount';
+import Dashboard from "../screens/ProfileMenu/Dashboard"
 const Stack=createNativeStackNavigator<DashboardRoutes>()
 
 
