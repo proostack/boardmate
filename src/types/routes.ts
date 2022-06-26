@@ -69,4 +69,10 @@ export type Main = {
 export type ProfileRoutes={
   Dashboard:undefined;
   ProfileMenu:undefined;
+Friends:undefined;
+Watch:undefined;
+Rules:undefined;
+Help:undefined;
+Learn:undefined;
+User:undefined
 }

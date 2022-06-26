@@ -3,11 +3,12 @@ import { Text,Box, FlatList, Button, Square,Image, HStack, Heading} from "native
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { SafeAreaView } from 'react-native';
+import UserInfo from '../../components/profileMenu/UserInfo';
 const Dashboard = ():JSX.Element => {
   const {defaultUsers}=useSelector((state:RootState)=>state.user)
-  const user=defaultUsers[0].image
 
-  const profileDetails=["Joined Apr 15, 2022","BM Coin available; 7000","Rating; 35"]
+
+  const profileDetails:string[]=["Joined Apr 15, 2022","BM Coin available; 7000","Rating; 35"]
 const borderRadius=8
 
 const gameInfo=[
@@ -24,23 +25,10 @@ const gameInfo=[
 
   return (
     <Box flex={1} bgColor={"#32313F"}>
-     
-      <HStack mt={"100px"} px={23}>
-      <Square size={100} borderRadius={borderRadius} borderColor={"rgba(255, 255, 255, 1)"} borderWidth={1}>
-        <Image source={user} alt="profile image"/>
-      </Square>
-      <Box ml={23}>
-        <Heading fontFamily={"ReadexProBold"} fontSize={16} mb={2} color={"white"}>
-          Margin1
-        </Heading>
-        {profileDetails.map((profileDetail,index)=>(
-                 <Text key={index} fontFamily={"ReadexProBold"} mt={"10px"} fontSize={10} opacity={.6} color={"white"}>
-                 {profileDetail}     
-                 </Text>
-        )
-        )}
-      </Box>
-      </HStack>
+      
+     <HStack mt={"32px"} px={23}>
+     <UserInfo profileDetails={profileDetails} image={defaultUsers[0].image} name={defaultUsers[0].name}/>
+     </HStack>
 
 <Square borderRadius={borderRadius} mt={"40px"} bgColor="#34364C" h={86}>
 <Text fontFamily={"ReadexProBold"} fontSize={16} textAlign={"center"} mb={"20px"} color={"white"}>Total number of games played;</Text>

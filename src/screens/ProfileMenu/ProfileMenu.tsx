@@ -1,17 +1,23 @@
 import React from 'react'
 import { Text, Center, Box, FlatList, Button, HStack, Image, Heading, Square, Circle } from "native-base";
-import { Dimensions, TouchableOpacity} from 'react-native';
-import { ProfileNavProps } from '../../types/routes';
+import { Dimensions, ImageSourcePropType, TouchableOpacity} from 'react-native';
+import { ProfileNavProps, ProfileRoutes } from '../../types/routes';
 
 const { width } = Dimensions.get("screen")
 
-const profileArr=[{image:require("../../../assets/images/profileMenu/dashboard.png"),text:"Dashboard"},
-{image:require("../../../assets/images/profileMenu/profile.png"),text:"Profile"},{image:require("../../../assets/images/profileMenu/friends.png"),text:"Friends"},
-{image:require("../../../assets/images/profileMenu/watch.png"),text:"Watch"},
-{image:require("../../../assets/images/profileMenu/rules.png"),text:"Rules"},
-{image:require("../../../assets/images/profileMenu/help.png"),text:"Help"},
-{image:require("../../../assets/images/profileMenu/learn.png"),text:"Learn How to play"},
-{image:require("../../../assets/images/profileMenu/logout.png"),text:"Log out"},
+interface NavigateTypes{
+  image:ImageSourcePropType;navigate:keyof ProfileRoutes;text:string
+}
+
+
+const profileArr:NavigateTypes[]=[{image:require("../../../assets/images/profileMenu/dashboard.png"),text:"Dashboard",navigate:"Dashboard"},
+{image:require("../../../assets/images/profileMenu/profile.png"),text:"Profile",navigate:"User"},
+{image:require("../../../assets/images/profileMenu/friends.png"),text:"Friends",navigate:"Friends"},
+{image:require("../../../assets/images/profileMenu/watch.png"),text:"Watch",navigate:"Watch"},
+{image:require("../../../assets/images/profileMenu/rules.png"),text:"Rules",navigate:"Rules"},
+{image:require("../../../assets/images/profileMenu/help.png"),text:"Help",navigate:"Help"},
+{image:require("../../../assets/images/profileMenu/learn.png"),text:"Learn",navigate:"Learn"},
+{image:require("../../../assets/images/profileMenu/logout.png"),text:"Log out",navigate:"Dashboard"},
 ]
 
 const ProfileMenu = ({navigation}:ProfileNavProps<"Dashboard">): JSX.Element => {
@@ -19,8 +25,8 @@ const ProfileMenu = ({navigation}:ProfileNavProps<"Dashboard">): JSX.Element => 
     <Box flex={1} bgColor={"#32313F"}>
     <Center>
       <Box width={width} h={20} mt={50} px={31}>
-        {profileArr.map((item,index)=>(
-          <TouchableOpacity key={index} onPress={()=>navigation.navigate("Dashboard")}>
+        {profileArr.map((item:NavigateTypes,index:number)=>(
+          <TouchableOpacity key={index} onPress={()=>navigation.navigate(item.navigate)}>
               <HStack key={index} alignItems={"center"} mb={50}>
                 <Image source={item.image} alt={item.text}/>
                 <Text ml={33} color={item.text==="Log out"?"red.500":"white"} fontSize={20} fontFamily={"ReadexProRegular"}>{item.text}

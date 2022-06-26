@@ -9,7 +9,7 @@ import DashboardNav from './DashboardNav';
 import ProfileNav from './ProfileNav';
 import Wallet from '../screens/dashboard/Wallet';
 import { Circle, Image } from 'native-base';
-import { getFocusedRouteNameFromRoute, ParamListBase, Route, RouteProp } from '@react-navigation/native';
+import { getFocusedRouteNameFromRoute, ParamListBase, RouteProp } from '@react-navigation/native';
 
 const getRouteName = (route: RouteProp<ParamListBase, "Profile">) => {
   const routeName = getFocusedRouteNameFromRoute(route)
@@ -57,7 +57,7 @@ const Routes = (): JSX.Element => {
 
             </Circle>
           ),
-          tabBarStyle: { display: getRouteName(route) == "Dashboard" ? "none" : "flex", position: 'absolute', height: 76, borderTopEndRadius: 30, borderTopStartRadius: 30
+          tabBarStyle: { display: getRouteName(route) == "Dashboard" ||  getRouteName(route) == "User"|| getRouteName(route) == "Friends"|| getRouteName(route) == "Watch" ||  getRouteName(route) == "Rules" ||  getRouteName(route) == "Help" ||  getRouteName(route) == "Learn" ? "none" : "flex", position: 'absolute', height: 76, borderTopEndRadius: 30, borderTopStartRadius: 30
         }
         })
         } />
