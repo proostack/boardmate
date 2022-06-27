@@ -24,7 +24,7 @@ const gameInfo=[
 ]
 
   return (
-    <Box flex={1} bgColor={"#32313F"}>
+    <Box flex={1} bgColor={"darkTheme.50"}>
       
      <HStack mt={"32px"} px={23}>
      <UserInfo profileDetails={profileDetails} image={defaultUsers[0].image} name={defaultUsers[0].name}/>

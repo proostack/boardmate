@@ -35,6 +35,9 @@ export const theme = extendTheme({
         },
         success: {
             50: "#16D951"
+        },
+        darkTheme:{
+            50:"#32313F"
         }
     },
     fontConfig: {
