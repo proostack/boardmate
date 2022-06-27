@@ -57,7 +57,7 @@ const Routes = (): JSX.Element => {
 
             </Circle>
           ),
-          tabBarStyle: { display: getRouteName(route) == "Dashboard" ||  getRouteName(route) == "User"|| getRouteName(route) == "Friends"|| getRouteName(route) == "Watch" ||  getRouteName(route) == "Rules" ||  getRouteName(route) == "Help" ||  getRouteName(route) == "Learn" ? "none" : "flex", position: 'absolute', height: 76, borderTopEndRadius: 30, borderTopStartRadius: 30
+          tabBarStyle: { display: getRouteName(route) == "Dashboard" ||  getRouteName(route) == "User"|| getRouteName(route) == "Friends" || getRouteName(route) == "Rules" ||  getRouteName(route) == "Help" ||  getRouteName(route) == "Learn" ? "none" : "flex", position: 'absolute', height: 76, borderTopEndRadius: 30, borderTopStartRadius: 30
         }
         })
         } />

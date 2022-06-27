@@ -31,7 +31,7 @@ const routes:{component:({ navigation }: ProfileNavProps<"Dashboard">)=>JSX.Elem
   title:"Chess"
 },
 {
-  component:Friends,
+  component:Friends, 
   name:"Friends",
   image:require("../../assets/images/profileMenu/friends.png"),
   title:"Friends"
@@ -82,9 +82,9 @@ headerStyle:{backgroundColor:"#794DE3"}, animation:"slide_from_right",headerTitl
    }}>
 {routes.map((item,index)=>((!item.image)?<Stack.Screen key={index} name={item.name} options={{title:item.title}} component={ProfileMenu}/>
 : 
-<Stack.Screen key={index} name={item.name} component={item.component} options={
+<Stack.Screen  key={index} name={item.name} component={item.component} options={ 
   
-  {headerTitle:()=>(
+  {headerShown:item.name=="Watch"?false:true,headerTitle:()=>(
         <HStack alignItems={"center"}>
           <Image source={item.image} alt="dashboard"/>
       <Text color={"white"} ml={"12px"} fontSize={20} fontFamily="ReadexProBold">{item.title}</Text>

@@ -10,7 +10,7 @@ import { Dimensions, ImageSourcePropType } from 'react-native';
 import SearchField from '../../components/SearchField';
 
 
-const Friends = ({ navigation }: ProfileNavProps<"Friends">): JSX.Element => {
+const Friends = ({ navigation }: ProfileNavProps<"Dashboard">): JSX.Element => {
 
   const { defaultUsers } = useSelector((state: RootState) => state.user)
   const users = defaultUsers

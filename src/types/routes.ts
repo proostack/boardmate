@@ -33,7 +33,6 @@ export interface ProfileNavProps<RouteName extends keyof ProfileRoutes> {
   route: RouteProp<ProfileRoutes, RouteName>;
 }
 
-
 export type AuthRoutes = {
   Onboarding: undefined;
   Welcome: undefined;
