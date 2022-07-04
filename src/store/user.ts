@@ -18,8 +18,8 @@ const userSlice = createSlice({
     setUserDetails(state, action: PayloadAction<string>) {
       state.user = {...state.user,phone:action.payload}
     },
-    setToken(state){
-state.keyToken=true
+    setToken(state,action){
+state.keyToken=action.payload
     }
   }
 })

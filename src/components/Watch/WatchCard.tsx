@@ -45,10 +45,9 @@ const WatchCard = ({user1,user2}:Props) => {
       <Button color="accent_bg.50" borderColor="accent_bg.50" borderWidth={1} text="Watch"/>
 <Box w={"19px"}></Box>
     
-<Button bgColor='accent_bg.50' text="Bet" color="white"/>
+<Button bgColor='accent_bg.50' text="Stake" color="white"/>
 
     </HStack>
- 
   </HStack>
 </Box>  )
 }

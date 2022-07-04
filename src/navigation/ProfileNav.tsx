@@ -52,7 +52,7 @@ const routes:{component:({ navigation }: ProfileNavProps<"Dashboard">)=>JSX.Elem
   component:Help,
   name:"Help",
   image:require("../../assets/images/profileMenu/help.png"),
-  title:"Watch"
+  title:"Help"
 },
 
 {
@@ -84,7 +84,7 @@ headerStyle:{backgroundColor:"#794DE3"}, animation:"slide_from_right",headerTitl
 : 
 <Stack.Screen  key={index} name={item.name} component={item.component} options={ 
   
-  {headerShown:item.name=="Watch"?false:true,headerTitle:()=>(
+  {headerShown:item.name=="Watch"||item.name=="Help"?false:true,headerTitle:()=>(
         <HStack alignItems={"center"}>
           <Image source={item.image} alt="dashboard"/>
       <Text color={"white"} ml={"12px"} fontSize={20} fontFamily="ReadexProBold">{item.title}</Text>

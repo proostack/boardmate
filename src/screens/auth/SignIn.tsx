@@ -36,7 +36,7 @@ const SignIn = ({navigation}:AuthNavigationProps<"Login">): JSX.Element => {
 
 <Formik initialValues={{email:"",password:""}} validationSchema={signinSchema} onSubmit={() => {
 // navigation.navigate("Dashboard");
-dispatch(setToken())
+dispatch(setToken(true))
 }}> 
 {
   ({handleSubmit,handleChange,values,errors,touched}) => (

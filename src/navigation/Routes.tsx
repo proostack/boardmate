@@ -22,9 +22,9 @@ const Tabs = createBottomTabNavigator()
 
 const Routes = (): JSX.Element => {
   const { keyToken } = useSelector((state: RootState) => state.user)
-  console.log(keyToken)
-  const defaultToken = true
-  if (defaultToken) {
+  // console.log(keyToken)
+  // const defaultToken = true
+  if (keyToken) {
     return (
 
       <Tabs.Navigator screenOptions={{
@@ -62,8 +62,6 @@ const Routes = (): JSX.Element => {
         })
         } />
       </Tabs.Navigator>
-
-
     )
   }
 

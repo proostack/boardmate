@@ -26,7 +26,7 @@ const gameInfo=[
   return (
     <Box flex={1} bgColor={"darkTheme.50"}>
       
-     <HStack mt={"32px"} px={23}>
+     <HStack mt={"32px"} px={"30px"}>
      <UserInfo profileDetails={profileDetails} image={defaultUsers[0].image} name={defaultUsers[0].name}/>
      </HStack>
 
@@ -36,7 +36,7 @@ const gameInfo=[
 </Square>
 
 <SafeAreaView>
-<FlatList px={23} data={gameInfo} numColumns={2} columnWrapperStyle={{justifyContent:"space-between"}} renderItem={({item})=>(
+<FlatList px={"30px"} data={gameInfo} numColumns={2} columnWrapperStyle={{justifyContent:"space-between"}} renderItem={({item})=>(
    <Square px="9px" w={156} borderRadius={borderRadius} mt={"40px"} bgColor="#34364C" h={86}>
    <Text fontFamily={"ReadexProBold"} fontSize={12} textAlign={"center"} mb={"20px"} color={"white"}>
 {item.text}

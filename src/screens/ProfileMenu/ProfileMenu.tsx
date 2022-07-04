@@ -2,7 +2,9 @@ import React from 'react'
 import { Text, Center, Box, FlatList, Button, HStack, Image, Heading, Square, Circle } from "native-base";
 import { Dimensions, ImageSourcePropType, TouchableOpacity} from 'react-native';
 import { ProfileNavProps, ProfileRoutes } from '../../types/routes';
+import { useDispatch } from 'react-redux';
 
+import { setToken } from '../../store/user';
 const { width } = Dimensions.get("screen")
 
 interface NavigateTypes{
@@ -21,12 +23,14 @@ const profileArr:NavigateTypes[]=[{image:require("../../../assets/images/profile
 ]
 
 const ProfileMenu = ({navigation}:ProfileNavProps<"Dashboard">): JSX.Element => {
+  const dispatch =useDispatch();
+
   return (
     <Box flex={1} bgColor={"#32313F"}>
     <Center>
       <Box width={width} h={20} mt={50} px={31}>
         {profileArr.map((item:NavigateTypes,index:number)=>(
-          <TouchableOpacity key={index} onPress={()=>navigation.navigate(item.navigate)}>
+          <TouchableOpacity key={index} onPress={()=>{item.text!=="Log out"?navigation.navigate(item.navigate):dispatch(setToken(false))}}>
               <HStack key={index} alignItems={"center"} mb={50}>
                 <Image source={item.image} alt={item.text}/>
                 <Text ml={33} color={item.text==="Log out"?"red.500":"white"} fontSize={20} fontFamily={"ReadexProRegular"}>{item.text}
