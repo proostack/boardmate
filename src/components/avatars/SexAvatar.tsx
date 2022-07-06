@@ -7,13 +7,13 @@ interface Props {
   image: ImageSourcePropType;
   choose: boolean;
 }
-const SexAvatar = (props: Props): JSX.Element => {
+const SexAvatar = ({sex,image,choose}: Props): JSX.Element => {
   return (
     <Box>
-      <Circle h={120} w={120} bgColor={props.choose ? "accent_bg.50" : "#F9F9FA"}>
-        <Image source={props.image} alt="avatar" />
+      <Circle h={120} w={120} bgColor={choose ? "accent_bg.50" : "#F9F9FA"}>
+        <Image source={image} alt="avatar" />
       </Circle>
-      <Text mt={26} fontFamily="ReadexProRegular" color="#393939" textAlign={"center"} fontSize={16} textTransform={"capitalize"}>{props.sex}
+      <Text mt={26} fontFamily="ReadexProRegular" color="#393939" textAlign={"center"} fontSize={16} textTransform={"capitalize"}>{sex}
       </Text>
     </Box>
   )
