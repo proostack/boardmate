@@ -11,7 +11,7 @@ import Wallet from '../screens/dashboard/Wallet';
 import { Circle, Image } from 'native-base';
 import { getFocusedRouteNameFromRoute, ParamListBase, RouteProp } from '@react-navigation/native';
 
-const getRouteName = (route: RouteProp<ParamListBase, "Profile">) => {
+const getRouteName = (route: RouteProp<ParamListBase, "Profile">|RouteProp<ParamListBase, "DashboardNav">) => {
   const routeName = getFocusedRouteNameFromRoute(route)
   return routeName
 }
@@ -32,14 +32,15 @@ const Routes = (): JSX.Element => {
           position: 'absolute', height: 76, borderTopEndRadius: 30, borderTopStartRadius: 30
         }
       }}>
-        <Tabs.Screen name='DashboardNav' component={DashboardNav} options={{
+        <Tabs.Screen name='DashboardNav' component={DashboardNav} options={({route})=>({
           tabBarIcon: ({ focused }) => (
             <Circle size={50} bgColor={focused ? "rgba(119, 111, 254, 1)" : "transparent"}>
 
               {focused ? <Image source={require("../../assets/images/navigation/home2.png")} alt="home" /> : <Image source={require("../../assets/images/navigation/home.png")} alt="home" />}
             </Circle>
-          )
-        }} />
+          ), tabBarStyle: { display: getRouteName(route) == "Chess"?"none":"flex",position: 'absolute', height: 76, borderTopEndRadius: 30, borderTopStartRadius: 30
+         }
+        })} />
 
         <Tabs.Screen name='Wallet' component={Wallet} options={{
           tabBarIcon: ({ focused }) => (

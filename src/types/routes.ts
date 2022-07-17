@@ -54,11 +54,12 @@ export type AuthRoutes = {
 
 export type DashboardRoutes = {
   Games: undefined;
-  ChoosePlayer: undefined;
+  ChoosePlayer:Readonly<{name?:string}> | undefined;
   ChooseFriend:Readonly<{name?:string,image?:ImageSourcePropType}> | undefined;
   PlayRandom: Readonly<{name?:string,image?:ImageSourcePropType}> | undefined;
   ChallengeFriend: undefined;
   WagerAmount: Readonly<{name?:string,image?:ImageSourcePropType}> | undefined;
+  Chess:Readonly<{name?:string,image?:ImageSourcePropType}> | undefined;
 }
 export type Main = {
   AuthNavigation: undefined;

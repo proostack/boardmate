@@ -6,7 +6,7 @@ import DashboardNav from './DashboardNav';
 const Tabs=createBottomTabNavigator();
 
 
-const TabsNavigation = () => {
+const TabsNavigation = ():JSX.Element => {
   return (
     <Tabs.Navigator>
       <Tabs.Screen name="Dashboard" component={DashboardNav} />

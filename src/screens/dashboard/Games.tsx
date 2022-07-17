@@ -58,7 +58,7 @@ const Games = ({navigation}:DashBoardNavProps<"ChoosePlayer">):JSX.Element => {
   
 <FlatList mt={30} data={games} numColumns={2} columnWrapperStyle={{justifyContent:"space-between"}} renderItem={({item})=>(
  
-  <Game callback={()=>navigation.navigate("ChoosePlayer")} {...item}/>
+  <Game callback={()=>navigation.navigate("ChoosePlayer",{name:item.name})} {...item}/>
 
   )}/> 
 </Box>

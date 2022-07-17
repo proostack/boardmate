@@ -9,6 +9,7 @@ import ChallengeFriend from '../screens/dashboard/ChallengeFriend';
 import ChallengeWorld from '../screens/dashboard/WagerAmount';
 import WagerAmount from '../screens/dashboard/WagerAmount';
 import Dashboard from "../screens/ProfileMenu/Dashboard"
+import Board from '../screens/games/chess/Board';
 const Stack=createNativeStackNavigator<DashboardRoutes>()
 
 
@@ -21,6 +22,7 @@ const DashboardNav = ():JSX.Element => {
       <Stack.Screen name="PlayRandom" component={PlayRandom}/>
       <Stack.Screen name="ChallengeFriend" component={ChallengeFriend}/>
       <Stack.Screen name="WagerAmount" component={WagerAmount}/>
+      <Stack.Screen name="Chess" component={Board}/>
     </Stack.Navigator>
   )
 }

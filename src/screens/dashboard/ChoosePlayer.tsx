@@ -23,6 +23,7 @@ const choosePlayer: { image: ImageSourcePropType, option: string }[] = [{
 const ChoosePlayer = ({ navigation }: DashBoardNavProps<"ChooseFriend">): JSX.Element => {
   const { defaultUsers } = useSelector((state: RootState) => state.user)
   const users = defaultUsers
+  
   return (
     <Center >
       <Box px={"30px"} w="100%" mt={47}>
