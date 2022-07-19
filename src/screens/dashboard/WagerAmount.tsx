@@ -8,7 +8,6 @@ const amounts: { wager: number, choose: boolean }[] = [{ wager: 200, choose: fal
 
 
 const WagerAmount = ({ navigation,route }: DashBoardNavProps<"WagerAmount">): JSX.Element => {
-  console.log(route.params?.name)
   const [wagers, setWagers] = React.useState(amounts)
 
   const [wager, setWager] = React.useState<null | number>(null)
@@ -19,7 +18,7 @@ const WagerAmount = ({ navigation,route }: DashBoardNavProps<"WagerAmount">): JS
   
   return (
     <Center>
-      <Box maxW={375} w="100%" mt={62}>
+      <Box px={"40px"} w="100%" mt={62}>
         <Goback callback={() => navigation.goBack()} />
         <Heading fontFamily="ReadexProBold" w={100} fontSize={20} fontWeight={600}>
           Wager Amount

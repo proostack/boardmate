@@ -15,7 +15,7 @@ const Onboarding=({ navigation }: AuthNavigationProps<"Onboarding">):JSX.Element
             animateColorTwo: "rgba(246, 168, 201, .2)",
             image: require("../../assets/images/chess.png"),
             header: "Earn",
-            text: "Earn by winning Boardmate Challenges"
+            text: "Earn by winning BoardMate Challenges"
         },
         {
             bgColor: "#9A93F4",
@@ -35,12 +35,11 @@ const Onboarding=({ navigation }: AuthNavigationProps<"Onboarding">):JSX.Element
             animateColorTwo: "rgba(123, 220, 205, .2)",
             image: require("../../assets/images/money.png"),
             header: "Earn",
-            text: "Convert your Boardmate coins to real cash"
+            text: "Convert your BoardMate coins to real cash"
         }
     ]
 
     const { width } = useWindowDimensions()
-    // console.log(navigation.navigate)
 
     return (
 

@@ -6,7 +6,6 @@ import { AuthNavigationProps } from '../../types/routes'
 
 const ChooseHow = ({navigation}:AuthNavigationProps<"ChooseHow">):JSX.Element => {
   const [option,setOption]=useState("phone number")
-  console.log(option)
 
 const handleResetPwd = () => {
   navigation.navigate(option==="phone number"?"Phone":"Email")

@@ -18,7 +18,7 @@ const ChooseCard = ({image,option,index,callback}:Props):JSX.Element => {
       <Image mt="20px" source={image} mb="10px" alt="dice"/>
       
       <Heading fontFamily={"ReadexProBold"} color={index==1||index==3?"#393939":"white"} fontSize={index==2||index==3?12:index===1?16:14}>{option}</Heading>
-      <Text mt="20px" fontSize={10} fontFamily={"ReadexProRegular"} color={index==1||index==3?"#393939":"white"}>Find & choose a friend to play with.</Text>
+      <Text mt="15px" fontSize={10} fontFamily={"ReadexProRegular"} color={index==1||index==3?"#393939":"white"}>{option}</Text>
     
      <Box flex={1} justifyContent={"flex-end"} mb={"10px"}>
      <PlayBtn text='Play now' color={index==1||index==3?"accent_bg.50":"white"} callback={callback} textColor={index==1||index==3?"white":"black"}/>

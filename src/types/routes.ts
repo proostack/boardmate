@@ -25,6 +25,13 @@ export interface DashBoardNavProps<RouteName extends keyof DashboardRoutes> {
   route: RouteProp<DashboardRoutes, RouteName>;
 }
 
+export interface ProfileNavProps<RouteName extends keyof ProfileRoutes> {
+  navigation: CompositeNavigationProp<
+    NativeStackNavigationProp<ProfileRoutes, RouteName>,
+    DrawerNavigationProp<AppRoutes, "Home">
+  >;
+  route: RouteProp<ProfileRoutes, RouteName>;
+}
 
 export type AuthRoutes = {
   Onboarding: undefined;
@@ -47,14 +54,25 @@ export type AuthRoutes = {
 
 export type DashboardRoutes = {
   Games: undefined;
-  ChoosePlayer: undefined;
+  ChoosePlayer:Readonly<{name?:string}> | undefined;
   ChooseFriend:Readonly<{name?:string,image?:ImageSourcePropType}> | undefined;
   PlayRandom: Readonly<{name?:string,image?:ImageSourcePropType}> | undefined;
   ChallengeFriend: undefined;
   WagerAmount: Readonly<{name?:string,image?:ImageSourcePropType}> | undefined;
+  Chess:Readonly<{name?:string,image?:ImageSourcePropType}> | undefined;
 }
 export type Main = {
   AuthNavigation: undefined;
   DashboardNav: undefined;
 }
 
+export type ProfileRoutes={
+  Dashboard:undefined;
+  ProfileMenu:undefined;
+Friends:undefined;
+Watch:undefined;
+Rules:undefined;
+Help:undefined;
+Learn:undefined;
+User:undefined
+}
