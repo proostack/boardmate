@@ -5,7 +5,7 @@ interface Props{
   name:string;
   image:ImageSourcePropType
 }
-const UserInfo = ({name,image}:Props):JSX.Element => {
+const ScoreBoard = ({name,image}:Props):JSX.Element => {
   return (
 <View style={{flexDirection:"row",justifyContent:"space-between",paddingHorizontal:27}}>
         <View style={{flexDirection:"row",}}>
@@ -25,4 +25,4 @@ const UserInfo = ({name,image}:Props):JSX.Element => {
       </View>  )
 }
 
-export default UserInfo
+export default ScoreBoard

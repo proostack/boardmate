@@ -9,7 +9,7 @@ import { SIZE } from "./Notation";
 import { KBLACK } from "../utils/constants";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
-import UserInfo from "../components/UserInfo";
+import ScoreBoard from "../components/ScoreBoard";
 import ChessBottomTab from "../components/ChessBottomTab";
 
 const styles = StyleSheet.create({
@@ -48,7 +48,7 @@ const Board = (): JSX.Element => {
 
   return (
     <View style={styles.outerContainer}>
-      <UserInfo name={users[0].name} image={users[0].image} />
+      <ScoreBoard name={users[0].name} image={users[0].image} />
       <View style={styles.container}>
         <Background />
         <View style={{ zIndex: -1, position: "absolute", height: "100%", width: "100%", backgroundColor: "#2A2935", transform: [{ scale: 1.03 }] }} />
@@ -70,7 +70,7 @@ const Board = (): JSX.Element => {
           })
         )}
       </View>
-      <UserInfo name={users[0].name} image={users[0].image} />
+      <ScoreBoard name={users[0].name} image={users[0].image} />
       <ChessBottomTab />
     </View>
   );
