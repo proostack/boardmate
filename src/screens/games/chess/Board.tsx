@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { StyleSheet, Dimensions, View } from "react-native";
+import { StyleSheet, Dimensions, View, Text, Image } from "react-native";
 import Background from "../components/Background";
 import { useConst } from "../utils/Animatedhelpers";
 const { width } = Dimensions.get("window");
@@ -7,11 +7,17 @@ import { Chess } from "chess.js";
 import Piece from "../components/Piece";
 import { SIZE } from "./Notation";
 import { KBLACK } from "../utils/constants";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/store";
+import UserInfo from "../components/UserInfo";
+import ChessBottomTab from "../components/ChessBottomTab";
 
 const styles = StyleSheet.create({
   container: {
     width,
     height: width,
+    marginVertical: 31,
+    position: "relative"
   },
   outerContainer: {
     flex: 1,
@@ -21,6 +27,9 @@ const styles = StyleSheet.create({
 });
 
 const Board = (): JSX.Element => {
+  const { defaultUsers } = useSelector((state: RootState) => state.user)
+  const users = defaultUsers
+
   const chess = useConst(() => new Chess());
 
   const [state, setState] = useState({
@@ -39,8 +48,10 @@ const Board = (): JSX.Element => {
 
   return (
     <View style={styles.outerContainer}>
+      <UserInfo name={users[0].name} image={users[0].image} />
       <View style={styles.container}>
         <Background />
+        <View style={{ zIndex: -1, position: "absolute", height: "100%", width: "100%", backgroundColor: "#2A2935", transform: [{ scale: 1.03 }] }} />
         {state.board.map((row, y) =>
           row.map((square, x) => {
             if (square === null) {
@@ -59,6 +70,8 @@ const Board = (): JSX.Element => {
           })
         )}
       </View>
+      <UserInfo name={users[0].name} image={users[0].image} />
+      <ChessBottomTab />
     </View>
   );
 };
