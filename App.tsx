@@ -13,7 +13,8 @@ export default function App(): JSX.Element {
     <Provider store={store}>
       <NativeBaseProvider theme={theme}>
         <GestureHandlerRootView style={{ flex: 1 }}>
-          <Board />
+          {/* <Board /> */}
+          <NavigationWrapper/>
         </GestureHandlerRootView>
       </NativeBaseProvider>
     </Provider>

@@ -13,7 +13,7 @@ const ScoreBoard = ({name,image}:Props):JSX.Element => {
           <Image source={image} style={{width:32,height:32,}}/>
         </View>
         <View>
-          <Text style={{color:"white"}}>{name} (323)</Text>
+          <Text style={{color:"white",fontFamily:"ReadexPro-Bold"}}>{name} (323)</Text>
           <View style={{width:101,height:30,backgroundColor:"#373644",marginTop:8,borderWidth:1,borderRadius:5,borderColor:"#E1D9D90D"}}></View>
         </View>
         </View>

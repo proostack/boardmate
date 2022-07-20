@@ -9,7 +9,7 @@ import Goback from '../../components/Goback';
 import { ImageSourcePropType } from 'react-native';
 
 
-const ChooseFriend = ({ navigation }: DashBoardNavProps<"ChooseFriend">): JSX.Element => {
+const ChooseFriend = ({ navigation }: DashBoardNavProps<"ChooseFriend"|"Chess">): JSX.Element => {
 
   const { defaultUsers } = useSelector((state: RootState) => state.user)
   const users = defaultUsers
@@ -20,7 +20,7 @@ const ChooseFriend = ({ navigation }: DashBoardNavProps<"ChooseFriend">): JSX.El
   const handleChoose = (id:number,name:string,image:ImageSourcePropType) => {
     setPlayers(players.map(player => (player.id === id ? { ...player, choose: true } : { ...player, choose: false })))
 
-    navigation.navigate("WagerAmount",{name,image})
+    navigation.navigate("Chess",{name,image})
   }
 
   return (

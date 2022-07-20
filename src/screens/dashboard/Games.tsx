@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text,Center,Box, FlatList} from "native-base";
+import { Text,Center,Box, FlatList, ScrollView} from "native-base";
 import Badge from '../../components/dashboard/Badge'
 import Game from '../../components/dashboard/Game';
 import { ImageSourcePropType, SafeAreaView} from 'react-native';
@@ -38,13 +38,13 @@ const games:Games[]=[{
 },
 {
   image:require("../../../assets/images/dashboard/games/scrabble.png"),name:"Scrabble",info:"Game of 4 players...."
-},
+}
 ]
 
 const Games = ({navigation}:DashBoardNavProps<"ChoosePlayer">):JSX.Element => {
   return (
     <Center >
-<Box maxW={375} w="100%" mt={47}>
+<Box px={"30px"} w="100%" mt={47}>
 
   <Box alignItems="flex-end">
   <Badge {...badge[1]}/>
@@ -54,18 +54,14 @@ const Games = ({navigation}:DashBoardNavProps<"ChoosePlayer">):JSX.Element => {
 
 <Box>
 
-<SafeAreaView>
+
+  
 <FlatList mt={30} data={games} numColumns={2} columnWrapperStyle={{justifyContent:"space-between"}} renderItem={({item})=>(
  
-  <Game callback={()=>navigation.navigate("ChoosePlayer")} {...item}/>
+  <Game callback={()=>navigation.navigate("ChoosePlayer",{name:item.name})} {...item}/>
 
-  )}/>
-</SafeAreaView>
-
-
- 
+  )}/> 
 </Box>
-
    </Box> 
     </Center>
     
