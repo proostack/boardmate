@@ -1,28 +1,30 @@
 import React from 'react'
-import { StyleSheet, Dimensions, View, Text, Image, ImageSourcePropType } from "react-native";
+import { ImageSourcePropType } from "react-native";
+import { Box, Circle, Image, Text } from 'native-base';
 import { AntDesign } from '@expo/vector-icons';
-interface Props{
-  name:string;
-  image:ImageSourcePropType
+interface Props {
+  name: string;
+  image: ImageSourcePropType
 }
-const ScoreBoard = ({name,image}:Props):JSX.Element => {
+const ScoreBoard = ({ name, image }: Props): JSX.Element => {
   return (
-<View style={{flexDirection:"row",justifyContent:"space-between",paddingHorizontal:27}}>
-        <View style={{flexDirection:"row",}}>
-        <View style={{backgroundColor:"#373644",width:50,height:50,marginRight:14,justifyContent:"center",alignItems:"center",borderRadius:100/2}}>
-          <Image source={image} style={{width:32,height:32,}}/>
-        </View>
-        <View>
-          <Text style={{color:"white",fontFamily:"ReadexPro-Regular"}}>{name} (323)</Text>
-          <View style={{width:101,height:30,backgroundColor:"#373644",marginTop:8,borderWidth:1,borderRadius:5,borderColor:"#E1D9D90D"}}></View>
-        </View>
-        </View>
-       
-       <View>
-       <AntDesign name="clockcircle" size={24} color="white" />
-        <Text style={{color:"white",marginTop:8,fontFamily:"ReadexPro-Bold"}}>00.02</Text>
-       </View>
-      </View>  )
+    <Box flexDir={"row"} justifyContent="space-between" px="27px">
+      <Box style={{ flexDirection: "row"}}>
+        <Circle bgColor={"#373644"} size="50" mr="14px">
+          {/* <Image style={{width:32,height:32,}}/> */}
+          <Image source={image} size="32px" alt='user'/>
+        </Circle>
+        <Box>
+          <Text color="white" fontFamily="ReadexProRegular">{name} (323)</Text>
+          <Box h="30px" w="101px" bgColor="#373644" mt="8px" borderWidth={1} borderRadius="5" borderColor={"#E1D9D90D"}></Box>
+        </Box>
+      </Box>
+      <Box>
+        <AntDesign name="clockcircle" size={24} color="white" />
+        <Text color={"white"} mt="8px" fontFamily={"ReadexProBold"}>00.02</Text>
+      </Box>
+    </Box>
+  )
 }
 
 export default ScoreBoard

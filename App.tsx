@@ -14,7 +14,7 @@ export default function App(): JSX.Element {
       <NativeBaseProvider theme={theme}>
         <GestureHandlerRootView style={{ flex: 1 }}>
           {/* <Board /> */}
-          <NavigationWrapper/>
+          <NavigationWrapper/> 
         </GestureHandlerRootView>
       </NativeBaseProvider>
     </Provider>
