@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { StyleSheet, Dimensions, View, Text, Image } from "react-native";
+import { StyleSheet, Dimensions, View } from "react-native";
 import Background from "../components/Background";
 import { useConst } from "../utils/Animatedhelpers";
 const { width } = Dimensions.get("window");
@@ -24,6 +24,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#34364C",
   },
+  overlay: {
+    zIndex: -1,
+    position: "absolute",
+    height: "100%", width: "100%",
+    backgroundColor: "#2A2935",
+    transform: [{ scale: 1.03 }]
+  }
 });
 
 const Board = (): JSX.Element => {
@@ -51,7 +58,7 @@ const Board = (): JSX.Element => {
       <ScoreBoard name={users[0].name} image={users[0].image} />
       <View style={styles.container}>
         <Background />
-        <View style={{ zIndex: -1, position: "absolute", height: "100%", width: "100%", backgroundColor: "#2A2935", transform: [{ scale: 1.03 }] }} />
+        <View style={styles.overlay} />
         {state.board.map((row, y) =>
           row.map((square, x) => {
             if (square === null) {

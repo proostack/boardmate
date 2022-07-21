@@ -1,16 +1,21 @@
 import React from 'react'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
-import { StyleSheet, View, Text, Image } from "react-native";
+import { StyleSheet} from "react-native";
+import { Box, HStack,Image } from 'native-base';
 
 const ChessBottomTab = (): JSX.Element => {
   return (
-    <View style={{ backgroundColor: "#201F2A", marginTop: 55, height: 64, marginHorizontal: 27, borderRadius: 50, flexDirection: "row", alignItems: "center", justifyContent: "space-around" }}>
-      <MaterialCommunityIcons name="flash-outline" size={30} color="#F6F6F6" style={{ opacity: .3 }} />
-      <Ionicons name="settings-outline" size={30} color="#F6F6F6" style={{ opacity: .3 }} />
-      <Image source={require("../../../../assets/images/chessGame/Message.png")} />
-      <Image source={require("../../../../assets/images/chessGame/flag.png")} />
-    </View>)
+    <HStack bgColor={"#201F2A"} mt="55px" h="64px" mx={"27px"} borderRadius="50px" alignItems={"center"} justifyContent="space-around">
+      <MaterialCommunityIcons name="flash-outline" size={30} color="#F6F6F6" style={styles.icons} />
+      <Ionicons name="settings-outline" size={30} color="#F6F6F6" style={styles.icons} />
+      <Image source={require("../../../../assets/images/chessGame/Message.png")} alt="message"/>
+      <Image source={require("../../../../assets/images/chessGame/flag.png")} alt="flag"/>
+    </HStack>)
 }
 
 export default ChessBottomTab
+
+const styles=StyleSheet.create({
+  icons:{opacity:.3}
+})
