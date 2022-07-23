@@ -1,23 +1,27 @@
-import { Square } from 'native-base'
+import {Modal as NativeModal, Center } from 'native-base'
 import React from 'react'
-import { Dimensions, StyleSheet } from 'react-native'
 
 interface Props{
-  children:JSX.Element
+  children:JSX.Element,
+  handleClose:()=>void,
+  showModal:boolean
 }
 
-const {width,height}=Dimensions.get("screen")
+const Modal = ({children,showModal,handleClose}:Props):JSX.Element => {
 
-const Modal = ({children}:Props):JSX.Element => {
   return (
-    <Square w={width}  h={height} style={styles.modal} position="absolute" top="0" left="0" zIndex={100}>
+    <Center>
+    <NativeModal isOpen={showModal} onClose={handleClose}> 
       {children}
-    </Square>
+    </NativeModal>
+  </Center>
+   
   )
 }
 
-const styles=StyleSheet.create({
-  modal:{backgroundColor:"rgba(0,0,0,.7)"}
-})
+
+
+
 
 export default Modal
+

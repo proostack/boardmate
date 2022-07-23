@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { StyleSheet, Dimensions, View, Image } from "react-native";
+import { StyleSheet, Dimensions, View } from "react-native";
 import Background from "../components/Background";
 import { useConst } from "../utils/Animatedhelpers";
 const { width } = Dimensions.get("window");
@@ -11,8 +11,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 import ScoreBoard from "../components/ScoreBoard";
 import ChessBottomTab from "../components/ChessBottomTab";
-import Modal from "../../../components/Modal";
-import { Box, FlatList, Square, Text } from "native-base";
 import PromotePawn from "../components/modals/PromotePawn/PromotePawn";
 import Theme from "../components/modals/ChooseTheme/Theme";
 import Chat from "../components/modals/chat/Chat";
@@ -58,14 +56,26 @@ const Board = (): JSX.Element => {
       }),
     [chess, state.player]
   );
-const [showPawn,setShowPawn]=useState<boolean>(false)
-const [showTheme,setShowTheme]=useState<boolean>(false)
-const [showChat,setShowChat]=useState<boolean>(false)
+  const [showPawn, setShowPawn] = useState<boolean>(false)
+  const [showTheme, setShowTheme] = useState<boolean>(false)
+  const [showChat, setShowChat] = useState<boolean>(false)
+
+  const handleClosePawn = () => {
+    setShowPawn(false)
+  }
+  const handleCloseTheme = () => {
+    setShowTheme(false)
+  }
+  const handleCloseChat = () => {
+    setShowChat(false)
+  }
+
+
   return (
     <View style={styles.outerContainer}>
-      <PromotePawn/>
-      {/* <Theme/> */}
-      {/* <Chat name={users[0].name}/> */}
+      {showChat && <Chat handleClose={handleCloseChat} name={users[0].name} />}
+      <Theme showTheme={showTheme} handleClose={handleCloseTheme} />
+      <PromotePawn showPawn={showPawn} handleClose={handleClosePawn} />
       <ScoreBoard name={users[0].name} image={users[0].image} />
       <View style={styles.container}>
         <Background />
@@ -89,7 +99,11 @@ const [showChat,setShowChat]=useState<boolean>(false)
         )}
       </View>
       <ScoreBoard name={users[0].name} image={users[0].image} />
-      <ChessBottomTab showChat={showChat} showPawn={showPawn} showTheme setShowChat={()=>setShowChat(!showChat)} setShowPawn={()=>setShowPawn(!showPawn)} setShowTheme={()=>setShowTheme(!showTheme)}/>
+      <ChessBottomTab
+        setShowChat={() => setShowChat(true)}
+        setShowPawn={() => setShowPawn(true)}
+        setShowTheme={() => setShowTheme(true)
+        } />
     </View>
   );
 };
