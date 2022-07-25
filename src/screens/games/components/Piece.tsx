@@ -14,8 +14,8 @@ import { PanGestureHandler } from "react-native-gesture-handler";
 
 const styles = StyleSheet.create({
   piece: {
-    width: SIZE,
-    height: SIZE,
+    width: 35,
+    height: 35
   },
 });
 type Player = "b" | "w";
@@ -72,10 +72,13 @@ const Piece = ({
         offsetY.value = translateY.value;
         isGestureActive.value = false;
       });
+      // if(!chess.game_over()){
       if (move) {
         chess.move(move);
         onTurn();
       }
+      // }
+
     },
     [chess, offsetX, offsetY, onTurn, isGestureActive, translateX, translateY]
   );
@@ -98,6 +101,10 @@ const Piece = ({
 
   const style = useAnimatedStyle(() => ({
     position: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
+    width: SIZE,
+    height: SIZE,
     zIndex: isGestureActive.value ? 100 : 10,
     transform: [
       { translateX: translateX.value },

@@ -32,7 +32,7 @@ const handleNavigation = () => {
 
   return (
     <Box alignItems="center" w="100%" mt={71}>
-    <Box w={375}>
+    <Box maxW={375} w="90%">
       <Box mb={65}>
         <FormHeader text="Hey! Before you begin playing let’s help you set up your account." header="Sign up" />
     

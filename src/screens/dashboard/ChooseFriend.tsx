@@ -25,7 +25,7 @@ const ChooseFriend = ({ navigation }: DashBoardNavProps<"ChooseFriend"|"Chess">)
 
   return (
     <Center>
-      <Box maxW={375} w="100%" mt={62}>
+      <Box maxW={375} w="90%" mt={62}>
   
   <Goback callback={()=>navigation.goBack()}/>
 

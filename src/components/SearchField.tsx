@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react'
-import { Box, Icon, Input, Text } from "native-base";
+import { Box, Icon, Input} from "native-base";
 import { FontAwesome } from '@expo/vector-icons';
 
 interface Props{
@@ -8,7 +8,7 @@ interface Props{
   bgColor?:string
 }
 
-const SearchField = ({input,getInput,bgColor}:Props) => {
+const SearchField = ({input,getInput,bgColor}:Props):JSX.Element => {
   return (
     <Box>
 
