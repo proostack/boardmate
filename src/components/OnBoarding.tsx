@@ -1,8 +1,8 @@
 import React from 'react'
-import {  Center, Text,  Image, Heading, HStack} from "native-base";
+import { Center, Text, Image, Heading, HStack } from "native-base";
 import Pagination from './Pagination';
-import {ImageSourcePropType, StyleSheet } from 'react-native';
-import { MotiView,  } from 'moti'
+import { ImageSourcePropType, StyleSheet } from 'react-native';
+import { MotiView, } from 'moti'
 import { Easing } from 'react-native-reanimated';
 
 interface Props {
@@ -32,9 +32,15 @@ const OnBoarding = (
         <Center >
           {[...Array(6).keys()].map(i => (
 
-            <MotiView key={i} style={[StyleSheet.absoluteFill, { backgroundColor: circleTwoColor, borderRadius: 200 }]} from={{ scale: 1, opacity: .5 }}
-              animate={{ scale: 3, opacity: 0 }} transition={{
-                type: "timing", duration: 4000, loop: true, easing: Easing.out(Easing.ease),
+            <MotiView key={i}
+              style={[StyleSheet.absoluteFill, {
+                backgroundColor: circleTwoColor,
+                borderRadius: 200
+              }]} from={{ scale: 1, opacity: .5 }}
+              animate={{ scale: 3, opacity: 0 }}
+              transition={{
+                type: "timing", duration: 4000, loop: true,
+                easing: Easing.out(Easing.ease),
                 delay: i * 400, repeatReverse: false
               }}
             />))}
@@ -43,7 +49,8 @@ const OnBoarding = (
             animate={{ scale: 1.1 }} transition={{
               type: "timing", duration: 2000, loop: true, easing: Easing.out(Easing.ease),
               delay: 200
-            }} style={{ backgroundColor: circleTwoColor, height: 200, width: 200, alignItems: "center", justifyContent: "center", borderRadius: 100, }}>
+            }}
+            style={[styles.MotiViewStyle, { backgroundColor: circleTwoColor, }]}>
             <Image source={image} alt="chess" />
           </MotiView>
         </Center>
@@ -59,3 +66,13 @@ const OnBoarding = (
 }
 
 export default OnBoarding
+
+const styles = StyleSheet.create({
+  MotiViewStyle: {
+    height: 200,
+    width: 200,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 100,
+  }
+})
