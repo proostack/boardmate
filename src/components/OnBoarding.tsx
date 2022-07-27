@@ -54,6 +54,7 @@ const OnBoarding = (
             <Image source={image} alt="chess" />
           </MotiView>
         </Center>
+        
         <Heading mt={70} color="white" fontFamily="ReadexProBold">{header}</Heading>
         <Text color="white" fontFamily="ReadexProLight" mt={22}>{text}</Text>
         <HStack space={3} mt={62}>

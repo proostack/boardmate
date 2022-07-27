@@ -16,7 +16,7 @@ const CustomTextArea = ({ setMessage, message, handleSend }: Props): JSX.Element
           color="#794DE3" size={"20px"} mr="9px" />
       }
       flex={1} color="white" h={62}
-      autoCompleteType={false}
+      autoCompleteType
       variant="unstyled" borderRadius={8}
       mb="15px" bgColor="darkTheme.100"
       placeholder='Type a message'
