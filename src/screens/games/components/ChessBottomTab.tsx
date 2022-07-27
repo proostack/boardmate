@@ -2,7 +2,7 @@ import React from 'react'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet } from "react-native";
-import { Button, HStack, Image } from 'native-base';
+import { Button, HStack, Image, Tooltip } from 'native-base';
 import { Icons } from '../../../app';
 interface Props {
   setShowChat: () => void
@@ -14,6 +14,7 @@ interface Props {
 const ChessBottomTab = ({ setShowChat, setShowPawn, setShowTheme, setShowQuit }: Props): JSX.Element => {
   return (
     <HStack bgColor={"#201F2A"} mt="55px" h="64px" mx={"27px"} borderRadius="50px" alignItems={"center"} justifyContent="space-around">
+      
       <Button variant={"unstyled"} >
         <MaterialCommunityIcons name="flash-outline" size={30} color="#F6F6F6" style={styles.icons} />
       </Button>
