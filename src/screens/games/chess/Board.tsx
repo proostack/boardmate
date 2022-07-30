@@ -11,6 +11,12 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 import ScoreBoard from "../components/ScoreBoard";
 import ChessBottomTab from "../components/ChessBottomTab";
+import PromotePawn from "../components/modals/PromotePawn/PromotePawn";
+import Theme from "../components/modals/ChooseTheme/Theme";
+import Chat from "../components/modals/chat/Chat";
+import Quit from "../components/modals/Quit";
+import { DashBoardNavProps } from "../../../types/routes";
+import TopNav from "../components/TopNav";
 
 const styles = StyleSheet.create({
   container: {
@@ -24,16 +30,17 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#34364C",
   },
-  overlay: {
+  boardBorder: {
     zIndex: -1,
     position: "absolute",
-    height: "100%", width: "100%",
+    height: "100%",
+    width: "100%",
     backgroundColor: "#2A2935",
     transform: [{ scale: 1.03 }]
   }
 });
 
-const Board = (): JSX.Element => {
+const Board = ({ navigation }: DashBoardNavProps<"Chess">): JSX.Element => {
   const { defaultUsers } = useSelector((state: RootState) => state.user)
   const users = defaultUsers
 
@@ -52,13 +59,40 @@ const Board = (): JSX.Element => {
       }),
     [chess, state.player]
   );
+  const [showPawn, setShowPawn] = useState<boolean>(false)
+  const [showTheme, setShowTheme] = useState<boolean>(false)
+  const [showChat, setShowChat] = useState<boolean>(false)
+  const [showQuit, setShowQuit] = useState<boolean>(false)
+
+  const handleClosePawn = () => {
+    setShowPawn(false)
+  }
+  const handleCloseTheme = () => {
+    setShowTheme(false)
+  }
+  const handleCloseChat = () => {
+    setShowChat(false)
+  }
+  const handleCloseQuit = () => {
+    setShowQuit(false)
+  }
+
 
   return (
     <View style={styles.outerContainer}>
+      <TopNav setShowQuit={() => { setShowQuit(true) }} />
+      <Chat showChat={showChat} handleClose={handleCloseChat} name={users[0].name} />
+      <Theme showTheme={showTheme} handleClose={handleCloseTheme} />
+      <PromotePawn showPawn={showPawn} handleClose={handleClosePawn} />
       <ScoreBoard name={users[0].name} image={users[0].image} />
+      <Quit
+        goBack={() => { navigation.goBack() }}
+        showQuit={showQuit}
+        handleCloseQuit={handleCloseQuit}
+      />
       <View style={styles.container}>
         <Background />
-        <View style={styles.overlay} />
+        <View style={styles.boardBorder} />
         {state.board.map((row, y) =>
           row.map((square, x) => {
             if (square === null) {
@@ -78,9 +112,14 @@ const Board = (): JSX.Element => {
         )}
       </View>
       <ScoreBoard name={users[0].name} image={users[0].image} />
-      <ChessBottomTab />
+      <ChessBottomTab
+        setShowChat={() => setShowChat(true)}
+        setShowPawn={() => setShowPawn(true)}
+        setShowTheme={() => setShowTheme(true)}
+        setShowQuit={() => setShowQuit(true)}
+      />
     </View>
-  );
+  )
 };
 
 export default Board;
