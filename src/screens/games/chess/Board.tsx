@@ -14,6 +14,13 @@ import ChessBottomTab from "../components/ChessBottomTab";
 import PromotePawn from "../components/modals/PromotePawn/PromotePawn";
 import Theme from "../components/modals/ChooseTheme/Theme";
 import Chat from "../components/modals/chat/Chat";
+import WinLose from "../components/modals/win&lose/WinLose";
+import Quit from "../components/modals/Quit";
+import { DashBoardNavProps } from "../../../types/routes";
+
+import TopNav from "../components/TopNav";
+
+import { Box } from "native-base";
 
 const styles = StyleSheet.create({
   container: {
@@ -37,7 +44,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const Board = (): JSX.Element => {
+const Board = ({ navigation }: DashBoardNavProps<"Chess">): JSX.Element => {
   const { defaultUsers } = useSelector((state: RootState) => state.user)
   const users = defaultUsers
 
@@ -59,24 +66,99 @@ const Board = (): JSX.Element => {
   const [showPawn, setShowPawn] = useState<boolean>(false)
   const [showTheme, setShowTheme] = useState<boolean>(false)
   const [showChat, setShowChat] = useState<boolean>(false)
+  const [showQuit, setShowQuit] = useState<boolean>(false)
 
-  const handleClosePawn = () => {
-    setShowPawn(false)
-  }
-  const handleCloseTheme = () => {
-    setShowTheme(false)
-  }
-  const handleCloseChat = () => {
-    setShowChat(false)
-  }
+  const handleOpenChat = useCallback(
+    () => setShowChat(true),
+    [showChat]
+  )
 
+  const handleOpenPawn = useCallback(
+    () => setShowPawn(true)
+    , [showPawn]
+  )
+
+  const handleOpenTheme = useCallback(
+    () => setShowTheme(true)
+    , [showTheme]
+  )
+
+  const handleOpenQuit = useCallback(
+    () => setShowQuit(true)
+    , [showTheme]
+  )
+
+  const handleClosePawn = useCallback(
+    () => setShowPawn(false)
+    , [showQuit]
+  )
+
+  const handleCloseTheme = useCallback(
+    () => setShowTheme(false)
+    , [showTheme]
+  )
+
+  const handleCloseChat = useCallback(
+    () => setShowChat(false)
+    , [showChat]
+  )
+
+  const handleCloseQuit = useCallback(
+    () => setShowQuit(false)
+    , [showQuit]
+  )
+
+
+
+
+  chess.header(
+    "White", "You",
+    "Black", users[0].name,
+    "WhiteImg", users[0].image,
+    "BlackImg", users[1].image
+  )
 
   return (
     <View style={styles.outerContainer}>
-      {showChat && <Chat handleClose={handleCloseChat} name={users[0].name} />}
-      <Theme showTheme={showTheme} handleClose={handleCloseTheme} />
-      <PromotePawn showPawn={showPawn} handleClose={handleClosePawn} />
-      <ScoreBoard name={users[0].name} image={users[0].image} />
+      <TopNav
+        setShowQuit={
+          () => { setShowQuit(true) }}
+      />
+
+      <Chat
+        showChat={showChat}
+        handleClose={handleCloseChat}
+        name={users[0].name}
+      />
+
+      <Theme
+        showTheme={showTheme}
+        handleClose={handleCloseTheme}
+      />
+
+      <PromotePawn
+        showPawn={showPawn}
+        handleClose={handleClosePawn}
+      />
+
+      <WinLose
+        chess={chess}
+        users={users}
+      />
+
+      <Box mt="32px">
+        <ScoreBoard
+          name={chess.header().Black}
+          image={users[1].image}
+        />
+      </Box>
+
+      <Quit
+        goBack={() => { navigation.goBack() }}
+        showQuit={showQuit}
+        handleCloseQuit={handleCloseQuit}
+      />
+
       <View style={styles.container}>
         <Background />
         <View style={styles.boardBorder} />
@@ -98,14 +180,20 @@ const Board = (): JSX.Element => {
           })
         )}
       </View>
-      <ScoreBoard name={users[0].name} image={users[0].image} />
+
+      <ScoreBoard
+        name={chess.header().White}
+        image={users[0].image}
+      />
+
       <ChessBottomTab
-        setShowChat={() => setShowChat(true)}
-        setShowPawn={() => setShowPawn(true)}
-        setShowTheme={() => setShowTheme(true)
-        } />
+        setShowChat={handleOpenChat}
+        setShowPawn={handleOpenPawn}
+        setShowTheme={handleOpenTheme}
+        setShowQuit={handleOpenQuit}
+      />
     </View>
-  );
+  )
 };
 
 export default Board;

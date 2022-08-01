@@ -3,8 +3,8 @@ import { ImageSourcePropType } from "react-native";
 import { Box, Circle, HStack, Image, Text } from 'native-base';
 import { AntDesign } from '@expo/vector-icons';
 interface Props {
-  name: string;
-  image: ImageSourcePropType
+  name: string|undefined;
+  image: ImageSourcePropType,
 }
 const ScoreBoard = ({ name, image }: Props): JSX.Element => {
   return (

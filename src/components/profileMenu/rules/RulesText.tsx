@@ -1,10 +1,10 @@
 import React from 'react'
-import { Text, Center, Box, FlatList,  Heading, Square, HStack, Circle, Image, ScrollView } from "native-base";
+import { Text} from "native-base";
 
 interface Props{
   children:string
 }
-const RulesText = ({children}:Props) => {
+const RulesText = ({children}:Props):JSX.Element => {
   return (
     <Text fontSize={10} color={"white"}>
     {children}
