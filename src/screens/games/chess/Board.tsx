@@ -14,6 +14,7 @@ import ChessBottomTab from "../components/ChessBottomTab";
 import PromotePawn from "../components/modals/PromotePawn/PromotePawn";
 import Theme from "../components/modals/ChooseTheme/Theme";
 import Chat from "../components/modals/chat/Chat";
+import Win_Lose from "../components/modals/win&lose/Win_Lose";
 
 const styles = StyleSheet.create({
   container: {
@@ -76,7 +77,9 @@ const Board = (): JSX.Element => {
       {showChat && <Chat handleClose={handleCloseChat} name={users[0].name} />}
       <Theme showTheme={showTheme} handleClose={handleCloseTheme} />
       <PromotePawn showPawn={showPawn} handleClose={handleClosePawn} />
+      <Win_Lose chess={chess} winnerName={users[0].name} winnerImg={users[0].image} loserName={users[0].name} loserImg={users[0].image}/>
       <ScoreBoard name={users[0].name} image={users[0].image} />
+      
       <View style={styles.container}>
         <Background />
         <View style={styles.boardBorder} />
