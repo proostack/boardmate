@@ -1,12 +1,12 @@
 import React from 'react'
-import { Text, Center, Box, FlatList,  Heading, Square, HStack, Circle, Image, ScrollView } from "native-base";
+import {  Heading } from "native-base";
 
 interface Props{
   children:string
 }
 
 
-const RulesHeader = ({children}:Props) => {
+const RulesHeader = ({children}:Props):JSX.Element => {
   return (
     <Heading fontSize={16} color={"white"}>
       {children}

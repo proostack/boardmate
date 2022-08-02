@@ -8,10 +8,11 @@ import { RootState } from '../store/store';
 import DashboardNav from './DashboardNav';
 import ProfileNav from './ProfileNav';
 import Wallet from '../screens/dashboard/Wallet';
-import { Circle, Image } from 'native-base';
+import { Circle, Image} from 'native-base';
 import { getFocusedRouteNameFromRoute, ParamListBase, RouteProp } from '@react-navigation/native';
+import { Icons } from '../app';
 
-const getRouteName = (route: RouteProp<ParamListBase, "Profile">|RouteProp<ParamListBase, "DashboardNav">) => {
+const getRouteName = (route: RouteProp<ParamListBase, "Profile"> | RouteProp<ParamListBase, "DashboardNav">) => {
   const routeName = getFocusedRouteNameFromRoute(route)
   return routeName
 }
@@ -32,21 +33,21 @@ const Routes = (): JSX.Element => {
           position: 'absolute', height: 76, borderTopEndRadius: 30, borderTopStartRadius: 30
         }
       }}>
-        <Tabs.Screen name='DashboardNav' component={DashboardNav} options={({route})=>({
+        <Tabs.Screen name='DashboardNav' component={DashboardNav} options={({ route }) => ({
           tabBarIcon: ({ focused }) => (
             <Circle size={50} bgColor={focused ? "rgba(119, 111, 254, 1)" : "transparent"}>
-
-              {focused ? <Image source={require("../../assets/images/navigation/home2.png")} alt="home" /> : <Image source={require("../../assets/images/navigation/home.png")} alt="home" />}
+              {focused ? <Image source={Icons.home2} alt="home" /> : <Image source={Icons.home} alt="home" />}
             </Circle>
-          ), tabBarStyle: { display: getRouteName(route) == "Chess"?"none":"flex",position: 'absolute', height: 76, borderTopEndRadius: 30, borderTopStartRadius: 30
-         }
+          ), tabBarStyle: {
+            display: getRouteName(route) == "Chess" ? "none" : "flex", position: 'absolute', height: 76, borderTopEndRadius: 30, borderTopStartRadius: 30
+          },
+         
         })} />
 
         <Tabs.Screen name='Wallet' component={Wallet} options={{
           tabBarIcon: ({ focused }) => (
             <Circle size={50} bgColor={focused ? "rgba(119, 111, 254, 1)" : "transparent"}>
-
-              <Image source={require("../../assets/images/navigation/Wallet.png")} alt="wallet" />
+              <Image source={Icons.wallet} alt="wallet" />
             </Circle>
           ), tabBarStyle: { display: "none" }
         }} />
@@ -54,12 +55,13 @@ const Routes = (): JSX.Element => {
         <Tabs.Screen name='Profile' component={ProfileNav} options={({ route }) => ({
           tabBarIcon: ({ focused }) => (
             <Circle size={50} bgColor={focused ? "rgba(119, 111, 254, 1)" : "transparent"}>
-              {focused ? <Image source={require("../../assets/images/navigation/user2.png")} alt="profile" /> : <Image source={require("../../assets/images/navigation/user.png")} alt="profile" />}
+              {focused ? <Image source={Icons.user2} alt="profile" /> : <Image source={Icons.user} alt="profile" />}
 
             </Circle>
           ),
-          tabBarStyle: { display: getRouteName(route) == "Dashboard" ||  getRouteName(route) == "User"|| getRouteName(route) == "Friends" || getRouteName(route) == "Rules" ||  getRouteName(route) == "Help" ||  getRouteName(route) == "Learn" ? "none" : "flex", position: 'absolute', height: 76, borderTopEndRadius: 30, borderTopStartRadius: 30
-        }
+          tabBarStyle: {
+            display: getRouteName(route) == "Dashboard" || getRouteName(route) == "User" || getRouteName(route) == "Friends" || getRouteName(route) == "Rules" || getRouteName(route) == "Help" || getRouteName(route) == "Learn" ? "none" : "flex", position: 'absolute', height: 76, borderTopEndRadius: 30, borderTopStartRadius: 30
+          }
         })
         } />
       </Tabs.Navigator>

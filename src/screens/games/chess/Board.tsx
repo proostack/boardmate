@@ -15,6 +15,9 @@ import PromotePawn from "../components/modals/PromotePawn/PromotePawn";
 import Theme from "../components/modals/ChooseTheme/Theme";
 import Chat from "../components/modals/chat/Chat";
 import Win_Lose from "../components/modals/win&lose/Win_Lose";
+import TopNav from "../components/TopNav";
+import Quit from "../components/modals/Quit";
+import { DashBoardNavProps } from "../../../types/routes";
 
 const styles = StyleSheet.create({
   container: {
@@ -38,7 +41,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const Board = (): JSX.Element => {
+const Board = ({ navigation }: DashBoardNavProps<"Chess">): JSX.Element => {
   const { defaultUsers } = useSelector((state: RootState) => state.user)
   const users = defaultUsers
 
@@ -60,6 +63,7 @@ const Board = (): JSX.Element => {
   const [showPawn, setShowPawn] = useState<boolean>(false)
   const [showTheme, setShowTheme] = useState<boolean>(false)
   const [showChat, setShowChat] = useState<boolean>(false)
+  const [showQuit, setShowQuit] = useState<boolean>(false)
 
   const handleClosePawn = () => {
     setShowPawn(false)
@@ -70,16 +74,24 @@ const Board = (): JSX.Element => {
   const handleCloseChat = () => {
     setShowChat(false)
   }
+  const handleCloseQuit = () => {
+    setShowQuit(false)
+  }
 
 
   return (
     <View style={styles.outerContainer}>
-      {showChat && <Chat handleClose={handleCloseChat} name={users[0].name} />}
+      <TopNav setShowQuit={() => { setShowQuit(true) }} />
+      <Chat showChat={showChat} handleClose={handleCloseChat} name={users[0].name} />
       <Theme showTheme={showTheme} handleClose={handleCloseTheme} />
       <PromotePawn showPawn={showPawn} handleClose={handleClosePawn} />
       <Win_Lose chess={chess} winnerName={users[0].name} winnerImg={users[0].image} loserName={users[0].name} loserImg={users[0].image}/>
       <ScoreBoard name={users[0].name} image={users[0].image} />
-      
+      <Quit
+        goBack={() => { navigation.goBack() }}
+        showQuit={showQuit}
+        handleCloseQuit={handleCloseQuit}
+      />
       <View style={styles.container}>
         <Background />
         <View style={styles.boardBorder} />
@@ -105,10 +117,11 @@ const Board = (): JSX.Element => {
       <ChessBottomTab
         setShowChat={() => setShowChat(true)}
         setShowPawn={() => setShowPawn(true)}
-        setShowTheme={() => setShowTheme(true)
-        } />
+        setShowTheme={() => setShowTheme(true)}
+        setShowQuit={() => setShowQuit(true)}
+      />
     </View>
-  );
+  )
 };
 
 export default Board;
