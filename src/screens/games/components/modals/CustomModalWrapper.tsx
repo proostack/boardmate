@@ -15,7 +15,8 @@ const CustomModalWrapper = ({ children, showModal }: Props): JSX.Element => {
       position="absolute" top="0"
       left="0" zIndex={100}>
       {children}
-    </Square>)
+    </Square>
+    )
 }
 
 export default CustomModalWrapper
@@ -26,7 +27,4 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0,0,0,.7)"
   }
 })
-
-
-
 

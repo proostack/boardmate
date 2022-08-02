@@ -72,12 +72,12 @@ const Piece = ({
         offsetY.value = translateY.value; 
         isGestureActive.value = false;
       });
-      if(!chess.game_over()){
+      // if(!chess.game_over()){
         if (move) {
           chess.move(move);
           onTurn();
         }
-      }
+      // }
      
     },
     [chess, offsetX, offsetY, onTurn, isGestureActive, translateX, translateY]
