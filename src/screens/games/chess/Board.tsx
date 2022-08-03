@@ -17,11 +17,8 @@ import Chat from "../components/modals/chat/Chat";
 import Win_Lose from "../components/modals/win&lose/Win_Lose";
 import Quit from "../components/modals/Quit";
 import { DashBoardNavProps } from "../../../types/routes";
-<<<<<<< HEAD
 import TopNav from "../components/TopNav";
-=======
 import { Box } from "native-base";
->>>>>>> a30af23 (Win/lose)
 
 const styles = StyleSheet.create({
   container: {
