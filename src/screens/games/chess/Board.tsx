@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { StyleSheet, Dimensions, View } from "react-native";
 import Background from "../components/Background";
 import { useConst } from "../utils/Animatedhelpers";
@@ -14,9 +14,11 @@ import ChessBottomTab from "../components/ChessBottomTab";
 import PromotePawn from "../components/modals/PromotePawn/PromotePawn";
 import Theme from "../components/modals/ChooseTheme/Theme";
 import Chat from "../components/modals/chat/Chat";
+import WinLose from "../components/modals/win&lose/WinLose";
 import Quit from "../components/modals/Quit";
 import { DashBoardNavProps } from "../../../types/routes";
 import TopNav from "../components/TopNav";
+import { Box } from "native-base";
 
 const styles = StyleSheet.create({
   container: {
@@ -63,7 +65,7 @@ const Board = ({ navigation }: DashBoardNavProps<"Chess">): JSX.Element => {
   const [showTheme, setShowTheme] = useState<boolean>(false)
   const [showChat, setShowChat] = useState<boolean>(false)
   const [showQuit, setShowQuit] = useState<boolean>(false)
-
+  const [rematch, setRematch] = useState(0)
   const handleClosePawn = () => {
     setShowPawn(false)
   }
@@ -78,13 +80,23 @@ const Board = ({ navigation }: DashBoardNavProps<"Chess">): JSX.Element => {
   }
 
 
+  chess.header(
+    "White", "You",
+    "Black", users[0].name,
+    "WhiteImg", users[0].image,
+    "BlackImg", users[1].image
+  )
+
   return (
     <View style={styles.outerContainer}>
       <TopNav setShowQuit={() => { setShowQuit(true) }} />
       <Chat showChat={showChat} handleClose={handleCloseChat} name={users[0].name} />
       <Theme showTheme={showTheme} handleClose={handleCloseTheme} />
       <PromotePawn showPawn={showPawn} handleClose={handleClosePawn} />
-      <ScoreBoard name={users[0].name} image={users[0].image} />
+      <WinLose rematch={() => setRematch(rematch + 1)} chess={chess} users={users} />
+      <Box mt="32px">
+        <ScoreBoard name={chess.header().Black} image={users[1].image} />
+      </Box>
       <Quit
         goBack={() => { navigation.goBack() }}
         showQuit={showQuit}
@@ -111,7 +123,7 @@ const Board = ({ navigation }: DashBoardNavProps<"Chess">): JSX.Element => {
           })
         )}
       </View>
-      <ScoreBoard name={users[0].name} image={users[0].image} />
+      <ScoreBoard name={chess.header().White} image={users[0].image} />
       <ChessBottomTab
         setShowChat={() => setShowChat(true)}
         setShowPawn={() => setShowPawn(true)}
