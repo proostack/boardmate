@@ -28,4 +28,4 @@ const Quit = ({ handleCloseQuit, showQuit, goBack }: Props): JSX.Element => {
   )
 }
 
-export default Quit
+export default React.memo(Quit)

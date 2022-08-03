@@ -1,4 +1,4 @@
-import { Box,  Text, HStack, Circle, Button, FlatList, Square } from 'native-base'
+import { Box, Text, HStack, Circle, Button, FlatList, Square } from 'native-base'
 import React, { useState } from 'react'
 import { SafeAreaView, StyleSheet } from 'react-native'
 import ReceiveFrom from './ReceiveFrom'
@@ -6,6 +6,7 @@ import SendTo from './SendTo'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import CustomModalWrapper from '../CustomModalWrapper'
 import CustomTextArea from './CustomTextArea'
+
 interface Props {
   name: string,
   handleClose: () => void;
@@ -21,7 +22,10 @@ const Chat = ({ name, handleClose, showChat }: Props): JSX.Element => {
   const [message, setMessage] = useState("");
   const handleSubmit = () => {
     if (message) {
-      setHandleMessage({ ...handleMessage, sent: [...handleMessage.sent, message] })
+      setHandleMessage({
+        ...handleMessage,
+        sent: [...handleMessage.sent, message]
+      })
       setMessage("")
     }
   }
@@ -55,8 +59,12 @@ const Chat = ({ name, handleClose, showChat }: Props): JSX.Element => {
             )
             }
           </SafeAreaView>
-          <HStack>
-            <CustomTextArea message={message} setMessage={setMessage} handleSend={handleSubmit} />
+          <HStack mb={"15px"}>
+            <CustomTextArea
+              message={message}
+              setMessage={setMessage}
+              handleSend={handleSubmit}
+            />
             <Circle size={30} mt="15px" mr="13px" bgColor="accent_bg.50">
               <MaterialCommunityIcons name="microphone-outline" size={17} color="white" />
             </Circle>
@@ -67,7 +75,7 @@ const Chat = ({ name, handleClose, showChat }: Props): JSX.Element => {
   )
 }
 
-export default Chat
+export default React.memo(Chat)
 
 const styles = StyleSheet.create({
   chatArea: {

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { StyleSheet, Dimensions, View } from "react-native";
 import Background from "../components/Background";
 import { useConst } from "../utils/Animatedhelpers";
@@ -65,19 +65,48 @@ const Board = ({ navigation }: DashBoardNavProps<"Chess">): JSX.Element => {
   const [showTheme, setShowTheme] = useState<boolean>(false)
   const [showChat, setShowChat] = useState<boolean>(false)
   const [showQuit, setShowQuit] = useState<boolean>(false)
-  const [rematch, setRematch] = useState(0)
-  const handleClosePawn = () => {
-    setShowPawn(false)
-  }
-  const handleCloseTheme = () => {
-    setShowTheme(false)
-  }
-  const handleCloseChat = () => {
-    setShowChat(false)
-  }
-  const handleCloseQuit = () => {
-    setShowQuit(false)
-  }
+
+  const handleOpenChat = useCallback(
+    () => setShowChat(true),
+    [showChat]
+  )
+
+  const handleOpenPawn = useCallback(
+    () => setShowPawn(true)
+    , [showPawn]
+  )
+
+  const handleOpenTheme = useCallback(
+    () => setShowTheme(true)
+    , [showTheme]
+  )
+
+  const handleOpenQuit = useCallback(
+    () => setShowQuit(true)
+    , [showTheme]
+  )
+
+  const handleClosePawn = useCallback(
+    () => setShowPawn(false)
+    , [showQuit]
+  )
+
+  const handleCloseTheme = useCallback(
+    () => setShowTheme(false)
+    , [showTheme]
+  )
+
+  const handleCloseChat = useCallback(
+    () => setShowChat(false)
+    , [showChat]
+  )
+
+  const handleCloseQuit = useCallback(
+    () => setShowQuit(false)
+    , [showQuit]
+  )
+
+
 
 
   chess.header(
@@ -89,19 +118,45 @@ const Board = ({ navigation }: DashBoardNavProps<"Chess">): JSX.Element => {
 
   return (
     <View style={styles.outerContainer}>
-      <TopNav setShowQuit={() => { setShowQuit(true) }} />
-      <Chat showChat={showChat} handleClose={handleCloseChat} name={users[0].name} />
-      <Theme showTheme={showTheme} handleClose={handleCloseTheme} />
-      <PromotePawn showPawn={showPawn} handleClose={handleClosePawn} />
-      <WinLose rematch={() => setRematch(rematch + 1)} chess={chess} users={users} />
+      <TopNav
+        setShowQuit={
+          () => { setShowQuit(true) }}
+      />
+
+      <Chat
+        showChat={showChat}
+        handleClose={handleCloseChat}
+        name={users[0].name}
+      />
+
+      <Theme
+        showTheme={showTheme}
+        handleClose={handleCloseTheme}
+      />
+
+      <PromotePawn
+        showPawn={showPawn}
+        handleClose={handleClosePawn}
+      />
+
+      <WinLose
+        chess={chess}
+        users={users}
+      />
+
       <Box mt="32px">
-        <ScoreBoard name={chess.header().Black} image={users[1].image} />
+        <ScoreBoard
+          name={chess.header().Black}
+          image={users[1].image}
+        />
       </Box>
+
       <Quit
         goBack={() => { navigation.goBack() }}
         showQuit={showQuit}
         handleCloseQuit={handleCloseQuit}
       />
+
       <View style={styles.container}>
         <Background />
         <View style={styles.boardBorder} />
@@ -123,12 +178,17 @@ const Board = ({ navigation }: DashBoardNavProps<"Chess">): JSX.Element => {
           })
         )}
       </View>
-      <ScoreBoard name={chess.header().White} image={users[0].image} />
+
+      <ScoreBoard
+        name={chess.header().White}
+        image={users[0].image}
+      />
+
       <ChessBottomTab
-        setShowChat={() => setShowChat(true)}
-        setShowPawn={() => setShowPawn(true)}
-        setShowTheme={() => setShowTheme(true)}
-        setShowQuit={() => setShowQuit(true)}
+        setShowChat={handleOpenChat}
+        setShowPawn={handleOpenPawn}
+        setShowTheme={handleOpenTheme}
+        setShowQuit={handleOpenQuit}
       />
     </View>
   )

@@ -54,7 +54,7 @@ const Theme = ({ handleClose, showTheme }: Props): JSX.Element => {
   )
 }
 
-export default Theme
+export default React.memo(Theme)
 
 const styles = StyleSheet.create({
   columnWrapper1: { justifyContent: "space-between" },
