@@ -17,7 +17,7 @@ interface Props {
 }
 
 
-const Win_Lose = ({ chess,users}: Props): JSX.Element | null => {
+const WinLose = ({ chess,users}: Props): JSX.Element | null => {
   const [show, setShow] = useState(true)
   const handleClose = () => {
     setShow(false)
@@ -87,7 +87,7 @@ const Win_Lose = ({ chess,users}: Props): JSX.Element | null => {
   }
 }
 
-export default Win_Lose
+export default WinLose
 
 const styles = StyleSheet.create({
   close: {
