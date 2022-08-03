@@ -14,10 +14,10 @@ import ChessBottomTab from "../components/ChessBottomTab";
 import PromotePawn from "../components/modals/PromotePawn/PromotePawn";
 import Theme from "../components/modals/ChooseTheme/Theme";
 import Chat from "../components/modals/chat/Chat";
-import Win_Lose from "../components/modals/win&lose/Win_Lose";
-import TopNav from "../components/TopNav";
+import WinLose from "../components/modals/win&lose/WinLose";
 import Quit from "../components/modals/Quit";
 import { DashBoardNavProps } from "../../../types/routes";
+import TopNav from "../components/TopNav";
 import { Box } from "native-base";
 
 const styles = StyleSheet.create({
@@ -93,7 +93,7 @@ const Board = ({ navigation }: DashBoardNavProps<"Chess">): JSX.Element => {
       <Chat showChat={showChat} handleClose={handleCloseChat} name={users[0].name} />
       <Theme showTheme={showTheme} handleClose={handleCloseTheme} />
       <PromotePawn showPawn={showPawn} handleClose={handleClosePawn} />
-      <Win_Lose rematch={() => setRematch(rematch + 1)} chess={chess} users={users} />
+      <WinLose rematch={() => setRematch(rematch + 1)} chess={chess} users={users} />
       <Box mt="32px">
         <ScoreBoard name={chess.header().Black} image={users[1].image} />
       </Box>
