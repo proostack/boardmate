@@ -23,7 +23,6 @@ const WinLose = ({ chess, users }: Props): JSX.Element | null => {
     setShow(false)
   }
 
-
   if (chess.game_over()) {
 
     // lose via checkmate

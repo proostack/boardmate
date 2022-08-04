@@ -3,7 +3,7 @@ import { StyleSheet, Dimensions, View } from "react-native";
 import Background from "../components/Background";
 import { useConst } from "../utils/Animatedhelpers";
 const { width } = Dimensions.get("window");
-import { Chess} from "chess.js";
+import { Chess } from "chess.js";
 import Piece from "../components/Piece";
 import { SIZE } from "./Notation";
 import { KBLACK } from "../utils/constants";
@@ -114,14 +114,14 @@ const Board = ({ navigation }: DashBoardNavProps<"Chess">): JSX.Element => {
     "BlackImg", users[1].image
   )
 
-  const history=chess.history({verbose:true})
+  const history = chess.history({ verbose: true })
 
-  const capturedW=()=>history.filter(item=>(
-    item.captured&&item.color==="w")
-    )
-  const capturedB=()=>history.filter(item=>(
-    item.captured&&item.color==="b")
-    )
+  const capturedW = () => history.filter(item => (
+    item.captured && item.color === "w")
+  )
+  const capturedB = () => history.filter(item => (
+    item.captured && item.color === "b")
+  )
 
   return (
     <View style={styles.outerContainer}>
@@ -191,7 +191,7 @@ const Board = ({ navigation }: DashBoardNavProps<"Chess">): JSX.Element => {
         name={chess.header().White}
         image={users[0].image}
         capturedW={capturedW}
-
+        bgColor="white"
       />
 
       <ChessBottomTab
