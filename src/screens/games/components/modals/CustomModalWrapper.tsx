@@ -17,7 +17,6 @@ const CustomModalWrapper = ({ children, showModal }: Props): JSX.Element => {
       {children}
     </Square>
     )
-
 }
 
 export default CustomModalWrapper

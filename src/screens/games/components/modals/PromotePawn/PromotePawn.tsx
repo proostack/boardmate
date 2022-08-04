@@ -30,7 +30,7 @@ const PromotePawn = ({ handleClose, showPawn }: Props): JSX.Element => {
   )
 }
 
-export default PromotePawn
+export default React.memo(PromotePawn)
 
 const styles = StyleSheet.create({
   pawnContainer: {

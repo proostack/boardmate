@@ -14,21 +14,30 @@ interface Props {
     choose: boolean;
 }[],
   chess: ChessInstance;
-  rematch:()=>void
 }
 
 
-const Win_Lose = ({ chess,users,rematch }: Props): JSX.Element | null => {
+const WinLose = ({ chess,users}: Props): JSX.Element | null => {
   const [show, setShow] = useState(true)
   const handleClose = () => {
     setShow(false)
   }
 
+
   if (chess.game_over()) {
+
+    // lose via checkmate
+    if(chess.in_checkmate()){
+      console.log("you lost via checkmate")
+    }
+
+    // match ended in a draw
+   if (chess.in_draw()){
+      console.log("match drawn")
+    }
     return (
       <Modal showModal={show} handleClose={handleClose}>
         <Box bgColor={"darkTheme.50"} w={"100%"} height="100%">
-
           <HStack justifyContent={"flex-end"}  >
             <AntDesign onPress={() => setShow(false)} style={styles.close} name="close" size={24} color="white" />
           </HStack>
@@ -64,7 +73,7 @@ const Win_Lose = ({ chess,users,rematch }: Props): JSX.Element | null => {
             </Text>
           </Button>
 
-          <Button onPress={()=>{handleClose();rematch();chess.clear()}} w="80%" mx="auto" mt="50px" bgColor="accent_bg.50" py="21px">
+          <Button onPress={()=>{handleClose();}} w="80%" mx="auto" mt="50px" bgColor="accent_bg.50" py="21px">
             <Text color="white" fontFamily="ReadexProRegular">
               Replay
             </Text>
@@ -78,7 +87,7 @@ const Win_Lose = ({ chess,users,rematch }: Props): JSX.Element | null => {
   }
 }
 
-export default Win_Lose
+export default WinLose
 
 const styles = StyleSheet.create({
   close: {
