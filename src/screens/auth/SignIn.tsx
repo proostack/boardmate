@@ -29,7 +29,7 @@ const SignIn = ({ navigation }: AuthNavigationProps<"Login">): JSX.Element => {
   }
   return (
     <Box alignItems="center" w="100%" mt={71}>
-      <Box w={375}>
+      <Box maxW={375} w="90%">
         <Box mb={65}>
           <FormHeader text="Welcome back! Login to access your account 🤩" header="Login" />
         </Box>

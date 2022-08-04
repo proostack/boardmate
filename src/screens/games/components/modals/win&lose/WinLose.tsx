@@ -12,12 +12,12 @@ interface Props {
     image: ImageRequireSource;
     active: boolean;
     choose: boolean;
-}[],
+  }[],
   chess: ChessInstance;
 }
 
 
-const Win_Lose = ({ chess,users}: Props): JSX.Element | null => {
+const WinLose = ({ chess, users }: Props): JSX.Element | null => {
   const [show, setShow] = useState(true)
   const handleClose = () => {
     setShow(false)
@@ -27,12 +27,12 @@ const Win_Lose = ({ chess,users}: Props): JSX.Element | null => {
   if (chess.game_over()) {
 
     // lose via checkmate
-    if(chess.in_checkmate()){
+    if (chess.in_checkmate()) {
       console.log("you lost via checkmate")
     }
 
     // match ended in a draw
-   if (chess.in_draw()){
+    if (chess.in_draw()) {
       console.log("match drawn")
     }
     return (
@@ -43,26 +43,26 @@ const Win_Lose = ({ chess,users}: Props): JSX.Element | null => {
           </HStack>
 
           <Text fontSize="28px" fontFamily="ReadexProBold" textTransform={"uppercase"} textAlign="center" color="white">
-            {chess.turn()==="w"?"You lose":"You win"}
+            {chess.turn() === "w" ? "You lose" : "You win"}
           </Text>
           <HStack mt="87px">
 
             <Box w="60%" alignItems={"center"}>
               <Text color="white" textAlign={"center"} fontFamily={"ReadexProRegular"}>
-                {chess.turn()==="w"?chess.header().Black:chess.header().White}
+                {chess.turn() === "w" ? chess.header().Black : chess.header().White}
               </Text>
               <Circle mt="75px" size={"80px"} bgColor="accent_bg.50">
-                <Image source={chess.turn()==="w"?users[1].image:users[0].image} alt="avatar" w={42} h={42} />
+                <Image source={chess.turn() === "w" ? users[1].image : users[0].image} alt="avatar" w={42} h={42} />
               </Circle>
             </Box>
 
             <Box mt="95px" w="40%" alignSelf={"flex-end"} alignItems={"center"}>
               <Text mb="35px" color="white" textAlign={"center"} mt="12px" fontFamily={"ReadexProRegular"}>
-              {chess.turn()==="b"?chess.header().Black:chess.header().White}
-                
+                {chess.turn() === "b" ? chess.header().Black : chess.header().White}
+
               </Text>
               <Circle size="60px" bgColor="accent_bg.50">
-                <Image source={chess.turn()==="b"?users[1].image:users[0].image} alt="avatar" w={42} h={42} />
+                <Image source={chess.turn() === "b" ? users[1].image : users[0].image} alt="avatar" w={42} h={42} />
               </Circle>
             </Box>
           </HStack>
@@ -73,21 +73,21 @@ const Win_Lose = ({ chess,users}: Props): JSX.Element | null => {
             </Text>
           </Button>
 
-          <Button onPress={()=>{handleClose();}} w="80%" mx="auto" mt="50px" bgColor="accent_bg.50" py="21px">
+          <Button onPress={() => { handleClose(); }} w="80%" mx="auto" mt="50px" bgColor="accent_bg.50" py="21px">
             <Text color="white" fontFamily="ReadexProRegular">
               Replay
             </Text>
           </Button>
         </Box>
       </Modal>
-      )
+    )
   }
   else {
     return null
   }
 }
 
-export default Win_Lose
+export default WinLose
 
 const styles = StyleSheet.create({
   close: {
