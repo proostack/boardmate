@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, Center, Box, FlatList, ScrollView } from "native-base";
+import { Text, Center, Box, FlatList } from "native-base";
 import Badge from "../../components/dashboard/Badge";
 import Game from "../../components/dashboard/Game";
 import { ImageSourcePropType, SafeAreaView } from "react-native";
@@ -59,19 +59,19 @@ const Games = ({
   navigation,
 }: DashBoardNavProps<"ChoosePlayer">): JSX.Element => {
   return (
-    <Center>
-      <Box px={"30px"} w="100%" mt={47}>
+    <Center pt="62px">
+      <Box maxW={"375px"} w="90%" mt={47}>
         <Box alignItems="flex-end">
           <Badge {...badge[1]} />
         </Box>
 
-        <Text fontFamily="ReadexProBold" w={150} fontSize={20} fontWeight={600}>
+        <Text mb="30px" fontFamily="ReadexProBold" w={150} fontSize={20} fontWeight={600}>
           Select a game & play!
         </Text>
+        <SafeAreaView>
 
-        <Box>
           <FlatList
-            mt={30}
+            mb={30}
             data={games}
             numColumns={2}
             columnWrapperStyle={{ justifyContent: "space-between" }}
@@ -84,7 +84,8 @@ const Games = ({
               />
             )}
           />
-        </Box>
+        </SafeAreaView>
+
       </Box>
     </Center>
   );

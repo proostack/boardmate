@@ -35,7 +35,7 @@ const ChoosePlayer = ({
 
   return (
     <Center>
-      <Box px={"30px"} w="100%" mt={47}>
+      <Box  maxW="375px" w="90%" mt={47}>
         <Goback callback={() => navigation.goBack()} />
 
         <Text fontFamily="ReadexProBold" w={150} fontSize={20} fontWeight={600}>

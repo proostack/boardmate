@@ -17,7 +17,6 @@ import Chat from "../components/modals/chat/Chat";
 import WinLose from "../components/modals/win&lose/WinLose";
 import Quit from "../components/modals/Quit";
 import { DashBoardNavProps } from "../../../types/routes";
-
 import TopNav from "../components/TopNav";
 
 import { Box } from "native-base";
@@ -108,14 +107,20 @@ const Board = ({ navigation }: DashBoardNavProps<"Chess">): JSX.Element => {
     , [showQuit]
   )
 
-
-
-
   chess.header(
     "White", "You",
     "Black", users[0].name,
     "WhiteImg", users[0].image,
     "BlackImg", users[1].image
+  )
+
+  const history = chess.history({ verbose: true })
+
+  const capturedW = () => history.filter(item => (
+    item.captured && item.color === "w")
+  )
+  const capturedB = () => history.filter(item => (
+    item.captured && item.color === "b")
   )
 
   return (
@@ -150,6 +155,7 @@ const Board = ({ navigation }: DashBoardNavProps<"Chess">): JSX.Element => {
         <ScoreBoard
           name={chess.header().Black}
           image={users[1].image}
+          capturedB={capturedB}
         />
       </Box>
 
@@ -184,6 +190,8 @@ const Board = ({ navigation }: DashBoardNavProps<"Chess">): JSX.Element => {
       <ScoreBoard
         name={chess.header().White}
         image={users[0].image}
+        capturedW={capturedW}
+        bgColor="white"
       />
 
       <ChessBottomTab
