@@ -116,8 +116,12 @@ const Board = ({ navigation }: DashBoardNavProps<"Chess">): JSX.Element => {
 
   const history=chess.history({verbose:true})
 
-  const capturedW=()=>history.filter(item=>(item.captured&&item.color==="w"))
-  const capturedB=()=>history.filter(item=>(item.captured&&item.color==="b"))
+  const capturedW=()=>history.filter(item=>(
+    item.captured&&item.color==="w")
+    )
+  const capturedB=()=>history.filter(item=>(
+    item.captured&&item.color==="b")
+    )
 
   return (
     <View style={styles.outerContainer}>
