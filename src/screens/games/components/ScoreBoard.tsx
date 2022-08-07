@@ -10,11 +10,11 @@ interface Props {
   capturedB?: () => Move[],
   capturedW?: () => Move[],
   bgColor?: string;
-  timer:number
-  blackTurn?:boolean
-  whiteTurn?:boolean
+  timer: number
+  blackTurn?: boolean
+  whiteTurn?: boolean
 }
-const ScoreBoard = ({ name, image, capturedB, capturedW, bgColor,timer,blackTurn,whiteTurn}: Props): JSX.Element => {
+const ScoreBoard = ({ name, image, capturedB, capturedW, bgColor, timer, blackTurn, whiteTurn }: Props): JSX.Element => {
 
 
 
@@ -55,7 +55,10 @@ const ScoreBoard = ({ name, image, capturedB, capturedW, bgColor,timer,blackTurn
           </HStack>
         </Box>
       </HStack>
-    <Timer timer={timer} blackTurn={blackTurn} whiteTurn={whiteTurn}/>
+      <Timer timer={timer}
+        blackTurn={blackTurn}
+        whiteTurn={whiteTurn}
+      />
     </HStack>
   )
 }

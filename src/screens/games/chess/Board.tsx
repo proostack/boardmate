@@ -124,8 +124,7 @@ const Board = ({ navigation }: DashBoardNavProps<"Chess">): JSX.Element => {
   )
 
   const timer = 10
-  const blackTimer = timer
-  const whiteTimer = timer
+
 
 const blackTurn=chess.turn()==="b"?true:false
 const whiteTurn=chess.turn()==="w"?true:false
@@ -162,7 +161,7 @@ const whiteTurn=chess.turn()==="w"?true:false
           name={chess.header().Black}
           image={users[1].image}
           capturedB={capturedB}
-          timer={blackTimer}
+          timer={timer}
           blackTurn={blackTurn}
         />
       </Box>
@@ -200,7 +199,7 @@ const whiteTurn=chess.turn()==="w"?true:false
         image={users[0].image}
         capturedW={capturedW}
         bgColor="white"
-        timer={whiteTimer}
+        timer={timer}
         whiteTurn={whiteTurn}
       />
 

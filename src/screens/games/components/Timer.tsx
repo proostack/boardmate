@@ -1,5 +1,5 @@
 import { Box, Text } from 'native-base'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, {useEffect, useRef, useState } from 'react'
 import { AntDesign } from '@expo/vector-icons';
 
 interface timerProps {
@@ -12,7 +12,6 @@ const Timer = ({ timer, blackTurn, whiteTurn }: timerProps): JSX.Element => {
   const [decreaseTime, setDecreaseTime] = useState(timer)
   const [seconds, setSeconds] = useState(60)
   const timerRef = useRef<NodeJS.Timer>()
-
   const startTimer = () => {
     timerRef.current = setTimeout(() => {
       if (seconds < 1) {
@@ -28,7 +27,7 @@ const Timer = ({ timer, blackTurn, whiteTurn }: timerProps): JSX.Element => {
 
   useEffect(() => {
     if (blackTurn || whiteTurn) {
-      startTimer()
+      decreaseTime<1?setSeconds(0):startTimer()
     }
   }, [blackTurn, whiteTurn, seconds])
 
