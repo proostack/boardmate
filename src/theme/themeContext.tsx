@@ -16,6 +16,6 @@ const defaultTheme: Theme = {
 }
 
 export const ThemeContext = React.createContext(defaultTheme)
-export const ThemeProvider = ({children}: {children: React.ReactNode}) => {
+export const ThemeProvider = ({children}: {children: React.ReactNode}):JSX.Element => {
     return <ThemeContext.Provider value={defaultTheme}>{children}</ThemeContext.Provider>
 }

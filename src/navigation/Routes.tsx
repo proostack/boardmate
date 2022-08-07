@@ -77,8 +77,6 @@ const Routes = (): JSX.Element => {
           component={AuthNavigation}
         />
       </Stack.Navigator>
-
-
     )
   }
 };
