@@ -10,13 +10,13 @@ interface timerProps {
 }
 const Timer = ({ timer, blackTurn, whiteTurn }: timerProps): JSX.Element => {
   const [decreaseTime, setDecreaseTime] = useState(timer)
-  const [seconds, setSeconds] = useState(60)
+  const [seconds, setSeconds] = useState(0)
   const timerRef = useRef<NodeJS.Timer>()
   const startTimer = () => {
     timerRef.current = setTimeout(() => {
       if (seconds < 1) {
         setDecreaseTime(decreaseTime - 1)
-        setSeconds(60)
+        setSeconds(59)
       }
       else {
         setSeconds(seconds - 1)
