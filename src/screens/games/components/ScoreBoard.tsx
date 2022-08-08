@@ -3,7 +3,7 @@ import { ImageSourcePropType } from "react-native";
 import { Box, Circle, HStack, Image, Text } from 'native-base';
 import { PIECES } from "./Piece"
 import { Move } from 'chess.js';
-import Timer from './Timer';
+import Timer from "./Timer"
 interface Props {
   name: string | undefined;
   image: ImageSourcePropType,
