@@ -12,13 +12,12 @@ import { RootState } from "../../../store/store";
 import ScoreBoard from "../components/ScoreBoard";
 import ChessBottomTab from "../components/ChessBottomTab";
 import PromotePawn from "../components/modals/PromotePawn/PromotePawn";
-import Theme from "../components/modals/ChooseTheme/Theme";
+import Settings from "../components/modals/settings/Settings";
 import Chat from "../components/modals/chat/Chat";
 import WinLose from "../components/modals/win&lose/WinLose";
 import Quit from "../components/modals/Quit";
 import { DashBoardNavProps } from "../../../types/routes";
 import TopNav from "../components/TopNav";
-
 import { Box } from "native-base";
 
 const styles = StyleSheet.create({
@@ -141,7 +140,7 @@ const whiteTurn=chess.turn()==="w"?true:false
         name={users[0].name}
       />
 
-      <Theme
+      <Settings
         showTheme={showTheme}
         handleClose={handleCloseTheme}
       />
