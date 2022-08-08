@@ -123,6 +123,11 @@ const Board = ({ navigation }: DashBoardNavProps<"Chess">): JSX.Element => {
     item.captured && item.color === "b")
   )
 
+  const timer = 10
+
+
+const blackTurn=chess.turn()==="b"?true:false
+const whiteTurn=chess.turn()==="w"?true:false
   return (
     <View style={styles.outerContainer}>
       <TopNav
@@ -156,6 +161,8 @@ const Board = ({ navigation }: DashBoardNavProps<"Chess">): JSX.Element => {
           name={chess.header().Black}
           image={users[1].image}
           capturedB={capturedB}
+          timer={timer}
+          blackTurn={blackTurn}
         />
       </Box>
 
@@ -192,6 +199,8 @@ const Board = ({ navigation }: DashBoardNavProps<"Chess">): JSX.Element => {
         image={users[0].image}
         capturedW={capturedW}
         bgColor="white"
+        timer={timer}
+        whiteTurn={whiteTurn}
       />
 
       <ChessBottomTab

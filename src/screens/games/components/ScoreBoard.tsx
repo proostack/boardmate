@@ -1,17 +1,22 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import { ImageSourcePropType } from "react-native";
 import { Box, Circle, HStack, Image, Text } from 'native-base';
-import { AntDesign } from '@expo/vector-icons';
 import { PIECES } from "./Piece"
 import { Move } from 'chess.js';
+import Timer from './Timer';
 interface Props {
   name: string | undefined;
   image: ImageSourcePropType,
   capturedB?: () => Move[],
   capturedW?: () => Move[],
-  bgColor?:string;
+  bgColor?: string;
+  timer: number
+  blackTurn?: boolean
+  whiteTurn?: boolean
 }
-const ScoreBoard = ({ name, image, capturedB, capturedW,bgColor }: Props): JSX.Element => {
+const ScoreBoard = ({ name, image, capturedB, capturedW, bgColor, timer, blackTurn, whiteTurn }: Props): JSX.Element => {
+
+
 
   return (
     <HStack justifyContent="space-between" px="27px">
@@ -21,7 +26,7 @@ const ScoreBoard = ({ name, image, capturedB, capturedW,bgColor }: Props): JSX.E
         </Circle>
         <Box>
           <Text color="white" fontFamily="ReadexProRegular">{name} (323)</Text>
-          <HStack px="9px" alignItems={"center"} position={"relative"} h="30px" w="120px" bgColor={bgColor?bgColor:"#373644"} mt="8px" borderWidth={1} borderRadius="5" borderColor={"#E1D9D90D"}>
+          <HStack px="9px" alignItems={"center"} position={"relative"} h="30px" w="120px" bgColor={bgColor ? bgColor : "#373644"} mt="8px" borderWidth={1} borderRadius="5" borderColor={"#E1D9D90D"}>
 
             {
               (capturedB && capturedB().length > 0) && capturedB().map((item, index) => (
@@ -29,8 +34,8 @@ const ScoreBoard = ({ name, image, capturedB, capturedW,bgColor }: Props): JSX.E
                   <Image key={index} h="11px"
                     w="14px"
                     source={PIECES[`w${item.captured}`]}
-                    alt="captured piece" 
-                    />
+                    alt="captured piece"
+                  />
                 )
               ))
             }
@@ -41,8 +46,8 @@ const ScoreBoard = ({ name, image, capturedB, capturedW,bgColor }: Props): JSX.E
                   <Image key={index} h="14px"
                     w="14px"
                     source={PIECES[`b${item.captured}`]}
-                    alt="captured piece" 
-                    />
+                    alt="captured piece"
+                  />
                 )
               ))
             }
@@ -50,10 +55,10 @@ const ScoreBoard = ({ name, image, capturedB, capturedW,bgColor }: Props): JSX.E
           </HStack>
         </Box>
       </HStack>
-      <Box>
-        <AntDesign name="clockcircle" size={24} color="white" />
-        <Text color={"white"} mt="8px" fontFamily={"ReadexProBold"}>00.02</Text>
-      </Box>
+      <Timer timer={timer}
+        blackTurn={blackTurn}
+        whiteTurn={whiteTurn}
+      />
     </HStack>
   )
 }
