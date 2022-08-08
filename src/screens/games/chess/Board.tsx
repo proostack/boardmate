@@ -6,7 +6,6 @@ const { width } = Dimensions.get("window");
 import { Chess } from "chess.js";
 import Piece from "../components/Piece";
 import { SIZE } from "./Notation";
-import { KBLACK } from "../utils/constants";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 import ScoreBoard from "../components/ScoreBoard";
