@@ -10,13 +10,12 @@ import { Audio, AVPlaybackStatus } from 'expo-av';
 import { TouchableWithoutFeedback } from 'react-native'
 import { Recording, RecordingStatus } from 'expo-av/build/Audio'
 import { AntDesign } from '@expo/vector-icons';
-import Slider from '@react-native-community/slider';
+// import Slider from '@react-native-community/slider';
 interface Props {
   name: string,
   handleClose: () => void;
   showChat: boolean
 }
-
 
 
 const Chat = ({ name, handleClose, showChat }: Props): JSX.Element => {
@@ -141,7 +140,6 @@ const [playTime,setPlayTime]=useState<number|undefined>(0)
           <Box>   
              {!play&& <AntDesign  onPress={()=>{
             recordingLine.sound.replayAsync();
-            // console.log(recordingLine.sound.setStatusAsync({ progressUpdateIntervalMillis })
             }} name="caretright" size={24} color="white" />
             }
           {play&&<AntDesign onPress={()=>{recordingLine.sound.pauseAsync()}} name="pause" size={24} color="white" />}
