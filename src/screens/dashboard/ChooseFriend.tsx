@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Center, Box, HStack  } from "native-base";
+import { Text, Center, Box, HStack } from "native-base";
 import InputField from '../../components/InputField';
 import FriendAvatar from '../../components/avatars/FriendAvatar';
 import { DashBoardNavProps } from '../../types/routes';
@@ -9,7 +9,7 @@ import Goback from '../../components/Goback';
 import { ImageSourcePropType } from 'react-native';
 
 
-const ChooseFriend = ({ navigation }: DashBoardNavProps<"ChooseFriend"|"Chess">): JSX.Element => {
+const ChooseFriend = ({ navigation }: DashBoardNavProps<"ChooseFriend" | "Chess">): JSX.Element => {
 
   const { defaultUsers } = useSelector((state: RootState) => state.user)
   const users = defaultUsers
@@ -17,17 +17,17 @@ const ChooseFriend = ({ navigation }: DashBoardNavProps<"ChooseFriend"|"Chess">)
   const [search, setSearch] = React.useState("");
   const [players, setPlayers] = React.useState(users.map((user, index) => ({ ...user, index })));
 
-  const handleChoose = (id:number,name:string,image:ImageSourcePropType) => {
+  const handleChoose = (id: number, name: string, image: ImageSourcePropType) => {
     setPlayers(players.map(player => (player.id === id ? { ...player, choose: true } : { ...player, choose: false })))
 
-    navigation.navigate("Chess",{name,image})
+    navigation.navigate("Chess", { name, image })
   }
 
   return (
     <Center>
       <Box maxW={375} w="90%" mt={62}>
-  
-  <Goback callback={()=>navigation.goBack()}/>
+
+        <Goback callback={() => navigation.goBack()} />
 
         <Text fontFamily="ReadexProBold" w={150} fontSize={20} fontWeight={600}>Let’s begin!
           Choose a player

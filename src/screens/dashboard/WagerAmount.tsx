@@ -7,7 +7,7 @@ const amounts: { wager: number, choose: boolean }[] = [{ wager: 200, choose: fal
 ]
 
 
-const WagerAmount = ({ navigation,route }: DashBoardNavProps<"WagerAmount">): JSX.Element => {
+const WagerAmount = ({ navigation, route }: DashBoardNavProps<"WagerAmount">): JSX.Element => {
   const [wagers, setWagers] = React.useState(amounts)
 
   const [wager, setWager] = React.useState<null | number>(null)
@@ -15,7 +15,7 @@ const WagerAmount = ({ navigation,route }: DashBoardNavProps<"WagerAmount">): JS
   const handleChoose = (amount: { wager: number, choose: boolean }) => {
     setWagers(wagers.map(item => item.wager === amount.wager ? ({ ...item, choose: true }) : { ...item, choose: false }))
   }
-  
+
   return (
     <Center>
       <Box px={"40px"} w="100%" mt={62}>
@@ -32,14 +32,14 @@ const WagerAmount = ({ navigation,route }: DashBoardNavProps<"WagerAmount">): JS
               NGN {item.wager}
             </Text>
           </NativeBtn>
-        )}/>
+        )} />
 
         <Box w={263} mx="auto">
-          <Button callback={() => navigation.navigate("PlayRandom",{name:route.params?.name,image:route.params?.image})} disabled={wager ? false : true} text='Continue' />
+          <Button callback={() => navigation.navigate("PlayRandom", { name: route.params?.name, image: route.params?.image })} disabled={wager ? false : true} text='Continue' />
         </Box>
       </Box>
     </Center>
-    )
+  )
 }
 
 export default WagerAmount
