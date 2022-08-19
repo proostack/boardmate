@@ -9,4 +9,4 @@ const StakeCoin = ():JSX.Element => {
     </Box>
   )
 }
-export default StakeCoin
+export default StakeCoin 
