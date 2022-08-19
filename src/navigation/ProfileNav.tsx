@@ -12,7 +12,8 @@ import Help from '../screens/ProfileMenu/Help'
 import Learn from '../screens/ProfileMenu/Learn'
 import Profile from '../screens/ProfileMenu/Profile'
 import { Icons } from '../app'
-
+import StakeCoin from '../screens/ProfileMenu/StakeCoin'
+import { Feather } from '@expo/vector-icons';
 
 const routes: { component: ({ navigation }: ProfileNavProps<"Dashboard">) => JSX.Element, name: keyof ProfileRoutes, image?: ImageSourcePropType, title: string }[] = [{
   component: Dashboard,
@@ -92,7 +93,12 @@ const ProfileNav = (): JSX.Element => {
               )
             }} />
       ))}
-
+      <Stack.Screen options={{
+         headerRight(){
+          return(<Feather name="info" size={24} color="white" />)
+        },
+        headerTitle:"Stake BM Coins"
+      }} name='Stake' component={StakeCoin} />
     </Stack.Navigator>
   )
 }

@@ -5,12 +5,13 @@ interface Props{
   bgColor?:string;
   borderColor?:string
   borderWidth?:number;
-  text:string
+  text:string;
+  onPress?:()=>void
 }
 
-const Button = ({color,bgColor,borderColor,borderWidth,text}:Props) => {
+const Button = ({color,bgColor,borderColor,borderWidth,text,onPress}:Props) => {
   return (
-    <NativeBtn variant={"unstyled"} bgColor={bgColor} borderColor={borderColor} borderWidth={borderWidth} mt={"10px"}  w={70} >
+    <NativeBtn onPress={onPress} variant={"unstyled"} bgColor={bgColor} borderColor={borderColor} borderWidth={borderWidth} mt={"10px"}  w={70} >
     <Text fontFamily={"ReadexProBold"} color={color}>{text}</Text>
     </NativeBtn>
   )

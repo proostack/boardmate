@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Center, Box, FlatList, Button, HStack, Image, Heading, Square, Circle } from "native-base";
+import { Text, Center, Box, HStack,  Heading, Square, Circle } from "native-base";
 import { Dimensions, ImageBackground } from 'react-native';
 import RandomUserPlay from '../../components/dashboard/RandomUserPlay';
 import { useSelector } from 'react-redux';
@@ -16,7 +16,7 @@ const PlayRandom = ({ route }: DashBoardNavProps<"PlayRandom">): JSX.Element => 
   return (
     <Center flex={1}>
       <ImageBackground style={{ flex: 1, width }} source={require("../../../assets/images/dashboard/map.png")}>
-        <Box maxW={375} mt={71} mx="auto" width="100%">
+        <Box maxW={375} mt={71} mx="auto" width="90%">
           <Heading fontFamily={"ReadexProBold"} color="white" w={126}>Play randomly</Heading>
           <Text color={"rgba(255, 255, 255, 1)"} mt={"20px"}>
             Play randomly wih friends or anybody around the world, enjoy the game.

@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Center, Text } from "native-base";
+import { Box, Center } from "native-base";
 
 import Button from "../../components/Buttons/Button";
 import FormHeader from "../../components/Headers/FormHeader";
@@ -12,7 +12,7 @@ const Username = ({
 
   return (
     <Box alignItems="center">
-      <Center mt={71} maxWidth={375}>
+      <Center mt={71} w="90%" maxWidth={375}>
         <FormHeader
           header="Choose a username"
           text="What should players call you? Create a username for yourself."

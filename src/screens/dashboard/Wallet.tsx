@@ -1,7 +1,7 @@
 import React from 'react'
-import { Text,Center,Box, FlatList, Button, HStack, Image, Heading, Square,Circle} from "native-base";
+import {Box} from "native-base";
 
-const Wallet = () => {
+const Wallet = ():JSX.Element => {
   return (
     <Box>Wallet</Box>
   )

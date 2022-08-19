@@ -75,4 +75,5 @@ Rules:undefined;
 Help:undefined;
 Learn:undefined;
 User:undefined
+Stake:undefined;
 }
