@@ -8,7 +8,7 @@ import { RootState } from '../store/store';
 import DashboardNav from './DashboardNav';
 import ProfileNav from './ProfileNav';
 import Wallet from '../screens/dashboard/Wallet';
-import { Circle, Image} from 'native-base';
+import { Circle, Image } from 'native-base';
 import { getFocusedRouteNameFromRoute, ParamListBase, RouteProp } from '@react-navigation/native';
 import { Icons } from '../app';
 
@@ -22,6 +22,7 @@ const Tabs = createBottomTabNavigator()
 
 
 const Routes = (): JSX.Element => {
+
   const { keyToken } = useSelector((state: RootState) => state.user)
   // console.log(keyToken)
   // const defaultToken = true
@@ -39,9 +40,13 @@ const Routes = (): JSX.Element => {
               {focused ? <Image source={Icons.home2} alt="home" /> : <Image source={Icons.home} alt="home" />}
             </Circle>
           ), tabBarStyle: {
-            display: getRouteName(route) == "Chess" ? "none" : "flex", position: 'absolute', height: 76, borderTopEndRadius: 30, borderTopStartRadius: 30
+            display: getRouteName(route) == "Chess" ? "none" : "flex",
+            position: 'absolute',
+            height: 76,
+            borderTopEndRadius: 30,
+            borderTopStartRadius: 30
           },
-         
+
         })} />
 
         <Tabs.Screen name='Wallet' component={Wallet} options={{
@@ -60,7 +65,11 @@ const Routes = (): JSX.Element => {
             </Circle>
           ),
           tabBarStyle: {
-            display: getRouteName(route) == "Dashboard" || getRouteName(route) == "User" || getRouteName(route) == "Friends" || getRouteName(route) == "Rules" || getRouteName(route) == "Help" || getRouteName(route) == "Learn" ? "none" : "flex", position: 'absolute', height: 76, borderTopEndRadius: 30, borderTopStartRadius: 30
+            display: getRouteName(route) == "Dashboard" || getRouteName(route) == "User" || getRouteName(route) == "Friends" || getRouteName(route) == "Rules" || getRouteName(route) == "Help" || getRouteName(route) == "Learn" ? "none" : "flex",
+            position: 'absolute',
+            height: 76,
+            borderTopEndRadius: 30,
+            borderTopStartRadius: 30
           }
         })
         } />

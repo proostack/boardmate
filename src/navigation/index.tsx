@@ -1,6 +1,8 @@
 import * as React from 'react'
 import LoadAssets from './LoadAssets'
 import Routes from './Routes'
+import { ApolloProvider } from "@apollo/client";
+import { client } from '../services';
 const NavigationWrapper = (): JSX.Element => {
     const fonts = {
         // Mulish font
@@ -11,11 +13,13 @@ const NavigationWrapper = (): JSX.Element => {
         "ReadexPro-Light": require("../../assets/fonts/ReadexPro-Light.ttf"),
         "ReadexPro-Regular": require("../../assets/fonts/ReadexPro-Regular.ttf"),
         "ReadexPro-Bold": require("../../assets/fonts/ReadexPro-SemiBold.ttf"),
-      }
+    }
 
     return (
-        <LoadAssets {...{fonts}}>
-            <Routes />
+        <LoadAssets {...{ fonts }}>
+            <ApolloProvider client={client}>
+                <Routes />
+            </ApolloProvider>
         </LoadAssets>
     )
 }

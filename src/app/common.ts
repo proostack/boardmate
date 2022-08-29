@@ -32,7 +32,8 @@ const icons = {
   watch:require("../../assets/images/profileMenu/watch.png"),
   rules:require("../../assets/images/profileMenu/rules.png"),
   help:require("../../assets/images/profileMenu/help.png"),
-  learn:require("../../assets/images/profileMenu/learn.png")
+  learn:require("../../assets/images/profileMenu/learn.png"),
+  overlayboard:require("../../assets/images/stakecoin/overlayBoard.png")
 };
 
 export default icons;

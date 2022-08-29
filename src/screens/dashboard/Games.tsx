@@ -59,35 +59,32 @@ const Games = ({
   navigation,
 }: DashBoardNavProps<"ChoosePlayer">): JSX.Element => {
   return (
-    <Center pt="62px">
-      <Box maxW={"375px"} w="90%" mt={47}>
-        <Box alignItems="flex-end">
-          <Badge {...badge[1]} />
-        </Box>
-
-        <Text mb="30px" fontFamily="ReadexProBold" w={150} fontSize={20} fontWeight={600}>
-          Select a game & play!
-        </Text>
-        <SafeAreaView>
-
-          <FlatList
-            mb={30}
-            data={games}
-            numColumns={2}
-            columnWrapperStyle={{ justifyContent: "space-between" }}
-            renderItem={({ item }) => (
-              <Game
-                callback={() =>
-                  navigation.navigate("ChoosePlayer", { name: item.name })
-                }
-                {...item}
-              />
-            )}
-          />
-        </SafeAreaView>
-
+    <Box pt="62px" mx="auto" flex={1} maxW={"375px"} w="90%" >
+      <Box alignItems="flex-end">
+        <Badge {...badge[1]} />
       </Box>
-    </Center>
+
+      <Text mb="30px" fontFamily="ReadexProBold" w={150} fontSize={20} fontWeight={600}>
+        Select a game & play!
+      </Text>
+      <Box mb={76} flex={1} >
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={games}
+          numColumns={2}
+          columnWrapperStyle={{ justifyContent: "space-between" }}
+          renderItem={({ item }) => (
+            <Game
+              callback={() =>
+                navigation.navigate("ChoosePlayer", { name: item.name })
+              }
+              {...item}
+            />
+          )}
+        />
+      </Box>
+
+    </Box>
   );
 };
 

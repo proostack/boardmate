@@ -2,7 +2,7 @@ import React from 'react'
 import { Text, Center, Circle, Image, Square } from "native-base";
 import { ImageSourcePropType } from 'react-native';
 interface Props {
-  name: string;
+  name?: string;
   image: ImageSourcePropType;
 }
 const RandomUserPlay = ({ image, name }: Props): JSX.Element => {
