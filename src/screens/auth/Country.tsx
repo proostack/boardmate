@@ -4,7 +4,9 @@ import Button from '../../components/Buttons/Button'
 import SelectCountry from '../../components/countryPicker/SelectCountry'
 import FormHeader from '../../components/Headers/FormHeader'
 import { AuthNavigationProps } from '../../types/routes'
-const Country = ({ navigation }: AuthNavigationProps<"Country">): JSX.Element => {
+const Country = ({ navigation,route }: AuthNavigationProps<"Country">): JSX.Element => {
+  const email=route.params?.email
+  const password=route.params?.password
   return (
     <Center>
       <Box maxW={375} w="90%">
@@ -19,7 +21,7 @@ const Country = ({ navigation }: AuthNavigationProps<"Country">): JSX.Element =>
         </Center>
 
         <Center flexDir={"row"} mt={50} maxW={375} mx="auto">
-          <Button text='Next' callback={() => navigation.navigate("Username")} />
+          <Button text='Next' callback={() => navigation.navigate("Username",{email,password})} />
         </Center>
       </Box>
     </Center>
