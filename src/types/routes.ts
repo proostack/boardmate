@@ -43,9 +43,9 @@ export type AuthRoutes = {
   ChooseHow: undefined;
   Email: undefined;
   Phone: undefined;
-  Country: undefined;
+  Country: Readonly<{email:string,password:string}>| undefined;
   ResetPwd: undefined;
-  Username: undefined;
+  Username: Readonly<{email?:string,password?:string}>| undefined;
   LoginPin: undefined;
   ResetPin: undefined;
   TransactionPin: undefined;

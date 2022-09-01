@@ -1,7 +1,7 @@
 import { InMemoryCache,ApolloClient } from "@apollo/client";
 
 const client =new ApolloClient({
-  uri:"https://rickandmortyapi.com/graphql",
+  uri:"https://boardgamemate.herokuapp.com/graphql",
   cache:new InMemoryCache()
 })
 
