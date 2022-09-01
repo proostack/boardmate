@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Center, Box, FlatList, Button, HStack, Image, Heading, Square, Circle } from "native-base";
+import { Text, Center, Box, HStack, Image } from "native-base";
 import { Dimensions, ImageSourcePropType, TouchableOpacity} from 'react-native';
 import { ProfileNavProps, ProfileRoutes } from '../../types/routes';
 import { useDispatch } from 'react-redux';
@@ -30,7 +30,7 @@ const ProfileMenu = ({navigation}:ProfileNavProps<"Dashboard">): JSX.Element => 
     <Center>
       <Box width={width} h={20} mt={50} px={31}>
         {profileArr.map((item:NavigateTypes,index:number)=>(
-          <TouchableOpacity key={index} onPress={()=>{item.text!=="Log out"?navigation.navigate(item.navigate):dispatch(setToken(false))}}>
+          <TouchableOpacity key={index} onPress={()=>{item.text!=="Log out"?navigation.navigate(item.navigate):dispatch(setToken(null))}}>
               <HStack key={index} alignItems={"center"} mb={50}>
                 <Image source={item.image} alt={item.text}/>
                 <Text ml={33} color={item.text==="Log out"?"red.500":"white"} fontSize={20} fontFamily={"ReadexProRegular"}>{item.text}

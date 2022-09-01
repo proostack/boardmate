@@ -5,6 +5,9 @@ import Game from "../../components/dashboard/Game";
 import { ImageSourcePropType, SafeAreaView } from "react-native";
 import { DashBoardNavProps } from "../../types/routes";
 import { Icons } from "../../app";
+import GetUser from "../../services/queries/GetUser";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 
 interface Games {
   image: ImageSourcePropType;
@@ -58,6 +61,14 @@ const games: Games[] = [
 const Games = ({
   navigation,
 }: DashBoardNavProps<"ChoosePlayer">): JSX.Element => {
+
+const {data,error,loading}=GetUser()
+const {keyToken}=useSelector((state:RootState)=>state.user)
+
+// console.log({data,error,loading})
+console.log({data,error,loading})
+
+
   return (
     <Box pt="62px" mx="auto" flex={1} maxW={"375px"} w="90%" >
       <Box alignItems="flex-end">

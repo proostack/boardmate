@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    keyToken: false,
+    keyToken: null,
     user: {
       phone: ""
     },

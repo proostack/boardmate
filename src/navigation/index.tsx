@@ -17,7 +17,7 @@ const NavigationWrapper = (): JSX.Element => {
 
     return (
         <LoadAssets {...{ fonts }}>
-            <ApolloProvider client={client}>
+            <ApolloProvider client={client()}>
                 <Routes />
             </ApolloProvider>
         </LoadAssets>
