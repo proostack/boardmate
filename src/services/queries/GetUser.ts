@@ -1,7 +1,5 @@
 import { useQuery, gql, ApolloError } from "@apollo/client";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
-
+// Query to get current User
 const GET_USER = gql`
 query MyQuery {
   currentUser {
@@ -23,7 +21,6 @@ export default ():{
     }
   }
 }=>{
-  const {keyToken}=useSelector((state:RootState)=>state.user)
   const {error,loading,data}=useQuery(GET_USER)
   return ({error,loading,data})
 }

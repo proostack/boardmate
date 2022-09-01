@@ -21,8 +21,6 @@ const signinSchema = yup.object({
 
 
 const SignIn = ({ navigation }: AuthNavigationProps<"Login">): JSX.Element => {
-  // const [email, setEmail] = useState<string>("")
-  // const [password, setpassword] = useState<string>("")
   const dispatch = useDispatch()
   const [signInUser, { data, error, loading, called }] = useMutation(SIGNIN_USER)
   const [show, setShow] = useState<boolean>(true)
@@ -34,6 +32,7 @@ const SignIn = ({ navigation }: AuthNavigationProps<"Login">): JSX.Element => {
       console.log(error.message)
     }
     else {
+      // Setting user token
       dispatch(setToken(data.loginInput.token))
     }
   }
