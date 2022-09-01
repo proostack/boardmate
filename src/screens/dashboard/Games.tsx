@@ -61,14 +61,9 @@ const games: Games[] = [
 const Games = ({
   navigation,
 }: DashBoardNavProps<"ChoosePlayer">): JSX.Element => {
-
-const {data,error,loading}=GetUser()
-const {keyToken}=useSelector((state:RootState)=>state.user)
-
+// const {data,error,loading}=GetUser()
+// const {keyToken}=useSelector((state:RootState)=>state.user)
 // console.log({data,error,loading})
-console.log({data,error,loading})
-
-
   return (
     <Box pt="62px" mx="auto" flex={1} maxW={"375px"} w="90%" >
       <Box alignItems="flex-end">

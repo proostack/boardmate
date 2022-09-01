@@ -61,6 +61,7 @@ const SignIn = ({ navigation }: AuthNavigationProps<"Login">): JSX.Element => {
 
                 {/* Login button */}
                 <Center mb={30}>
+                  <Text color="red.500" my={1}>{error?.message}</Text>
                   <Button callback={handleSubmit}>
                     <>
                       {(called && loading) && <Spinner color={"white"} />}
