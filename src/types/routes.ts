@@ -43,9 +43,9 @@ export type AuthRoutes = {
   ChooseHow: undefined;
   Email: undefined;
   Phone: undefined;
-  Country: Readonly<{email:string,password:string}>| undefined;
+  Country: Readonly<{ email: string, password: string }> | undefined;
   ResetPwd: undefined;
-  Username: Readonly<{email?:string,password?:string}>| undefined;
+  Username: Readonly<{ email?: string, password?: string }> | undefined;
   LoginPin: undefined;
   ResetPin: undefined;
   TransactionPin: undefined;
@@ -54,26 +54,26 @@ export type AuthRoutes = {
 
 export type DashboardRoutes = {
   Games: undefined;
-  ChoosePlayer:Readonly<{name?:string}> | undefined;
-  ChooseFriend:Readonly<{name?:string,image?:ImageSourcePropType}> | undefined;
-  PlayRandom: Readonly<{name?:string,image?:ImageSourcePropType}> | undefined;
+  ChoosePlayer: Readonly<{ name?: string }> | undefined;
+  ChooseFriend: Readonly<{ name?: string, image?: ImageSourcePropType }> | undefined;
+  PlayRandom: Readonly<{ name?: string, image?: ImageSourcePropType }> | undefined;
   ChallengeFriend: undefined;
-  WagerAmount: Readonly<{name?:string,image?:ImageSourcePropType}> | undefined;
-  Chess:Readonly<{name?:string,image?:ImageSourcePropType}> | undefined;
+  WagerAmount: Readonly<{ name?: string, image?: ImageSourcePropType }> | undefined;
+  Chess: Readonly<{ name?: string, image?: ImageSourcePropType }> | undefined;
 }
 export type Main = {
   AuthNavigation: undefined;
   DashboardNav: undefined;
 }
 
-export type ProfileRoutes={
-  Dashboard:undefined;
-  ProfileMenu:undefined;
-Friends:undefined;
-Watch:undefined;
-Rules:undefined;
-Help:undefined;
-Learn:undefined;
-User:undefined
-Stake:undefined;
+export type ProfileRoutes = {
+  Dashboard: undefined;
+  ProfileMenu: undefined;
+  Friends: undefined;
+  Watch: undefined;
+  Rules: undefined;
+  Help: undefined;
+  Learn: undefined;
+  User: undefined
+  Stake: undefined;
 }
