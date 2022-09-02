@@ -28,9 +28,9 @@ const ProfileMenu = ({ navigation }: ProfileNavProps<"Dashboard">): JSX.Element 
   const dispatch = useDispatch();
 
 
-  const logout_navigate = (item:any) => {
+  const logout_navigate = (item:NavigateTypes) => {
     if (item.text !== "Log out") {
-      navigation.navigate(item.text)
+      navigation.navigate(item.navigate)
     }
     else {
       dispatch(setToken(null))
