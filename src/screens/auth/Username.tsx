@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, Center, Spinner, Text } from "native-base";
 import { gql, useMutation } from "@apollo/client";
 import Button from "../../components/Buttons/Button";

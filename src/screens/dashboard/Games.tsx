@@ -1,8 +1,8 @@
 import React from "react";
-import { Text, Center, Box, FlatList } from "native-base";
+import { Text, Box, FlatList } from "native-base";
 import Badge from "../../components/dashboard/Badge";
 import Game from "../../components/dashboard/Game";
-import { ImageSourcePropType, SafeAreaView } from "react-native";
+import { ImageSourcePropType} from "react-native";
 import { DashBoardNavProps } from "../../types/routes";
 import { Icons } from "../../app";
 
@@ -58,6 +58,7 @@ const games: Games[] = [
 const Games = ({
   navigation,
 }: DashBoardNavProps<"ChoosePlayer">): JSX.Element => {
+
   return (
     <Box pt="62px" mx="auto" flex={1} maxW={"375px"} w="90%" >
       <Box alignItems="flex-end">
