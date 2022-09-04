@@ -12,6 +12,7 @@ import { Formik } from 'formik'
 const Email = ({ navigation }: AuthNavigationProps<"Email">): JSX.Element => {
   const [msg, setMsg] = useState<boolean>(true)
 
+  // gql Mutation to change password
   const [forgotPwdReq, { data, error, loading, called }] = useMutation(FORGOTPWD_REQ)
 
   const emailSchema = yup.object({
