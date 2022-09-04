@@ -15,6 +15,7 @@ const Email = ({ navigation }: AuthNavigationProps<"Email">): JSX.Element => {
   const [forgotPwdReq, { data, error, loading, called }] = useMutation(FORGOTPWD_REQ)
 
   const emailSchema = yup.object({
+    // validation schema for email
     email: yup.string()
       .required("This field is required")
       .email('Invalid email address')
@@ -22,13 +23,15 @@ const Email = ({ navigation }: AuthNavigationProps<"Email">): JSX.Element => {
   })
 
   const clearMessage = () => {
+    // clearing modal after 5 seconds
     setMsg(true)
     setTimeout(() => {
       setMsg(false)
     }, 5000)
   }
 
-  const emailCall = useCallback(() => {
+  const emailResponse = useCallback(() => {
+    // throw error or return message sent from server 
     if (called && !loading) {
 
       if (error) {
@@ -52,12 +55,13 @@ const Email = ({ navigation }: AuthNavigationProps<"Email">): JSX.Element => {
           <Formik initialValues={{ email: "", password: "" }}
             validationSchema={emailSchema}
             onSubmit={({ email }) => {
+              // submitting request to change password
               forgotPwdReq({
                 variables: {
                   email
                 }
               })
-              emailCall()
+              emailResponse()
             }}>
             {
               ({ handleSubmit, handleChange, values, errors }) => (
@@ -73,6 +77,7 @@ const Email = ({ navigation }: AuthNavigationProps<"Email">): JSX.Element => {
                     <Button
                       callback={handleSubmit}
                     >
+                      {/* Creating a loader on loading response */}
                       <>
                         {(called && loading) && <Spinner color={"white"} />}
                         {!loading && <Text
