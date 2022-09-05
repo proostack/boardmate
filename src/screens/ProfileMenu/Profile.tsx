@@ -22,7 +22,7 @@ const Profile = (): JSX.Element => {
 
   const [editable, setEditable] = useState<boolean>(false)
   const [username, setUserName] = useState<string>("Margin1")
-const [updateProfile,{data,called,loading,error}]=useMutation(UPDATE_PROFILE)
+  const [updateProfile, { data, called, loading, error }] = useMutation(UPDATE_PROFILE)
 
   const inputForms = [
     {
@@ -56,7 +56,15 @@ const [updateProfile,{data,called,loading,error}]=useMutation(UPDATE_PROFILE)
     setEditable(true)
   }
 
-  console.log(data)
+  if (!loading && called) {
+    if (error) {
+      console.log(error)
+    } else {
+      console.log(data)
+    }
+  }
+
+
   return (
     <Box flex={1} bgColor={"#32313F"} px={23}>
       <HStack mt={"32px"} >
@@ -65,13 +73,13 @@ const [updateProfile,{data,called,loading,error}]=useMutation(UPDATE_PROFILE)
           name={defaultUsers[0].name}
         />
       </HStack>
-<Button callback={()=>{
-  updateProfile()
-}}>
-  <Text color="white" fontSize={"2xl"}>
-    Update Profile
-  </Text>
-</Button>
+      <Button callback={() => {
+        updateProfile()
+      }}>
+        <Text color="white" fontSize={"2xl"}>
+          Update Profile
+        </Text>
+      </Button>
       <Box mt={"50px"}>
         {inputForms.map((item, index) => (
           <Box key={index} mb={30}>
