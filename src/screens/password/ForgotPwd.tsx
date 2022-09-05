@@ -1,7 +1,7 @@
 import { Center, Container, Text } from 'native-base'
 import React from 'react'
 
-const ForgotPwd = () => {
+const ForgotPwd = ():JSX.Element => {
   return (
     <Center>
     <Container>
