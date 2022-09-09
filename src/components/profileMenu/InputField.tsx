@@ -15,7 +15,11 @@ const InputField = ({ input, label, visiblity, setVisibility, editable, setInput
       <Text color={"white"} fontFamily={"ReadexProBold"} fontSize={14} mb={"5px"}>{label}</Text>
       <Input onChangeText={setInput}
         type={label === "Password" && visiblity ? "password" : "text"}
-        InputRightElement={<Icon mr={"12px"} as={label === "Password" ? <MaterialIcons onPress={setVisibility} name={visiblity ? 'visibility-off' : "visibility"} /> : null} />}
+        InputRightElement={<Icon mr={"12px"}
+          as={label === "Password" ? <MaterialIcons onPress={setVisibility}
+            name={visiblity ? 'visibility-off' : "visibility"} />
+            : null}
+        />}
         variant={"unstyled"}
         fontFamily={"ReadexProBold"}
         value={input}
@@ -27,14 +31,6 @@ const InputField = ({ input, label, visiblity, setVisibility, editable, setInput
         h={44}
         px={"12px"}
       />
-     {/* {profPwd==="profPwd" && (
-      <Button alignSelf="flex-end" variant="unstyled">
-      <Text color="accent_bg.50">
-        change password
-      </Text>
-      </Button>
-     )}  */}
-  
     </>
   )
 }
