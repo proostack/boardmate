@@ -9,7 +9,13 @@ interface Props {
   editable?: boolean;
   setInput?: Dispatch<SetStateAction<string>>;
 }
-const InputField = ({ input, label, visiblity, setVisibility, editable, setInput }: Props): JSX.Element => {
+const InputField = ({
+  input,
+  label,
+  visiblity,
+  setVisibility,
+  editable, setInput
+}: Props): JSX.Element => {
   return (
     <>
       <Text color={"white"} fontFamily={"ReadexProBold"} fontSize={14} mb={"5px"}>{label}</Text>
