@@ -5,7 +5,7 @@ const userSlice = createSlice({
   initialState: {
     keyToken: null,
     user: {
-      phone: ""
+      phone: [""]
     },
     defaultUsers: [
       { id: 1, name: "@knightsaul", image: require("../../assets/images/avatars/players/player1.png"), active: false, choose: false },
@@ -20,8 +20,8 @@ const userSlice = createSlice({
     ]
   },
   reducers: {
-    setUserDetails(state, action: PayloadAction<string>) {
-      state.user = { ...state.user, phone: action.payload }
+    setUserDetails(state, action: PayloadAction<string[]>) {
+      state.user = { ...state.user, phone: [...action.payload] }
     },
     setToken(state, action) {
       state.keyToken = action.payload

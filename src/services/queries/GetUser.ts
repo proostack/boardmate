@@ -5,7 +5,9 @@ query MyQuery {
   currentUser {
     email
     userName
-    password
+    phoneNumber
+    country
+    fullName
   }
 }
 `
@@ -16,11 +18,15 @@ export default ():{
   data:{
     currentUser:{
       email:string,
-      username:string,
-      password:string
+      userName:string,
+      password:string,
+      phoneNumber:string
+      country:string
+      fullName:string
     }
   }
 }=>{
   const {error,loading,data}=useQuery(GET_USER)
+
   return ({error,loading,data})
 }
