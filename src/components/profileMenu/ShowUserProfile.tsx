@@ -18,12 +18,14 @@ const ShowUserProfile = ({
   show
 }: IUserProps): JSX.Element => {
   return (
+    // edit button to show modal
     <Box mt={"50px"}>
       <Feather onPress={() => setVisible(true)}
         name="edit" style={styles.edit}
         size={19}
         color="#794DE3"
       />
+      {/* user details fields */}
       {inputForms?.map((item, index) => (
         <Box key={index} mb={item.label === "Password" ? 0 : 30}>
           <InputField {...item}
@@ -31,6 +33,7 @@ const ShowUserProfile = ({
             editable={false}
             visiblity={show}
           />
+          {/* change password button to show modal */}
           {item.label === "Password" && (
             <Button onPress={() => setPwdModal(true)} variant={"unstyled"} alignSelf="flex-end">
               <Text color="accent_bg.50">

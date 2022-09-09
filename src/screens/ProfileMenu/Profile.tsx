@@ -32,6 +32,7 @@ const Profile = (): JSX.Element => {
   const [profModal, setProfModal] = useState<boolean>(false)
   const [pwdModal, setPwdModal] = useState<boolean>(false)
 
+  // profile details
   const inputForms = [
     {
       label: "Full Name",
@@ -56,11 +57,13 @@ const Profile = (): JSX.Element => {
 
   ]
 
+  // show or hide password
   const setVisibility = () => {
     setShow(!show)
   }
 
   useEffect(() => {
+    // Getting the updated profile
     if (!loading && called) {
       if (error) {
         console.log(error)
@@ -70,6 +73,7 @@ const Profile = (): JSX.Element => {
       }
     }
 
+    // first loaded profile
     if (!user.loading && !called) {
       setUserDetails(userData)
       setFullName(userDetails?.fullName)
@@ -83,7 +87,7 @@ const Profile = (): JSX.Element => {
 
 
 
-
+  // Submitting request to update profile
   const submitProfileUpdate = () => {
     updateProfile({
       variables: {
@@ -108,7 +112,7 @@ const Profile = (): JSX.Element => {
             />
           </HStack>
 
-
+          {/* show loader or profile details */}
           {loading || user.loading ? <Spinner mt="30px" color={"white"} size={50} /> : (
             <ShowUserProfile
               inputForms={inputForms}
@@ -120,7 +124,7 @@ const Profile = (): JSX.Element => {
           )
           }
           {user.error && <Text textAlign={"center"} fontSize="3xl" mt="30px">{user.error.message}</Text>}
-
+          {/* update profile modal */}
           <Modal
             confirm={submitProfileUpdate}
             visible={profModal}
@@ -164,7 +168,7 @@ const Profile = (): JSX.Element => {
             </Box>
           </Modal>
 
-
+          {/* change password modal */}
           <Modal
             visible={pwdModal}
             setVisible={setPwdModal}

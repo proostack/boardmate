@@ -16,10 +16,11 @@ const Modal = ({
   visible,
   setVisible,
   confirm }: IModalProps): JSX.Element => {
+    // closing modal
   const closeModal = () => {
     setVisible(false)
   }
-
+// confirm button function
   const handleConfirmBtn = () => {
     if (confirm) {
       confirm()
