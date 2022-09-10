@@ -10,6 +10,8 @@ import Modal from '../../components/profileMenu/Modal';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import GetUser from '../../services/queries/GetUser';
 import ShowUserProfile from '../../components/profileMenu/ShowUserProfile';
+import SelectCountry from '../../components/countryPicker/SelectCountry';
+import { TranslationLanguageCodeMap } from 'react-native-country-picker-modal';
 const Profile = (): JSX.Element => {
   const profileDetails: string[] = [
     "Joined Apr 15, 2022",
@@ -100,6 +102,14 @@ const Profile = (): JSX.Element => {
     })
   }
 
+  // get country code and country
+  const getCountryCode=(countryCode:string)=>{
+    console.log(countryCode)
+  }
+  const getCountry=(country:string|TranslationLanguageCodeMap)=>{
+    console.log(country)
+  }
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar translucent={false} backgroundColor="black" />
@@ -152,6 +162,13 @@ const Profile = (): JSX.Element => {
                   label="Email"
                   setInput={setEmail}
                 />
+              </Box>
+              <Box>
+{/* <SelectCountry 
+getCountry={getCountry} 
+getCountryCode={getCountryCode}
+bgColor="green"
+/> */}
               </Box>
               <Box mb="15px">
                 <InputField
