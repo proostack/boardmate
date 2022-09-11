@@ -5,7 +5,7 @@ const userSlice = createSlice({
   initialState: {
     keyToken: null,
     user: {
-      phone: [""]
+      phone: Array(1)
     },
     defaultUsers: [
       { id: 1, name: "@knightsaul", image: require("../../assets/images/avatars/players/player1.png"), active: false, choose: false },

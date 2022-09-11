@@ -11,8 +11,8 @@ import { useDispatch } from 'react-redux'
 import { CountryCodeList } from './types'
 
 interface ICountryProps{
-getCountry:(country:string| TranslationLanguageCodeMap)=>void
-getCountryCode:(callingCode:string)=>void
+getCountry?:(country:string | TranslationLanguageCodeMap)=>void
+getCountryCode?:(callingCode:string)=>void
 bgColor?:string
 }
 
@@ -20,7 +20,7 @@ export default function SelectCountry({getCountry,getCountryCode,bgColor}:ICount
   const [countryCode, setCountryCode] = useState<any>('FR')
   const [callingCode, setCallingCode] = useState<string[]>()
   const [region, setRegion] = useState<region>()
-  const [countryDet, setCountryDet] = useState<Country|null>(null)
+  const [countryDetails, setCountryDetails] = useState<Country|null>(null)
   const withCountryNameButton = (true)
   const withFlag = (true)
   const withEmoji = (false)
@@ -31,12 +31,15 @@ export default function SelectCountry({getCountry,getCountryCode,bgColor}:ICount
   const dispatch=useDispatch()
   const onSelect = (country: Country) => {
     setCountryCode(country.cca2)
-    setCountryDet(country)
+    setCountryDetails(country)
     setRegion(country.region)
     setCallingCode(country.callingCode)
     dispatch(setUserDetails(country.callingCode))
-    getCountry(country.name)
-    getCountryCode(country.callingCode[0])
+    if(getCountry && getCountryCode){
+      getCountry(country.name)
+      getCountryCode(country.callingCode[0])
+
+    }
   }
   const onClose=()=>{
     console.log("closed")
@@ -63,11 +66,11 @@ export default function SelectCountry({getCountry,getCountryCode,bgColor}:ICount
                 <Box flexDirection="row" w="100%" style={[styles.containerButtonStyle,{backgroundColor: bgColor?bgColor:"#F9F9FA"}]}>
 
                   <Box flexDirection="row" borderRightWidth={1} borderColor="#ECECEC">
-                  <Image style={{ width: 30, height: 24}} source={{ uri: countryDet?.flag }} alt="flag" />
+                  <Image style={{ width: 30, height: 24}} source={{ uri: countryDetails?.flag }} alt="flag" />
                   <Entypo name="chevron-small-down" style={{marginRight:10,marginLeft:10 }} size={24} color="#393939C2" />
                   </Box>
                   
-                  <Text style={{ fontSize: 18, color: "#393939C2", marginLeft: 16 }} >{countryDet?.name ? countryDet.name : "select a country"}</Text>
+                  <Text style={{ fontSize: 18, color: "#393939C2", marginLeft: 16 }} >{countryDetails?.name ? countryDetails.name : "select a country"}</Text>
                 </Box>
               </TouchableOpacity>
           ),

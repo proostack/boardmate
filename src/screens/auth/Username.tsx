@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Center, Spinner, Text } from "native-base";
 import { gql, useMutation } from "@apollo/client";
 import Button from "../../components/Buttons/Button";
@@ -6,6 +6,7 @@ import FormHeader from "../../components/Headers/FormHeader";
 import InputField from "../../components/InputField";
 import { AuthNavigationProps } from "../../types/routes";
 import { SIGNUP_USER } from "../../services/auth/SignUpUser";
+import useAuth from "../../hooks/useAuth";
 
 
 const Username = ({
@@ -15,16 +16,11 @@ const Username = ({
   const [username, setUsername] = React.useState<string>("");
   const email = route.params?.email
   const password = route.params?.password
-  const [signUpUser, { data, loading, error, called }] = useMutation(SIGNUP_USER);
-
-  if (called && !loading) {
-    if (error) {
-      console.log(error)
-    }
-    else {
-      navigation.navigate("Login")
-    }
+  const navigateUser = () => {
+    navigation.navigate("Login")
   }
+
+  const { fireMutation, error, loading, called } = useAuth(navigateUser, SIGNUP_USER)
 
   return (
     <Box alignItems="center">
@@ -50,7 +46,7 @@ const Username = ({
           <Button
             disabled={!username}
             callback={() => {
-              signUpUser({
+              fireMutation({
                 variables: {
                   email,
                   password,
