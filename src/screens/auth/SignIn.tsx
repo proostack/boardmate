@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 import { setToken } from '../../store/user';
 import { SIGNIN_USER } from "../../services/auth/SignInUser";
 import useAuth from "../../hooks/useAuth";
+import { loginDataType } from "../../types/generalTypes";
 
 
 const signinSchema = yup.object({
@@ -30,10 +31,10 @@ const SignIn = ({ navigation }: AuthNavigationProps<"Login">): JSX.Element => {
   const setVisibilty = () => {
     setShow(!show)
   }
-  const handleSetToken = () => {
-    dispatch(setToken(data.loginInput.token))
+  const handleSetToken = (data: loginDataType) => {
+    dispatch(setToken(data?.loginInput.token))
   }
-  const { loading, error, called, fireMutation, data } = useAuth(handleSetToken, SIGNIN_USER)
+  const { loading, error, called, fireMutation } = useAuth(handleSetToken, SIGNIN_USER)
 
   return (
     <Box alignItems="center" w="100%" mt={71}>

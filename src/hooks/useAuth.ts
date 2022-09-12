@@ -1,21 +1,19 @@
-import { useMutation } from '@apollo/client';
-import { useEffect } from 'react'
+import { DocumentNode, useMutation } from '@apollo/client';
+import { loginDataType, ReturnAuth } from '../types/generalTypes';
 
-const useAuth = (callback: () => void, mutationType: any) => {
+const useAuth = (
+  callback: (data: loginDataType) => void,
+  mutationType: DocumentNode): ReturnAuth => {
   const [fireMutation, { data, loading, error, called }] = useMutation(mutationType);
-
-  useEffect(() => {
-    if (called && !loading) {
-      if (error) {
-        console.log(error)
-      }
-      else {
-        callback()
-      }
-    }
-  }, [loading, called])
+  if (called && !loading) {
+    callback(data)
+  }
   return ({
-    called, error, loading, fireMutation, data
+    called,
+    error,
+    loading,
+    fireMutation,
+    data
   })
 }
 
