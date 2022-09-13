@@ -9,33 +9,32 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import { useDispatch } from 'react-redux';
 import { setToken } from '../../store/user';
-import { useMutation } from "@apollo/client";
 import { SIGNIN_USER } from "../../services/auth/SignInUser";
+import useAuth from "../../hooks/useAuth";
+import { loginDataType } from "../../types/generalTypes";
 
 
 const signinSchema = yup.object({
-  email: yup.string().required("This field is required").email('Invalid email address'),
-  password: yup.string().required("This is a required field").min(6)
+  email: yup.string()
+    .required("This field is required")
+    .email('Invalid email address'),
+  password: yup.string()
+    .required("This is a required field")
+    .min(6)
 })
 
 
 
 const SignIn = ({ navigation }: AuthNavigationProps<"Login">): JSX.Element => {
   const dispatch = useDispatch()
-  const [signInUser, { data, error, loading, called }] = useMutation(SIGNIN_USER)
   const [show, setShow] = useState<boolean>(true)
   const setVisibilty = () => {
     setShow(!show)
   }
-  if (called && !loading) {
-    if (error) {
-      console.log(error.message)
-    }
-    else {
-      // Setting user token
-      dispatch(setToken(data.loginInput.token))
-    }
+  const handleSetToken = (data: loginDataType) => {
+    dispatch(setToken(data?.loginInput.token))
   }
+  const { loading, error, called, fireMutation } = useAuth(handleSetToken, SIGNIN_USER)
 
   return (
     <Box alignItems="center" w="100%" mt={71}>
@@ -48,7 +47,7 @@ const SignIn = ({ navigation }: AuthNavigationProps<"Login">): JSX.Element => {
         <Formik initialValues={{ email: "", password: "" }}
           validationSchema={signinSchema}
           onSubmit={({ email, password }) => {
-            signInUser({ variables: { email, password } })
+            fireMutation({ variables: { email, password } })
           }}>
           {
             ({ handleSubmit, handleChange, values, errors, touched }) => (

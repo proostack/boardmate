@@ -336,3 +336,5 @@ export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 export function isCountryCode(str: string): str is CountryCode {
   return CountryCodeList.some((code) => code === str);
 }
+
+export type region="Africa" | "Americas" | "Antarctic" | "Asia" | "Europe" | "Oceania" | undefined

@@ -1,71 +1,186 @@
-import React, { useState } from 'react'
-import { Text,Center,Box, FlatList, Button, HStack} from "native-base";
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store/store';
+import React, { useEffect } from 'react'
+import { Box, HStack, Text, StatusBar, KeyboardAvoidingView, Spinner } from "native-base";
 import UserInfo from '../../components/profileMenu/UserInfo';
 import InputField from '../../components/profileMenu/InputField';
+import Modal from '../../components/profileMenu/Modal';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import ShowUserProfile from '../../components/profileMenu/ShowUserProfile';
+// import { TranslationLanguageCodeMap } from 'react-native-country-picker-modal';
+import useProfile from '../../hooks/useProfile';
+const Profile = (): JSX.Element => {
+  const profileDetails: string[] = [
+    "Joined Apr 15, 2022",
+    "BM Coin available; 7000",
+    "Rating; 35"
+  ]
+  const {
+    updateProfile, called, error, loading,
+    userName, setUserName,
+    country, setCountry,
+    data, defaultUsers,
+    email, setEmail,
+    fullName, setFullName,
+    profModal, setProfModal,
+    phoneNumber, setPhoneNumber,
+    pwd, setPwd,
+    pwdModal, setPwdModal,
+    confirmPwd, setConfirmPwd,
+    userDetails, setUserDetails,
+    show, setShow, user, userData, inputForms
+  } = useProfile()
 
 
 
-const Profile = ():JSX.Element => {
-  const profileDetails:string[]=["Joined Apr 15, 2022","BM Coin available; 7000","Rating; 35"]
-  const {defaultUsers}=useSelector((state:RootState)=>state.user)
-  const [show, setShow] = useState<boolean>(true)
- 
-const [editable,setEditable]=useState<boolean>(false)
-const [username,setUserName]=useState<string>("Margin1")
-
-
-const inputForms=[
-  {
-  label:"Full Name",
-  input:"Abdurrazzaq Abdulmuhsin Bidemi"
-},
-{
-  label:"Username",
-  input:username
-},
-{
-  label:"Email Address",
-  input:"abdurrazzaqabdulmuhsin7@gmail.com"
-},
-{
-  label:"Password",
-  input:"1234567890"
-},
-{
-  label:"Country",
-  input:"Nigeria"
-},
-
-]
-
+  // show or hide password
   const setVisibility = () => {
     setShow(!show)
   }
 
-const handleEditable=()=>{
-  setEditable(true)
-}
+  useEffect(() => {
+    // Getting the updated profile
+    if (!loading && called) {
+      if (error) {
+        console.log(error)
+      } else {
+        const updatedInfos = data?.UpdateUserInput
+        setUserDetails(updatedInfos)
+      }
+    }
+
+    // first loaded profile
+    if (!user.loading && !called) {
+      setUserDetails(userData)
+      setFullName(userDetails?.fullName)
+      setPhoneNumber(userDetails?.phoneNumber)
+      setUserName(userDetails?.userName)
+      setCountry(userDetails?.country)
+      setEmail(userDetails?.email)
+    }
+  }, [loading, called, user.loading, profModal])
+
+
+
+
+  // Submitting request to update profile
+  const submitProfileUpdate = () => {
+    updateProfile({
+      variables: {
+        fullName,
+        phoneNumber,
+        userName,
+        country,
+        email
+      }
+    })
+  }
+
+  // get country code and country
+  // const getCountryCode = (countryCode: string) => {
+  //   console.log(countryCode)
+  // }
+  // const getCountry = (country: string | TranslationLanguageCodeMap) => {
+  //   console.log(country)
+  // }
 
   return (
-    <Box flex={1} bgColor={"#32313F"} px={23}>
-           <HStack mt={"32px"} >
-     <UserInfo profileDetails={profileDetails} image={defaultUsers[0].image} name={defaultUsers[0].name}/>
-     </HStack>
+    <SafeAreaView style={{ flex: 1 }}>
+      <StatusBar translucent={false} backgroundColor="black" />
+      <KeyboardAvoidingView style={{ flex: 1 }}>
+        <Box flex={1} bgColor={"#32313F"} px={23}>
+          <HStack mt={"32px"} >
+            <UserInfo profileDetails={profileDetails}
+              image={defaultUsers[0].image}
+              name={defaultUsers[0].name}
+            />
+          </HStack>
 
-     <Box mt={"50px"}>
-      {inputForms.map((item,index)=>(    
-         <Box key={index} mb={30}>
-      <InputField {...item} setUserName={setUserName} setEditable={handleEditable} setVisibility={setVisibility} editable={editable} 
-      
-      visiblity={show}/>
-      </Box>
-  ))}
- 
+          {/* show loader or profile details */}
+          {loading || user.loading ? <Spinner mt="30px" color={"white"} size={50} /> : (
+            <ShowUserProfile
+              inputForms={inputForms}
+              setPwdModal={setPwdModal}
+              setVisibility={setVisibility}
+              show={show}
+              setVisible={setProfModal}
+            />
+          )
+          }
+          {user.error && <Text textAlign={"center"} fontSize="3xl" mt="30px">{user.error.message}</Text>}
+          {/* update profile modal */}
+          <Modal
+            confirm={submitProfileUpdate}
+            visible={profModal}
+            setVisible={setProfModal}
+            modalColor={"darkTheme.50"}
+          >
+            <Box w="100%" >
+              <Box mb="15px">
+                <InputField
+                  input={fullName}
+                  label="Full Name"
+                  setInput={setFullName}
+                />
+              </Box>
+              <Box mb="15px">
+                <InputField
+                  input={userName}
+                  label="Username"
+                  setInput={setUserName}
+                />
+              </Box>
+              <Box mb="15px">
+                <InputField
+                  input={email}
+                  label="Email"
+                  setInput={setEmail}
+                />
+              </Box>
+              <Box>
+                {/* <SelectCountry 
+                  getCountry={getCountry} 
+                  getCountryCode={getCountryCode}
+                  bgColor="green"
+                  /> */}
+              </Box>
+              <Box mb="15px">
+                <InputField
+                  input={country}
+                  label="Country"
+                  setInput={setCountry}
+                />
+              </Box>
+              <InputField
+                input={phoneNumber}
+                label="Phone Number"
+                setInput={setPhoneNumber}
+              />
+            </Box>
+          </Modal>
 
-     </Box>
-      </Box>
+          {/* change password modal */}
+          <Modal
+            visible={pwdModal}
+            setVisible={setPwdModal}
+            modalColor={"darkTheme.50"}
+          >
+            <Box w="100%" >
+              <Box mb="15px">
+                <InputField input={pwd}
+                  label="New Password"
+                  setInput={setConfirmPwd}
+                />
+              </Box>
+              <Box mb="15px">
+                <InputField input={confirmPwd}
+                  label="Confirm New Password"
+                  setInput={setConfirmPwd}
+                />
+              </Box>
+            </Box>
+          </Modal>
+        </Box>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   )
 }
 export default Profile
