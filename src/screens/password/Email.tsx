@@ -34,15 +34,8 @@ const Email = ({ navigation }: AuthNavigationProps<"Email">): JSX.Element => {
   const emailResponse = useCallback(() => {
     // throw error or return message sent from server 
     if (called && !loading) {
-
-      if (error) {
-        console.log(error)
-      }
-      else {
-        console.log("data")
         clearMessage()
         // navigation.navigate("ResetPin")
-      }
     }
   }, [data])
 

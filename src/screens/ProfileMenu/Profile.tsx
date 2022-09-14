@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, HStack, Text, StatusBar, KeyboardAvoidingView, Spinner } from "native-base";
 import UserInfo from '../../components/profileMenu/UserInfo';
 import InputField from '../../components/profileMenu/InputField';
@@ -23,19 +23,18 @@ const Profile = (): JSX.Element => {
     profModal, setProfModal,
     phoneNumber, setPhoneNumber,
     pwd, setPwd,
-    pwdModal, setPwdModal,
+    oldPwd, setOldPwd,
     confirmPwd, setConfirmPwd,
+    pwdModal, setPwdModal,
     userDetails, setUserDetails,
-    show, setShow, user, userData, inputForms
+   user, userData, inputForms, 
+   changePassword, editedPwd, clearMsg, pwdUpdateStat
   } = useProfile()
 
 
 
   // show or hide password
-  const setVisibility = () => {
-    setShow(!show)
-  }
-
+ 
   useEffect(() => {
     // Getting the updated profile
     if (!loading && called) {
@@ -56,7 +55,17 @@ const Profile = (): JSX.Element => {
       setCountry(userDetails?.country)
       setEmail(userDetails?.email)
     }
-  }, [loading, called, user.loading, profModal])
+
+    if (editedPwd.called && !editedPwd.loading) {
+      clearMsg()
+    }
+    // if(editedPwd.called && !editedPwd.loading && editedPwd.error){
+    //   console.log(editedPwd.error)
+    // }
+  }, [loading, called, user.loading, profModal,editedPwd.loading])
+
+
+
 
 
 
@@ -73,7 +82,15 @@ const Profile = (): JSX.Element => {
       }
     })
   }
-
+  const submitChangepwd = () => {
+    changePassword({
+      variables: {
+        oldPwd,
+        pwd,
+        confirmPwd
+      }
+    })
+  }
   // get country code and country
   // const getCountryCode = (countryCode: string) => {
   //   console.log(countryCode)
@@ -81,7 +98,9 @@ const Profile = (): JSX.Element => {
   // const getCountry = (country: string | TranslationLanguageCodeMap) => {
   //   console.log(country)
   // }
-
+const [showOldPwd,setShowOldPwd]=useState(true)
+const [showNewPwd,setShowNewPwd]=useState(true)
+const [showConfirmPwd,setShowConfirmPwd]=useState(true)
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar translucent={false} backgroundColor="black" />
@@ -99,9 +118,11 @@ const Profile = (): JSX.Element => {
             <ShowUserProfile
               inputForms={inputForms}
               setPwdModal={setPwdModal}
-              setVisibility={setVisibility}
-              show={show}
               setVisible={setProfModal}
+              pwdError={editedPwd.error}
+              pwdSuccess={editedPwd.data}
+              pwdUpdateStat={pwdUpdateStat}
+              pwdLoader={editedPwd.loading}
             />
           )
           }
@@ -135,6 +156,7 @@ const Profile = (): JSX.Element => {
                   setInput={setEmail}
                 />
               </Box>
+
               <Box>
                 {/* <SelectCountry 
                   getCountry={getCountry} 
@@ -162,17 +184,31 @@ const Profile = (): JSX.Element => {
             visible={pwdModal}
             setVisible={setPwdModal}
             modalColor={"darkTheme.50"}
+            confirm={submitChangepwd}
           >
             <Box w="100%" >
               <Box mb="15px">
+                <InputField input={oldPwd}
+                  label="Old Password"
+                  setInput={setOldPwd}
+                  visiblity={showOldPwd}
+                  setVisibility={()=>setShowOldPwd(!showOldPwd)}
+                />
+              </Box>
+
+              <Box mb="15px">
                 <InputField input={pwd}
                   label="New Password"
-                  setInput={setConfirmPwd}
+                  visiblity={showNewPwd}
+                  setVisibility={()=>setShowNewPwd(!showNewPwd)}
+                  setInput={setPwd}
                 />
               </Box>
               <Box mb="15px">
                 <InputField input={confirmPwd}
                   label="Confirm New Password"
+                  visiblity={showConfirmPwd}
+                  setVisibility={()=>setShowConfirmPwd(!showConfirmPwd)}
                   setInput={setConfirmPwd}
                 />
               </Box>
