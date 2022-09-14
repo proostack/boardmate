@@ -28,7 +28,9 @@ const Profile = (): JSX.Element => {
     pwdModal, setPwdModal,
     userDetails, setUserDetails,
    user, userData, inputForms, 
-   changePassword, editedPwd, clearMsg, pwdUpdateStat
+   changePassword, editedPwd, clearMsg, 
+   pwdUpdateStat,showNewPwd,showOldPwd,showConfirmPwd,
+   setShowOldPwd,setShowNewPwd,setShowConfirmPwd
   } = useProfile()
 
 
@@ -98,9 +100,7 @@ const Profile = (): JSX.Element => {
   // const getCountry = (country: string | TranslationLanguageCodeMap) => {
   //   console.log(country)
   // }
-const [showOldPwd,setShowOldPwd]=useState(true)
-const [showNewPwd,setShowNewPwd]=useState(true)
-const [showConfirmPwd,setShowConfirmPwd]=useState(true)
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar translucent={false} backgroundColor="black" />

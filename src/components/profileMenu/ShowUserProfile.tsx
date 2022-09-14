@@ -3,20 +3,8 @@ import React from 'react'
 import { Feather } from '@expo/vector-icons';
 import InputField from './InputField';
 import { StyleSheet } from 'react-native';
-import { ApolloError } from '@apollo/client';
-type IUserProps = {
-  inputForms: { label: string, input: string }[] | null;
-  setVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  setPwdModal: React.Dispatch<React.SetStateAction<boolean>>;
-  pwdError?: ApolloError,
-  pwdSuccess?: {
-    changePasswordInput: {
-      Message: string
-    }
-  },
-  pwdUpdateStat: boolean,
-  pwdLoader: boolean
-}
+import { IUserProps } from '../../types/generalTypes';
+
 const ShowUserProfile = ({
   inputForms,
   setVisible,
@@ -77,7 +65,6 @@ const ShowUserProfile = ({
         </Button>
       )
       }
-
     </Box>
   )
 }
