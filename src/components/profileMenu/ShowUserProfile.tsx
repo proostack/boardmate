@@ -1,22 +1,20 @@
-import { Box, Button, Text } from 'native-base'
+import { Box, Button, Spinner, Text } from 'native-base'
 import React from 'react'
 import { Feather } from '@expo/vector-icons';
 import InputField from './InputField';
 import { StyleSheet } from 'react-native';
-type IUserProps = {
-  inputForms: { label: string, input: string }[] | null;
-  setVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  setPwdModal: React.Dispatch<React.SetStateAction<boolean>>;
-  setVisibility: () => void;
-  show: boolean
-}
+import { IUserProps } from '../../types/generalTypes';
+
 const ShowUserProfile = ({
   inputForms,
   setVisible,
-  setVisibility,
   setPwdModal,
-  show
+  pwdError,
+  pwdSuccess,
+  pwdUpdateStat,
+  pwdLoader
 }: IUserProps): JSX.Element => {
+
   return (
     // edit button to show modal
     <Box mt={"50px"}>
@@ -29,20 +27,44 @@ const ShowUserProfile = ({
       {inputForms?.map((item, index) => (
         <Box key={index} mb={item.label === "Password" ? 0 : 30}>
           <InputField {...item}
-            setVisibility={setVisibility}
             editable={false}
-            visiblity={show}
+            visiblity={false}
           />
-          {/* change password button to show modal */}
-          {item.label === "Password" && (
-            <Button onPress={() => setPwdModal(true)} variant={"unstyled"} alignSelf="flex-end">
-              <Text color="accent_bg.50">
-                Change Password
-              </Text>
-            </Button>
-          )}
         </Box>
       ))}
+
+
+      {/* change password button to show modal */}
+      <Box mb={3}>
+        {(pwdError && pwdUpdateStat) && <Text textAlign={"center"}
+          color="red.500"
+          fontFamily={"ReadexProBold"}
+        >
+          {pwdError.message}
+        </Text>}
+        {(pwdSuccess && pwdUpdateStat) && <Text textAlign={"center"}
+          color="green.500" fontFamily={"ReadexProBold"}
+        >
+          {pwdSuccess.changePasswordInput.Message}
+        </Text>
+        }
+      </Box>
+
+      {/* {console.log(pwdSuccess?.Message)} */}
+      {pwdLoader ? <Spinner color={"green"} size={30} /> : (
+        <Button onPress={() => setPwdModal(true)}
+          variant={"unstyled"}
+          bgColor="accent_bg.50"
+        >
+          <Text color="white"
+            textTransform={"uppercase"}
+            fontFamily='ReadexProBold'
+          >
+            Change Password
+          </Text>
+        </Button>
+      )
+      }
     </Box>
   )
 }

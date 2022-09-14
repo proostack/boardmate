@@ -20,9 +20,9 @@ const InputField = ({
     <>
       <Text color={"white"} fontFamily={"ReadexProBold"} fontSize={14} mb={"5px"}>{label}</Text>
       <Input onChangeText={setInput}
-        type={label === "Password" && visiblity ? "password" : "text"}
+        type={label.includes("Password" )&& visiblity ? "password" : "text"}
         InputRightElement={<Icon mr={"12px"}
-          as={label === "Password" ? <MaterialIcons onPress={setVisibility}
+          as={label.includes("Password") ? <MaterialIcons onPress={setVisibility}
             name={visiblity ? 'visibility-off' : "visibility"} />
             : null}
         />}
