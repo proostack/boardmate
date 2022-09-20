@@ -8,7 +8,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { Image, StyleSheet } from "react-native";
 import { Vector } from "react-native-redash";
-import { Chess, ChessInstance, Square } from "chess.js";
+import { Chess, ChessInstance, ShortMove, Square } from "chess.js";
 import { SIZE, toPosition, toTranslation } from "../chess/Notation";
 import { PanGestureHandler } from "react-native-gesture-handler";
 
@@ -57,6 +57,13 @@ const Piece = ({
   const offsetY = useSharedValue(0);
   const translateX = useSharedValue(startPosition.x * SIZE);
   const translateY = useSharedValue(startPosition.y * SIZE);
+  const AIMoves = () => {
+    const possibleMoves = chess.moves()
+    if (possibleMoves.length === 0) return
+    const randomMove = Math.floor(Math.random() * possibleMoves.length)
+    chess.move(possibleMoves[randomMove] as Square)
+    onTurn()
+  }
   const movePiece = useCallback(
     (from: any, to: any) => {
       const move = chess
@@ -72,16 +79,22 @@ const Piece = ({
         offsetY.value = translateY.value;
         isGestureActive.value = false;
       });
-      // if(!chess.game_over()){
       if (move) {
         chess.move(move);
-        onTurn();
+        onTurn()
+        setTimeout(AIMoves, 2000)
       }
-      // }
-
     },
     [chess, offsetX, offsetY, onTurn, isGestureActive, translateX, translateY]
   );
+
+  const movingPiece = (translationX: number, translationY: number) => {
+    if (chess.game_over()) return
+    if(id.includes('b')) return
+    translateX.value = offsetX.value + translationX
+    translateY.value = offsetY.value + translationY
+  }
+
   const onGestureEvent = useAnimatedGestureHandler({
     onStart: () => {
       offsetX.value = translateX.value;
@@ -89,13 +102,13 @@ const Piece = ({
       isGestureActive.value = true;
     },
     onActive: ({ translationX, translationY }) => {
-      translateX.value = offsetX.value + translationX;
-      translateY.value = offsetY.value + translationY;
+      runOnJS(movingPiece)(translationX, translationY)
     },
     onEnd: () => {
       const from = toPosition({ x: offsetX.value, y: offsetY.value });
       const to = toPosition({ x: translateX.value, y: translateY.value });
       runOnJS(movePiece)(from, to);
+
     },
   });
 
@@ -137,11 +150,13 @@ const Piece = ({
       transform: [{ translateX: translation.x }, { translateY: translation.y }],
     };
   });
+
+
   return (
     <>
       <Animated.View style={topmost} />
       <Animated.View style={underlay} />
-      <PanGestureHandler onGestureEvent={onGestureEvent} enabled={enabled}>
+      <PanGestureHandler onGestureEvent={onGestureEvent}>
         <Animated.View style={style}>
           <Image source={PIECES[id]} style={styles.piece} />
         </Animated.View>

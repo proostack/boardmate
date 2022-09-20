@@ -18,7 +18,6 @@ import Quit from "../components/modals/Quit";
 import { DashBoardNavProps } from "../../../types/routes";
 import TopNav from "../components/TopNav";
 import { Box } from "native-base";
-
 const styles = StyleSheet.create({
   container: {
     width,
