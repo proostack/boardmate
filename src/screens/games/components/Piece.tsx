@@ -8,9 +8,11 @@ import Animated, {
 } from "react-native-reanimated";
 import { Image, StyleSheet } from "react-native";
 import { Vector } from "react-native-redash";
-import { Chess, ChessInstance, ShortMove, Square } from "chess.js";
+import { ChessInstance,  Square } from "chess.js";
 import { SIZE, toPosition, toTranslation } from "../chess/Notation";
 import { PanGestureHandler } from "react-native-gesture-handler";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/store";
 
 const styles = StyleSheet.create({
   piece: {
@@ -52,6 +54,9 @@ const Piece = ({
   onTurn,
   enabled,
 }: PieceProps): JSX.Element => {
+const {player}=useSelector((state:RootState)=>state.user)
+const opponent=player
+
   const offsetX = useSharedValue(0);
   const isGestureActive = useSharedValue(false);
   const offsetY = useSharedValue(0);
@@ -59,7 +64,7 @@ const Piece = ({
   const translateY = useSharedValue(startPosition.y * SIZE);
   const AIMoves = () => {
     const possibleMoves = chess.moves()
-    if (possibleMoves.length === 0) return
+    if (possibleMoves.length === 0 || opponent.name!=='AI') return
     const randomMove = Math.floor(Math.random() * possibleMoves.length)
     chess.move(possibleMoves[randomMove] as Square)
     onTurn()
@@ -90,7 +95,7 @@ const Piece = ({
 
   const movingPiece = (translationX: number, translationY: number) => {
     if (chess.game_over()) return
-    if(id.includes('b')) return
+    if(id.includes('b') && opponent.name==='AI') return
     translateX.value = offsetX.value + translationX
     translateY.value = offsetY.value + translationY
   }
@@ -156,7 +161,7 @@ const Piece = ({
     <>
       <Animated.View style={topmost} />
       <Animated.View style={underlay} />
-      <PanGestureHandler onGestureEvent={onGestureEvent}>
+      <PanGestureHandler onGestureEvent={onGestureEvent} enabled={opponent.name==='AI'?true:enabled}>
         <Animated.View style={style}>
           <Image source={PIECES[id]} style={styles.piece} />
         </Animated.View>

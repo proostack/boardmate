@@ -33,7 +33,11 @@ const icons = {
   rules:require("../../assets/images/profileMenu/rules.png"),
   help:require("../../assets/images/profileMenu/help.png"),
   learn:require("../../assets/images/profileMenu/learn.png"),
-  overlayboard:require("../../assets/images/stakecoin/overlayBoard.png")
+  overlayboard:require("../../assets/images/stakecoin/overlayBoard.png"),
+  player1:require('../../assets/images/avatars/players/player1.png'),
+  player2:require('../../assets/images/avatars/players/player2.png'),
+  player3:require('../../assets/images/avatars/players/player3.png'),
+  player4:require('../../assets/images/avatars/players/player4.png')
 };
 
 export default icons;
