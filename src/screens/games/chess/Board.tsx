@@ -18,7 +18,6 @@ import Quit from "../components/modals/Quit";
 import { DashBoardNavProps } from "../../../types/routes";
 import TopNav from "../components/TopNav";
 import { Box } from "native-base";
-
 const styles = StyleSheet.create({
   container: {
     width,
@@ -42,9 +41,9 @@ const styles = StyleSheet.create({
 });
 
 const Board = ({ navigation }: DashBoardNavProps<"Chess">): JSX.Element => {
-  const { defaultUsers } = useSelector((state: RootState) => state.user)
+  const { defaultUsers,player } = useSelector((state: RootState) => state.user)
   const users = defaultUsers
-
+ const opponent=player
   const chess = useConst(() => new Chess());
 
   const [state, setState] = useState({
@@ -107,9 +106,9 @@ const Board = ({ navigation }: DashBoardNavProps<"Chess">): JSX.Element => {
 
   chess.header(
     "White", "You",
-    "Black", users[0].name,
+    "Black", opponent?.name,
     "WhiteImg", users[0].image,
-    "BlackImg", users[1].image
+    "BlackImg", opponent.image
   )
 
   const history = chess.history({ verbose: true })
@@ -157,7 +156,7 @@ const whiteTurn=chess.turn()==="w"?true:false
       <Box mt="32px">
         <ScoreBoard
           name={chess.header().Black}
-          image={users[1].image}
+          image={opponent.image}
           capturedB={capturedB}
           timer={timer}
           blackTurn={blackTurn}
