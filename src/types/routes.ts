@@ -32,7 +32,13 @@ export interface ProfileNavProps<RouteName extends keyof ProfileRoutes> {
   >;
   route: RouteProp<ProfileRoutes, RouteName>;
 }
-
+export interface TransactionNavProps<RouteName extends keyof TransactionRoutes> {
+  navigation: CompositeNavigationProp<
+    NativeStackNavigationProp<TransactionRoutes, RouteName>,
+    DrawerNavigationProp<AppRoutes, "Home">
+  >;
+  route: RouteProp<TransactionRoutes, RouteName>;
+}
 export type AuthRoutes = {
   Onboarding: undefined;
   Welcome: undefined;
@@ -58,6 +64,9 @@ export type DashboardRoutes = {
   ChooseFriend: Readonly<{ name?: string, image?: ImageSourcePropType }> | undefined;
   PlayRandom: Readonly<{ name?: string, image?: ImageSourcePropType }> | undefined;
   ChallengeFriend: undefined;
+  Transaction: undefined;
+  Conversion: undefined;
+  Wallet: undefined;
   WagerAmount: Readonly<{ name?: string, image?: ImageSourcePropType }> | undefined;
   Chess: Readonly<{ name?: string, image?: ImageSourcePropType }> | undefined;
 }
@@ -76,4 +85,10 @@ export type ProfileRoutes = {
   Learn: undefined;
   User: undefined
   Stake: undefined;
+}
+
+export type TransactionRoutes = {
+  Transaction: undefined;
+  Conversion: undefined;
+  Wallet: undefined;
 }

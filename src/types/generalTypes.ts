@@ -1,4 +1,5 @@
 import { ApolloError } from "@apollo/client"
+import { TransactionNavProps } from "./routes"
 
 export type loginDataType = {
   loginInput: {
@@ -27,3 +28,5 @@ export type IUserProps = {
   pwdUpdateStat: boolean,
   pwdLoader: boolean
 }
+
+export type TransNavType=TransactionNavProps<'Wallet'>
