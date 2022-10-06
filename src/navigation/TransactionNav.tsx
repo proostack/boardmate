@@ -6,13 +6,13 @@ import Conversion from '../screens/dashboard/Conversion';
 import { TransactionNavProps, TransactionRoutes } from '../types/routes';
 import { HStack, Image, Text } from 'native-base';
 import { Icons } from '../app';
-import { TransNavType } from '../types/generalTypes';
+import { TransactionNavItem, TransNavType } from '../types/generalTypes';
 const Stack = createNativeStackNavigator<TransactionRoutes>()
 
 
 
 const TransactionNav = (): JSX.Element => {
-  const navItems:{name:string,component:({navigation}:TransNavType)=>JSX.Element}[]=[{
+  const navItems:TransactionNavItem[]=[{
     name:'Wallet',
     component:Wallet
   },{
@@ -33,7 +33,7 @@ const TransactionNav = (): JSX.Element => {
       headerTintColor: "white",
       headerTitleStyle: { fontFamily: "ReadexPro-Bold", fontSize: 20 }
     }}>
-      {navItems.map((item:any,index:number)=>(
+      {navItems.map((item:TransactionNavItem,index:number)=>(
         <Stack.Screen key={index} name={item.name} component={item.component} options={{
         headerTitle: () => (
           <HStack alignItems={"center"}>

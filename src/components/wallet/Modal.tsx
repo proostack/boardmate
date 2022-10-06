@@ -8,20 +8,13 @@ interface Props {
 }
 
 const Modal = ({ children, showModal, handleClose }: Props): JSX.Element => {
-
   return (
     <Center>
       <NativeModal isOpen={showModal} onClose={handleClose}>
         {children}
       </NativeModal>
     </Center>
-
   )
 }
-
-
-
-
-
 export default Modal
 

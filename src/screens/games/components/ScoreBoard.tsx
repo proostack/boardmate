@@ -22,17 +22,18 @@ const ScoreBoard = ({ name, image, capturedB, capturedW, bgColor, timer, blackTu
     <HStack justifyContent="space-between" px="27px">
       <HStack>
         <Circle bgColor={"#373644"} size="50" mr="14px">
-          <Image source={image} size="32px" alt='user' />
+          <Image source={image} size="32px"  alt='user' />
         </Circle>
         <Box>
           <Text color="white" fontFamily="ReadexProRegular">{name} (323)</Text>
-          <HStack px="9px" alignItems={"center"} position={"relative"} h="30px" w="120px" bgColor={bgColor ? bgColor : "#373644"} mt="8px" borderWidth={1} borderRadius="5" borderColor={"#E1D9D90D"}>
+          <HStack px="6px" alignItems={"center"} position={"relative"} h="30px" w="145px" bgColor={bgColor ? bgColor : "#373644"} mt="8px" borderWidth={1} borderRadius="5" borderColor={"#E1D9D90D"}>
 
             {
               (capturedB && capturedB().length > 0) && capturedB().map((item, index) => (
                 (item.color && item.captured) && (
                   <Image key={index} h="11px"
                     w="14px"
+                    ml="-5px"
                     source={PIECES[`w${item.captured}`]}
                     alt="captured piece"
                   />
@@ -45,6 +46,8 @@ const ScoreBoard = ({ name, image, capturedB, capturedW, bgColor, timer, blackTu
                 (item.color && item.captured) && (
                   <Image key={index} h="14px"
                     w="14px"
+                    ml="-5px"
+
                     source={PIECES[`b${item.captured}`]}
                     alt="captured piece"
                   />

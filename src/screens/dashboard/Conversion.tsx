@@ -11,8 +11,14 @@ const Conversion = (): JSX.Element => {
     "Rating; 35"
   ]
 
-  const [coins, setCoins] = useState<string>("")
-  const [cash, setCash] = useState<string>("")
+  const [coins, setCoins] = useState<number>(0)
+  const [cash, setCash] = useState<number>(0)
+  const getCoins=(input:string)=>{
+    setCoins(Number(input))
+  }
+  const getCash=(input:string)=>{
+    setCash(Number(input))
+  }
   return (
     <Box flex={1} bgColor="darkTheme.50">
 
@@ -53,8 +59,9 @@ const Conversion = (): JSX.Element => {
         <InputField labelColor='white'
           label='BoardMate Coins'
           placeholder=' '
-          input={coins}
-          getInput={setCoins}
+          input={coins.toString()}
+          getInput={getCoins}
+          keysType='number'
         />
 
       </Box>
@@ -64,12 +71,13 @@ const Conversion = (): JSX.Element => {
         mb="46px"
       >
 
-        <InputField keysType='number'
+        <InputField
           labelColor='white'
           placeholder=' '
           label='Cash Equivalent'
-          input={cash}
-          getInput={setCash}
+          input={cash.toString()}
+          getInput={getCash}
+          
         />
 
       </Box>

@@ -1,6 +1,7 @@
 import React from 'react'
-import { Box, Icon, Input, Text } from "native-base";
+import { Box, Icon, Input, NumberInput, NumberInputField, Text } from "native-base";
 import { MaterialIcons } from '@expo/vector-icons';
+import { NumberInputContext } from 'native-base/lib/typescript/components/composites/NumberInput';
 
 interface Props {
   label: string;
@@ -24,6 +25,8 @@ const InputField = ({ keysType, label, getInput, input, visibility, setVisibilty
         {label.includes('Search') ? "" : label}
       </Text>
       <Input
+
+        isDisabled={label === 'Cash Equivalent' && true}
         keyboardType={keysType === 'number' ? 'number-pad' : "default"}
         bgColor={
           bgColor ? bgColor : "#F9F9FA"

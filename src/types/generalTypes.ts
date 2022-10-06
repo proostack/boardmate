@@ -1,5 +1,5 @@
 import { ApolloError } from "@apollo/client"
-import { TransactionNavProps } from "./routes"
+import { TransactionNavProps, TransactionRoutes } from "./routes"
 
 export type loginDataType = {
   loginInput: {
@@ -30,3 +30,8 @@ export type IUserProps = {
 }
 
 export type TransNavType=TransactionNavProps<'Wallet'>
+
+export type TransactionNavItem={
+  name:keyof TransactionRoutes,
+  component:({navigation}:TransNavType)=>JSX.Element
+}

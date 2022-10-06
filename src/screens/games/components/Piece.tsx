@@ -95,7 +95,7 @@ const opponent=player
 
   const movingPiece = (translationX: number, translationY: number) => {
     if (chess.game_over()) return
-    if(id.includes('b') && opponent.name==='AI') return
+    if(id[0]==='b') return
     translateX.value = offsetX.value + translationX
     translateY.value = offsetY.value + translationY
   }
