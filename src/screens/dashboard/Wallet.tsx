@@ -1,25 +1,46 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Box, Button, Center, HStack, Text } from "native-base";
 import { Modal, StyleSheet } from 'react-native';
 import { TransNavType } from '../../types/generalTypes';
 import UserInfo from '../../components/profileMenu/UserInfo';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
+import { useMutation } from '@apollo/client';
+import { FUND_WALLET } from '../../services/posts/FundWallet';
+import InputField from '../../components/InputField';
+import { Formik } from 'formik';
+import * as Yup from "yup"
+import * as Linking from 'expo-linking';
+
 
 const Wallet = ({ navigation }: TransNavType): JSX.Element => {
+  const validationSchema = Yup.object({
+    amount: Yup.number().required("Input an amount")
+  })
+
+  const [fundWallet, { data, error, loading }] = useMutation(FUND_WALLET)
+
   const profileDetails: string[] = [
     "Joined Apr 15, 2022",
     "Rating; 35"
   ]
   const [visible, setVisible] = React.useState(false)
+  const [showFundWallet, setShowFundWallet] = React.useState(false)
   // closing modal
   const closeModal = () => {
     setVisible(false)
   }
 
+  const closeFundWalletModal = () => {
+    setShowFundWallet(false)
+  }
+  // open modal
   const openModal = () => {
     setVisible(true)
-    console.log(visible)
+  }
+
+  const openFundWalletModal = () => {
+    setShowFundWallet(true)
   }
 
   const navToTransfer = () => {
@@ -31,6 +52,19 @@ const Wallet = ({ navigation }: TransNavType): JSX.Element => {
     setVisible(false)
     navigation.navigate('Conversion')
   }
+
+  const handleFundWallet = (amount: number) => {
+    setShowFundWallet(false)
+    fundWallet({
+      variables: {
+        amount
+      }
+    })
+  }
+  useEffect(() => {
+    Linking.openURL(data?.FundWalletInput.topUpLink);
+  }, [data])
+
 
 
   const { defaultUsers } = useSelector((state: RootState) => state.user)
@@ -50,6 +84,7 @@ const Wallet = ({ navigation }: TransNavType): JSX.Element => {
           <Button w={"45%"}
             h="62px"
             bgColor="accent_bg.50"
+            onPress={openFundWalletModal}
           >
             <Text fontFamily={"ReadexProBold"}
               color="white"
@@ -174,6 +209,54 @@ const Wallet = ({ navigation }: TransNavType): JSX.Element => {
                 Convert Coins
               </Text>
             </Button>
+          </Center>
+        </Box>
+      </Modal>
+
+      <Modal animationType='slide'
+        visible={showFundWallet}
+        onRequestClose={closeFundWalletModal}
+        transparent={true}>
+        <Box style={[styles.centeredView, {
+          backgroundColor: "rgba(0, 0, 0, 0.32)"
+        }]}>
+          <Center w="90%"
+            py="50px"
+            bgColor={"darkTheme.50"}
+          >
+            <Formik initialValues={{ amount: '' }}
+              onSubmit={({ amount }) => handleFundWallet(Number(amount))}
+              validationSchema={validationSchema}
+            >
+              {({ errors, values, handleSubmit, touched, handleChange }: any) => (
+                <Box w="90%">
+
+                  <InputField label='Amount'
+                    labelColor='white'
+                    input={values.amount}
+                    getInput={handleChange('amount')}
+                    keysType={"number"}
+                  />
+                  <Text color="red.500">
+                    {errors.amount}
+                  </Text>
+
+                  <Button onPress={handleSubmit}
+                    h="60px" mt="50px"
+                    bgColor={"accent_bg.50"}
+                  >
+                    <Text fontSize={"16px"}
+                      fontFamily={"ReadexProBold"}
+                      color="white"
+                    >
+                      Fund wallet
+                    </Text>
+                  </Button>
+                </Box>
+              )}
+
+            </Formik>
+
           </Center>
         </Box>
       </Modal>
