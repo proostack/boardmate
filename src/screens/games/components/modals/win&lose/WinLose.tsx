@@ -42,10 +42,12 @@ const WinLose = ({ chess, users }: Props): JSX.Element | null => {
           </HStack>
 
           <Text fontSize="28px" fontFamily="ReadexProBold" textTransform={"uppercase"} textAlign="center" color="white">
-            {chess.turn() === "w" ? "You lose" : "You win"}
+            {(chess.turn() === "w" && chess.game_over()) ? "You lose" : "You win"}
           </Text>
           <HStack mt="87px">
+            <Text>
 
+            </Text>
             <Box w="60%" alignItems={"center"}>
               <Text color="white" textAlign={"center"} fontFamily={"ReadexProRegular"}>
                 {chess.turn() === "w" ? chess.header().Black : chess.header().White}

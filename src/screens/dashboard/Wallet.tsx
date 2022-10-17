@@ -17,9 +17,17 @@ const Wallet = ({ navigation }: TransNavType): JSX.Element => {
   const validationSchema = Yup.object({
     amount: Yup.number().required("Input an amount")
   })
+  // const getResponse = async () => {
+  //   const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/wallet_top_up`)
+  //   const data = await response.json()
+  // }
+
+  // getResponse()
+
+
+
 
   const [fundWallet, { data, error, loading }] = useMutation(FUND_WALLET)
-
   const profileDetails: string[] = [
     "Joined Apr 15, 2022",
     "Rating; 35"
