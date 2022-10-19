@@ -24,9 +24,10 @@ export default ():{
       country:string
       fullName:string
     }
-  }
+  },
+  refetch:()=>void
 }=>{
-  const {error,loading,data}=useQuery(GET_USER)
+  const {error,loading,data,refetch}=useQuery(GET_USER)
 
-  return ({error,loading,data})
+  return ({error,loading,data,refetch})
 }

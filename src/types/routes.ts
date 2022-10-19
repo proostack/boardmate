@@ -2,6 +2,7 @@ import { RouteProp, CompositeNavigationProp } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { ImageSourcePropType } from "react-native";
+import { TranslationLanguageCodeMap } from "react-native-country-picker-modal";
 
 export type AppRoutes = {
   Authentication: undefined;
@@ -49,9 +50,9 @@ export type AuthRoutes = {
   ChooseHow: undefined;
   Email: undefined;
   Phone: undefined;
-  Country: Readonly<{ email: string, password: string }> | undefined;
+  Country: Readonly<{ email: string, password: string}> | undefined;
   ResetPwd: undefined;
-  Username: Readonly<{ email?: string, password?: string }> | undefined;
+  Username: Readonly<{ email?: string, password?: string,country:string|TranslationLanguageCodeMap ,phoneNumber:string  }> | undefined;
   LoginPin: undefined;
   ResetPin: undefined;
   TransactionPin: undefined;

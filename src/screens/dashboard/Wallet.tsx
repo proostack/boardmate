@@ -1,30 +1,32 @@
 import React, { useEffect } from 'react'
-import { Box, Button, Center, HStack, Text } from "native-base";
-import { Modal, StyleSheet } from 'react-native';
+import { Box, Button, Center, HStack, ScrollView, Spinner, Text } from "native-base";
+import { SafeAreaView } from 'react-native';
 import { TransNavType } from '../../types/generalTypes';
 import UserInfo from '../../components/profileMenu/UserInfo';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import { useMutation } from '@apollo/client';
+import {useMutation } from '@apollo/client';
 import { FUND_WALLET } from '../../services/posts/FundWallet';
-import InputField from '../../components/InputField';
-import { Formik } from 'formik';
-import * as Yup from "yup"
 import * as Linking from 'expo-linking';
-
-
+import GetCashBalance from '../../services/queries/GetCashBalance';
+import GetCoinBalance from '../../services/queries/GetCoinBalance';
+import { RefreshControl } from 'react-native';
+import SelectChoiceModal from '../../components/wallet/SelectChoiceModal';
+import DepositModal from '../../components/wallet/DepositModal';
+const wait = (timeout: number) => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+}
 const Wallet = ({ navigation }: TransNavType): JSX.Element => {
-  const validationSchema = Yup.object({
-    amount: Yup.number().required("Input an amount")
-  })
-  // const getResponse = async () => {
-  //   const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/v1/wallet_top_up`)
-  //   const data = await response.json()
-  // }
+  const [refreshing, setRefreshing] = React.useState(false);
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    getCashBalance.refetch()
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
 
-  // getResponse()
-
-
+  const getCashBalance = GetCashBalance()
+  const getCoinBalance = GetCoinBalance()
+  console.log(getCashBalance.data)
 
 
   const [fundWallet, { data, error, loading }] = useMutation(FUND_WALLET)
@@ -32,19 +34,19 @@ const Wallet = ({ navigation }: TransNavType): JSX.Element => {
     "Joined Apr 15, 2022",
     "Rating; 35"
   ]
-  const [visible, setVisible] = React.useState(false)
+  const [choice, setChoice] = React.useState(false)
   const [showFundWallet, setShowFundWallet] = React.useState(false)
   // closing modal
-  const closeModal = () => {
-    setVisible(false)
+  const closeChoiceModal = () => {
+    setChoice(false)
   }
 
   const closeFundWalletModal = () => {
     setShowFundWallet(false)
   }
   // open modal
-  const openModal = () => {
-    setVisible(true)
+  const openChoiceModal = () => {
+    setChoice(true)
   }
 
   const openFundWalletModal = () => {
@@ -52,12 +54,12 @@ const Wallet = ({ navigation }: TransNavType): JSX.Element => {
   }
 
   const navToTransfer = () => {
-    setVisible(false)
+    setChoice(false)
     navigation.navigate('Transaction')
   }
 
   const navToConversion = () => {
-    setVisible(false)
+    setChoice(false)
     navigation.navigate('Conversion')
   }
 
@@ -69,227 +71,149 @@ const Wallet = ({ navigation }: TransNavType): JSX.Element => {
       }
     })
   }
+  let link = null
+  const [cashBalance, setCashBalance] = React.useState<number | string>()
+  const [coinBalance, setCoinBalance] = React.useState<number | string>()
   useEffect(() => {
-    Linking.openURL(data?.FundWalletInput.topUpLink);
-  }, [data])
+    const setBalance = () => {
+      try {
+        if (!getCoinBalance.loading && !getCashBalance.loading && error) throw "Balance not available"
+        setCoinBalance(getCoinBalance.data.coinBalance.balance)
+        setCashBalance(getCashBalance.data.walletBalance.balance)
+      }
+      catch (e) {
+        if (typeof e === 'string')
+          setCoinBalance(e)
+      }
+    }
+    setBalance()
+    console.log("loading coin")
+    link = data?.FundWalletInput.topUpLink
+    Linking.openURL(link);
 
-
+  }, [data, getCoinBalance.data, getCashBalance.data])
 
   const { defaultUsers } = useSelector((state: RootState) => state.user)
   return (
-    <Box flex={1} bgColor="darkTheme.50">
-      <Box w='90%' mx='auto'>
-        <HStack mt={"32px"} >
-          <UserInfo profileDetails={profileDetails}
-            image={defaultUsers[0].image}
-            name={defaultUsers[0].name}
-          />
-        </HStack>
+    <SafeAreaView style={{ flex: 1 }}>
+      <ScrollView contentContainerStyle={{ flex: 1 }} refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+        />
+      }>
+        <Box flex={1} bgColor="darkTheme.50">
+          <Box w='90%' mx='auto'>
+            <HStack mt={"32px"}>
+              <UserInfo profileDetails={profileDetails}
+                image={defaultUsers[0].image}
+                name={defaultUsers[0].name}
+              />
+            </HStack>
 
-        <HStack justifyContent={'space-between'}
-          mt="50px"
-        >
-          <Button w={"45%"}
-            h="62px"
-            bgColor="accent_bg.50"
-            onPress={openFundWalletModal}
+            <HStack justifyContent={'space-between'}
+              mt="50px"
+            >
+              <Button w={"45%"}
+                h="62px"
+                bgColor="accent_bg.50"
+                onPress={openFundWalletModal}
+              >
+                <Text fontFamily={"ReadexProBold"}
+                  color="white"
+                >
+                  {loading ? <Spinner /> : 'Deposit'}
+                </Text>
+              </Button>
+
+              <Button w={"45%"}
+                h="62px"
+                variant={"unstyled"}
+                borderWidth="2px"
+                borderColor={"accent_bg.50"}
+              >
+                <Text color="accent_bg.50"
+                  fontFamily={"ReadexProBold"}
+                >
+                  Withdraw
+                </Text>
+              </Button>
+            </HStack>
+          </Box>
+
+          <Center h="86px"
+            bgColor="#34364C"
+            my="30px"
           >
-            <Text fontFamily={"ReadexProBold"}
+            <Text fontFamily="ReadexProBold"
               color="white"
             >
-              Deposit
+              Cash Balance
             </Text>
-          </Button>
 
-          <Button w={"45%"}
-            h="62px"
-            variant={"unstyled"}
-            borderWidth="2px"
-            borderColor={"accent_bg.50"}
-          >
-            <Text color="accent_bg.50"
-              fontFamily={"ReadexProBold"}
+            <Text mt="20px"
+              fontFamily="ReadexProBold"
+              color="white"
             >
-              Withdraw
+              NGN {cashBalance}
             </Text>
-          </Button>
-        </HStack>
-      </Box>
+          </Center>
 
-      <Center h="86px"
-        bgColor="#34364C"
-        my="30px"
-      >
-        <Text fontFamily="ReadexProBold"
-          color="white"
-        >
-          Cash Balance
-        </Text>
-
-        <Text mt="20px"
-          fontFamily="ReadexProBold"
-          color="white"
-        >
-          NGN 4000
-        </Text>
-      </Center>
-
-      <Center h="86px"
-        bgColor="#34364C"
-      >
-        <Text fontFamily="ReadexProBold"
-          color="white"
-        >
-          BoardMate Coins;
-        </Text>
-        <Text mt="20px"
-          fontFamily="ReadexProBold"
-          color="white"
-        >
-          40000
-        </Text>
-      </Center>
-
-      <Center w="90%"
-        mt="30px"
-        mx="auto"
-      >
-        <Text color={"white"}
-          fontFamily="ReadexProBold"
-          fontSize={"12px"}
-        >
-          Do you Transfer Boardmate Coins or Convert to cash?
-        </Text>
-        <Button onPress={openModal}
-          variant={'unstyled'}
-          mt="10px"
-        >
-          <Text fontFamily="ReadexProBold"
-            fontSize={"16px"}
-            color="accent_bg.50"
+          <Center h="86px"
+            bgColor="#34364C"
           >
-            Click Here
-          </Text>
-        </Button>
-      </Center>
+            <Text fontFamily="ReadexProBold"
+              color="white"
+            >
+              BoardMate Coins;
+            </Text>
+            <Text mt="20px"
+              fontFamily="ReadexProBold"
+              color="white"
+            >
+              {coinBalance}
+            </Text>
+          </Center>
 
-      <Modal animationType='slide'
-        visible={visible}
-        onRequestClose={closeModal}
-        transparent={true}>
-        <Box style={[styles.centeredView, {
-          backgroundColor: "rgba(0, 0, 0, 0.32)"
-        }]}>
           <Center w="90%"
-            py="50px"
-            bgColor={"darkTheme.50"}
+            mt="30px"
+            mx="auto"
           >
-            <Text color="white"
-              fontSize={"16px"}
-              fontFamily={"ReadexProBold"}
+            <Text color={"white"}
+              fontFamily="ReadexProBold"
+              fontSize={"12px"}
             >
-              Select your choice
+              Do you Transfer Boardmate Coins or Convert to cash?
             </Text>
-            <Button onPress={navToTransfer}
-              h="60px"
-              mt="50px"
-              w="90%"
-              bgColor={"accent_bg.50"}
+            <Button onPress={openChoiceModal}
+              variant={'unstyled'}
+              mt="10px"
             >
-              <Text
+              <Text fontFamily="ReadexProBold"
                 fontSize={"16px"}
-                fontFamily={"ReadexProBold"}
-                color="white"
+                color="accent_bg.50"
               >
-                Transfer Coins
+                Click Here
               </Text>
-            </Button>
-
-            <Button onPress={navToConversion}
-              h="60px" mt="50px"
-              w="90%"
-              bgColor={"accent_bg.50"}
-            >
-              <Text fontSize={"16px"}
-                fontFamily={"ReadexProBold"}
-                color="white"
-              >
-                Convert Coins
-              </Text>
+              <Text color={"red.500"}>{error}</Text>
             </Button>
           </Center>
+
+          <SelectChoiceModal visible={choice}
+            closeModal={closeChoiceModal}
+            navToTransfer={navToTransfer}
+            navToConversion={navToConversion}
+          />
+
+          <DepositModal handleFundWallet={handleFundWallet}
+            showFundWallet={showFundWallet}
+            closeFundWalletModal={closeFundWalletModal}
+          />
+
         </Box>
-      </Modal>
-
-      <Modal animationType='slide'
-        visible={showFundWallet}
-        onRequestClose={closeFundWalletModal}
-        transparent={true}>
-        <Box style={[styles.centeredView, {
-          backgroundColor: "rgba(0, 0, 0, 0.32)"
-        }]}>
-          <Center w="90%"
-            py="50px"
-            bgColor={"darkTheme.50"}
-          >
-            <Formik initialValues={{ amount: '' }}
-              onSubmit={({ amount }) => handleFundWallet(Number(amount))}
-              validationSchema={validationSchema}
-            >
-              {({ errors, values, handleSubmit, touched, handleChange }: any) => (
-                <Box w="90%">
-
-                  <InputField label='Amount'
-                    labelColor='white'
-                    input={values.amount}
-                    getInput={handleChange('amount')}
-                    keysType={"number"}
-                  />
-                  <Text color="red.500">
-                    {errors.amount}
-                  </Text>
-
-                  <Button onPress={handleSubmit}
-                    h="60px" mt="50px"
-                    bgColor={"accent_bg.50"}
-                  >
-                    <Text fontSize={"16px"}
-                      fontFamily={"ReadexProBold"}
-                      color="white"
-                    >
-                      Fund wallet
-                    </Text>
-                  </Button>
-                </Box>
-              )}
-
-            </Formik>
-
-          </Center>
-        </Box>
-      </Modal>
-    </Box>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 
 export default Wallet
-const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  modalView: {
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5
-  }
-});

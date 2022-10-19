@@ -6,6 +6,8 @@ import InputField from '../../components/InputField'
 import UserInfo from '../../components/profileMenu/UserInfo'
 import { RootState } from '../../store/store'
 import * as yup from "yup";
+import GetCoinBalance from '../../services/queries/GetCoinBalance'
+import { ApolloError } from '@apollo/client'
 
 const Transaction = (): JSX.Element => {
   const { defaultUsers } = useSelector((state: RootState) => state.user)
@@ -23,6 +25,23 @@ const Transaction = (): JSX.Element => {
 
   })
 
+  const { data, error, loading } = GetCoinBalance()
+
+  const [coinBalance, setCoinBalance] = React.useState<number | string>()
+
+  React.useEffect(()=>{
+    const getCoinBalance = () => {
+      try {
+        if (!loading && error) throw 'balance unavailable'
+        setCoinBalance(data.coinBalance.balance)
+      }
+      catch (e) {
+        if(typeof e === 'string')
+        setCoinBalance(e)
+      }
+    }
+  getCoinBalance()
+  },[data])
 
   return (
     <Box flex={1} bgColor="darkTheme.50">
@@ -55,7 +74,7 @@ const Transaction = (): JSX.Element => {
           fontFamily="ReadexProBold"
           color="white"
         >
-          4000
+          {coinBalance}
         </Text>
 
       </Center>
@@ -65,7 +84,7 @@ const Transaction = (): JSX.Element => {
         validationSchema={transferSchema}
         onSubmit={({ username, amount }) => {
           // fireMutation({ variables: { username, amount } })
-          console.log(username,amount)
+          console.log(username, amount)
         }}>
         {({ handleSubmit, handleChange, values, errors, touched }) => (
           <>

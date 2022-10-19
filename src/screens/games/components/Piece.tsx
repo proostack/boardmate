@@ -8,7 +8,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { Image, StyleSheet } from "react-native";
 import { Vector } from "react-native-redash";
-import { ChessInstance,  Square } from "chess.js";
+import { ChessInstance, Square } from "chess.js";
 import { SIZE, toPosition, toTranslation } from "../chess/Notation";
 import { PanGestureHandler } from "react-native-gesture-handler";
 import { useSelector } from "react-redux";
@@ -54,8 +54,8 @@ const Piece = ({
   onTurn,
   enabled,
 }: PieceProps): JSX.Element => {
-const {player}=useSelector((state:RootState)=>state.user)
-const opponent=player
+  const { player } = useSelector((state: RootState) => state.user)
+  const opponent = player
 
   const offsetX = useSharedValue(0);
   const isGestureActive = useSharedValue(false);
@@ -64,7 +64,7 @@ const opponent=player
   const translateY = useSharedValue(startPosition.y * SIZE);
   const AIMoves = () => {
     const possibleMoves = chess.moves()
-    if (possibleMoves.length === 0 || opponent.name!=='AI') return
+    if (possibleMoves.length === 0 || opponent.name !== 'AI') return
     const randomMove = Math.floor(Math.random() * possibleMoves.length)
     chess.move(possibleMoves[randomMove] as Square)
     onTurn()
@@ -95,7 +95,7 @@ const opponent=player
 
   const movingPiece = (translationX: number, translationY: number) => {
     if (chess.game_over()) return
-    if(id[0]==='b') return
+    if (id[0] === 'b' && opponent.name === "AI") return
     translateX.value = offsetX.value + translationX
     translateY.value = offsetY.value + translationY
   }
@@ -161,7 +161,7 @@ const opponent=player
     <>
       <Animated.View style={topmost} />
       <Animated.View style={underlay} />
-      <PanGestureHandler onGestureEvent={onGestureEvent} enabled={opponent.name==='AI'?true:enabled}>
+      <PanGestureHandler onGestureEvent={onGestureEvent} enabled={opponent.name === 'AI' ? true : enabled}>
         <Animated.View style={style}>
           <Image source={PIECES[id]} style={styles.piece} />
         </Animated.View>

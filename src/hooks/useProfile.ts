@@ -57,8 +57,6 @@ const useProfile = () => {
       }
     },[editedPwd.loading,editedPwd.data])
 
-  
-
   return ({
     userDetails, setUserDetails,
     defaultUsers,userName,
