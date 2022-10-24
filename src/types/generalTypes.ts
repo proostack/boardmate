@@ -18,6 +18,7 @@ export interface ReturnAuth {
 export type IUserProps = {
   inputForms: { label: string, input: string }[] | null;
   setVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  setDelAcctModal: React.Dispatch<React.SetStateAction<boolean>>;
   setPwdModal: React.Dispatch<React.SetStateAction<boolean>>;
   pwdError?: ApolloError,
   pwdSuccess?: {

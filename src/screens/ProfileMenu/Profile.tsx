@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Box, HStack, Text, StatusBar, KeyboardAvoidingView, Spinner, ScrollView } from "native-base";
+import { Box, HStack, Text, StatusBar, KeyboardAvoidingView, Spinner, ScrollView, Button } from "native-base";
 import UserInfo from '../../components/profileMenu/UserInfo';
 import InputField from '../../components/profileMenu/InputField';
 import Modal from '../../components/profileMenu/Modal';
@@ -35,7 +35,8 @@ const Profile = (): JSX.Element => {
     user, userData, inputForms,
     changePassword, editedPwd, clearMsg,
     pwdUpdateStat, showNewPwd, showOldPwd, showConfirmPwd,
-    setShowOldPwd, setShowNewPwd, setShowConfirmPwd
+    setShowOldPwd, setShowNewPwd, setShowConfirmPwd,
+    delAcctModal, setDelAcctModal
   } = useProfile()
 
 
@@ -76,11 +77,11 @@ const Profile = (): JSX.Element => {
   const submitProfileUpdate = () => {
     updateProfile({
       variables: {
-        fullName:fullName?fullName:"No name",
-        phoneNumber:phoneNumber?phoneNumber:"No phone Number",
+        fullName: fullName ? fullName : "No name",
+        phoneNumber: phoneNumber ? phoneNumber : "No phone Number",
         userName,
-        country:country?country:"No country",
-        email:email?email:"No email"
+        country: country ? country : "No country",
+        email: email ? email : "No email"
       }
     })
   }
@@ -111,7 +112,7 @@ const Profile = (): JSX.Element => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView bgColor={"#32313F"}
-      px="23px"
+        px="23px"
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
@@ -121,114 +122,125 @@ const Profile = (): JSX.Element => {
       >
         <StatusBar translucent={false} backgroundColor="black" />
         <KeyboardAvoidingView style={{ flex: 1 }}>
-            <HStack mt={"32px"} >
-              <UserInfo profileDetails={profileDetails}
-                image={defaultUsers[0].image}
-                name={defaultUsers[0].name}
-              />
-            </HStack>
+          <HStack mt={"32px"} >
+            <UserInfo profileDetails={profileDetails}
+              image={defaultUsers[0].image}
+              name={defaultUsers[0].name}
+            />
+          </HStack>
 
-            {/* show loader or profile details */}
-            {loading || user.loading ? <Spinner mt="30px" color={"white"} size={50} /> : (
-              <ShowUserProfile
-                inputForms={inputForms}
-                setPwdModal={setPwdModal}
-                setVisible={setProfModal}
-                pwdError={editedPwd.error}
-                pwdSuccess={editedPwd.data}
-                pwdUpdateStat={pwdUpdateStat}
-                pwdLoader={editedPwd.loading}
-              />
-            )
-            }
-            {user.error && <Text textAlign={"center"} fontSize="3xl" mt="30px">{user.error.message}</Text>}
-            {/* update profile modal */}
-            <Modal
-              confirm={submitProfileUpdate}
-              visible={profModal}
+          {/* show loader or profile details */}
+          {loading || user.loading ? <Spinner mt="30px" color={"white"} size={50} /> : (
+            <ShowUserProfile
+              inputForms={inputForms}
+              setPwdModal={setPwdModal}
               setVisible={setProfModal}
-              modalColor={"darkTheme.50"}
-            >
-              <Box w="100%" >
-                <Box mb="15px">
-                  <InputField
-                    input={fullName}
-                    label="Full Name"
-                    setInput={setFullName}
-                  />
-                </Box>
-                <Box mb="15px">
-                  <InputField
-                    input={userName}
-                    label="Username"
-                    setInput={setUserName}
-                  />
-                </Box>
-                <Box mb="15px">
-                  <InputField
-                    input={email}
-                    label="Email"
-                    setInput={setEmail}
-                  />
-                </Box>
+              pwdError={editedPwd.error}
+              pwdSuccess={editedPwd.data}
+              pwdUpdateStat={pwdUpdateStat}
+              pwdLoader={editedPwd.loading}
+              setDelAcctModal={setDelAcctModal}
+            />
+          )
+          }
+          {user.error && <Text textAlign={"center"} fontSize="3xl" mt="30px">{user.error.message}</Text>}
+          {/* update profile modal */}
+          <Modal
+            confirm={submitProfileUpdate}
+            visible={profModal}
+            setVisible={setProfModal}
+            modalColor={"darkTheme.50"}
+          >
+            <Box w="100%" >
+              <Box mb="15px">
+                <InputField
+                  input={fullName}
+                  label="Full Name"
+                  setInput={setFullName}
+                />
+              </Box>
+              <Box mb="15px">
+                <InputField
+                  input={userName}
+                  label="Username"
+                  setInput={setUserName}
+                />
+              </Box>
+              <Box mb="15px">
+                <InputField
+                  input={email}
+                  label="Email"
+                  setInput={setEmail}
+                />
+              </Box>
 
-                <Box>
-                  {/* <SelectCountry 
+              <Box>
+                {/* <SelectCountry 
                   getCountry={getCountry} 
                   getCountryCode={getCountryCode}
                   bgColor="green"
                   /> */}
-                </Box>
-                <Box mb="15px">
-                  <InputField
-                    input={country}
-                    label="Country"
-                    setInput={setCountry}
-                  />
-                </Box>
+              </Box>
+              <Box mb="15px">
                 <InputField
-                  input={phoneNumber}
-                  label="Phone Number"
-                  setInput={setPhoneNumber}
+                  input={country}
+                  label="Country"
+                  setInput={setCountry}
                 />
               </Box>
-            </Modal>
+              <InputField
+                input={phoneNumber}
+                label="Phone Number"
+                setInput={setPhoneNumber}
+              />
+            </Box>
+          </Modal>
 
-            {/* change password modal */}
-            <Modal
-              visible={pwdModal}
-              setVisible={setPwdModal}
-              modalColor={"darkTheme.50"}
-              confirm={submitChangepwd}
-            >
-              <Box w="100%" >
-                <Box mb="15px">
-                  <InputField input={oldPwd}
-                    label="Old Password"
-                    setInput={setOldPwd}
-                    visiblity={showOldPwd}
-                    setVisibility={() => setShowOldPwd(!showOldPwd)}
-                  />
-                </Box>
-
-                <Box mb="15px">
-                  <InputField input={pwd}
-                    label="New Password"
-                    visiblity={showNewPwd}
-                    setVisibility={() => setShowNewPwd(!showNewPwd)}
-                    setInput={setPwd}
-                  />
-                </Box>
-                <Box mb="15px">
-                  <InputField input={confirmPwd}
-                    label="Confirm New Password"
-                    visiblity={showConfirmPwd}
-                    setVisibility={() => setShowConfirmPwd(!showConfirmPwd)}
-                    setInput={setConfirmPwd}
-                  />
-                </Box>
+          {/* change password modal */}
+          <Modal
+            visible={pwdModal}
+            setVisible={setPwdModal}
+            modalColor={"darkTheme.50"}
+            confirm={submitChangepwd}
+          >
+            <Box w="100%" >
+              <Box mb="15px">
+                <InputField input={oldPwd}
+                  label="Old Password"
+                  setInput={setOldPwd}
+                  visiblity={showOldPwd}
+                  setVisibility={() => setShowOldPwd(!showOldPwd)}
+                />
               </Box>
-            </Modal>
+
+              <Box mb="15px">
+                <InputField input={pwd}
+                  label="New Password"
+                  visiblity={showNewPwd}
+                  setVisibility={() => setShowNewPwd(!showNewPwd)}
+                  setInput={setPwd}
+                />
+              </Box>
+              <Box mb="15px">
+                <InputField input={confirmPwd}
+                  label="Confirm New Password"
+                  visiblity={showConfirmPwd}
+                  setVisibility={() => setShowConfirmPwd(!showConfirmPwd)}
+                  setInput={setConfirmPwd}
+                />
+              </Box>
+            </Box>
+          </Modal>
+
+          {/* Delete password */}
+          <Modal
+            visible={delAcctModal}
+            setVisible={setDelAcctModal}
+            modalColor={"darkTheme.50"}
+            confirm={()=>{console.log("account deleted")}}
+          >
+            <></>
+          </Modal>
         </KeyboardAvoidingView>
       </ScrollView>
     </SafeAreaView>

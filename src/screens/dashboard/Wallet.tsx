@@ -5,7 +5,7 @@ import { TransNavType } from '../../types/generalTypes';
 import UserInfo from '../../components/profileMenu/UserInfo';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import {useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { FUND_WALLET } from '../../services/posts/FundWallet';
 import * as Linking from 'expo-linking';
 import GetCashBalance from '../../services/queries/GetCashBalance';
