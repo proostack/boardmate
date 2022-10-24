@@ -1,4 +1,5 @@
 import { ApolloError } from "@apollo/client"
+import { TransactionNavProps, TransactionRoutes } from "./routes"
 
 export type loginDataType = {
   loginInput: {
@@ -17,6 +18,7 @@ export interface ReturnAuth {
 export type IUserProps = {
   inputForms: { label: string, input: string }[] | null;
   setVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  setDelAcctModal: React.Dispatch<React.SetStateAction<boolean>>;
   setPwdModal: React.Dispatch<React.SetStateAction<boolean>>;
   pwdError?: ApolloError,
   pwdSuccess?: {
@@ -26,4 +28,11 @@ export type IUserProps = {
   },
   pwdUpdateStat: boolean,
   pwdLoader: boolean
+}
+
+export type TransNavType=TransactionNavProps<'Wallet'>
+
+export type TransactionNavItem={
+  name:keyof TransactionRoutes,
+  component:({navigation}:TransNavType)=>JSX.Element
 }

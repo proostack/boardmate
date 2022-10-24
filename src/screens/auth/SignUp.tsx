@@ -50,7 +50,7 @@ const SignUp = ({ navigation }: AuthNavigationProps<"SignUp">): JSX.Element => {
               <InputField input={values.password} getInput={handleChange('password')} label="Password" setVisibilty={setVisibilty} visibility={show} />
               <Text mb={15} color="red.500">{touched.password && errors.password}</Text>
 
-              <InputField input={values.confirmPassword} getInput={handleChange('confirmPassword')} label="Confirm Password" setVisibilty={setVisibilty} visibility={show} />
+              <InputField input={values.confirmPassword} getInput={handleChange('confirmPassword')} label="Confirm Password" placeholder="Confirm Password" setVisibilty={setVisibilty} visibility={show} />
               <Text color="red.500">{touched.confirmPassword && errors.confirmPassword}</Text>
 
 

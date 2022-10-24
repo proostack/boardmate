@@ -2,6 +2,7 @@ import { RouteProp, CompositeNavigationProp } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 import { ImageSourcePropType } from "react-native";
+import { TranslationLanguageCodeMap } from "react-native-country-picker-modal";
 
 export type AppRoutes = {
   Authentication: undefined;
@@ -32,7 +33,13 @@ export interface ProfileNavProps<RouteName extends keyof ProfileRoutes> {
   >;
   route: RouteProp<ProfileRoutes, RouteName>;
 }
-
+export interface TransactionNavProps<RouteName extends keyof TransactionRoutes> {
+  navigation: CompositeNavigationProp<
+    NativeStackNavigationProp<TransactionRoutes, RouteName>,
+    DrawerNavigationProp<AppRoutes, "Home">
+  >;
+  route: RouteProp<TransactionRoutes, RouteName>;
+}
 export type AuthRoutes = {
   Onboarding: undefined;
   Welcome: undefined;
@@ -43,9 +50,9 @@ export type AuthRoutes = {
   ChooseHow: undefined;
   Email: undefined;
   Phone: undefined;
-  Country: Readonly<{ email: string, password: string }> | undefined;
+  Country: Readonly<{ email: string, password: string}> | undefined;
   ResetPwd: undefined;
-  Username: Readonly<{ email?: string, password?: string }> | undefined;
+  Username: Readonly<{ email?: string, password?: string,country:string|TranslationLanguageCodeMap ,phoneNumber:string  }> | undefined;
   LoginPin: undefined;
   ResetPin: undefined;
   TransactionPin: undefined;
@@ -58,6 +65,9 @@ export type DashboardRoutes = {
   ChooseFriend: Readonly<{ name?: string, image?: ImageSourcePropType }> | undefined;
   PlayRandom: Readonly<{ name?: string, image?: ImageSourcePropType }> | undefined;
   ChallengeFriend: undefined;
+  Transaction: undefined;
+  Conversion: undefined;
+  Wallet: undefined;
   WagerAmount: Readonly<{ name?: string, image?: ImageSourcePropType }> | undefined;
   Chess: Readonly<{ name?: string, image?: ImageSourcePropType }> | undefined;
 }
@@ -76,4 +86,10 @@ export type ProfileRoutes = {
   Learn: undefined;
   User: undefined
   Stake: undefined;
+}
+
+export type TransactionRoutes = {
+  Transaction: undefined;
+  Conversion: undefined;
+  Wallet: undefined;
 }

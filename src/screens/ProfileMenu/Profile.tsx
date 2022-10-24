@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Box, HStack, Text, StatusBar, KeyboardAvoidingView, Spinner } from "native-base";
+import React, { useEffect } from 'react'
+import { Box, HStack, Text, StatusBar, KeyboardAvoidingView, Spinner, ScrollView, Button } from "native-base";
 import UserInfo from '../../components/profileMenu/UserInfo';
 import InputField from '../../components/profileMenu/InputField';
 import Modal from '../../components/profileMenu/Modal';
@@ -7,6 +7,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import ShowUserProfile from '../../components/profileMenu/ShowUserProfile';
 // import { TranslationLanguageCodeMap } from 'react-native-country-picker-modal';
 import useProfile from '../../hooks/useProfile';
+import { RefreshControl } from 'react-native';
+
+const wait = (timeout: number) => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+}
 const Profile = (): JSX.Element => {
   const profileDetails: string[] = [
     "Joined Apr 15, 2022",
@@ -17,7 +22,7 @@ const Profile = (): JSX.Element => {
     updateProfile, called, error, loading,
     userName, setUserName,
     country, setCountry,
-    data, defaultUsers,
+    defaultUsers,
     email, setEmail,
     fullName, setFullName,
     profModal, setProfModal,
@@ -27,24 +32,26 @@ const Profile = (): JSX.Element => {
     confirmPwd, setConfirmPwd,
     pwdModal, setPwdModal,
     userDetails, setUserDetails,
-   user, userData, inputForms, 
-   changePassword, editedPwd, clearMsg, 
-   pwdUpdateStat,showNewPwd,showOldPwd,showConfirmPwd,
-   setShowOldPwd,setShowNewPwd,setShowConfirmPwd
+    user, userData, inputForms,
+    changePassword, editedPwd, clearMsg,
+    pwdUpdateStat, showNewPwd, showOldPwd, showConfirmPwd,
+    setShowOldPwd, setShowNewPwd, setShowConfirmPwd,
+    delAcctModal, setDelAcctModal
   } = useProfile()
 
 
 
-  // show or hide password
- 
+
   useEffect(() => {
     // Getting the updated profile
     if (!loading && called) {
       if (error) {
         console.log(error)
       } else {
-        const updatedInfos = data?.UpdateUserInput
-        setUserDetails(updatedInfos)
+        user.refetch()
+        // const updatedInfos = data?.UpdateUserInput
+        console.log(user.data)
+        setUserDetails(user.data?.currentUser)
       }
     }
 
@@ -64,23 +71,17 @@ const Profile = (): JSX.Element => {
     // if(editedPwd.called && !editedPwd.loading && editedPwd.error){
     //   console.log(editedPwd.error)
     // }
-  }, [loading, called, user.loading, profModal,editedPwd.loading])
-
-
-
-
-
-
+  }, [loading, called, user.loading, profModal, editedPwd.loading, user.data])
 
   // Submitting request to update profile
   const submitProfileUpdate = () => {
     updateProfile({
       variables: {
-        fullName,
-        phoneNumber,
+        fullName: fullName ? fullName : "No name",
+        phoneNumber: phoneNumber ? phoneNumber : "No phone Number",
         userName,
-        country,
-        email
+        country: country ? country : "No country",
+        email: email ? email : "No email"
       }
     })
   }
@@ -101,11 +102,26 @@ const Profile = (): JSX.Element => {
   //   console.log(country)
   // }
 
+  const [refreshing, setRefreshing] = React.useState(false);
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    user.refetch()
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <StatusBar translucent={false} backgroundColor="black" />
-      <KeyboardAvoidingView style={{ flex: 1 }}>
-        <Box flex={1} bgColor={"#32313F"} px={23}>
+      <ScrollView bgColor={"#32313F"}
+        px="23px"
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }
+      >
+        <StatusBar translucent={false} backgroundColor="black" />
+        <KeyboardAvoidingView style={{ flex: 1 }}>
           <HStack mt={"32px"} >
             <UserInfo profileDetails={profileDetails}
               image={defaultUsers[0].image}
@@ -123,6 +139,7 @@ const Profile = (): JSX.Element => {
               pwdSuccess={editedPwd.data}
               pwdUpdateStat={pwdUpdateStat}
               pwdLoader={editedPwd.loading}
+              setDelAcctModal={setDelAcctModal}
             />
           )
           }
@@ -192,7 +209,7 @@ const Profile = (): JSX.Element => {
                   label="Old Password"
                   setInput={setOldPwd}
                   visiblity={showOldPwd}
-                  setVisibility={()=>setShowOldPwd(!showOldPwd)}
+                  setVisibility={() => setShowOldPwd(!showOldPwd)}
                 />
               </Box>
 
@@ -200,7 +217,7 @@ const Profile = (): JSX.Element => {
                 <InputField input={pwd}
                   label="New Password"
                   visiblity={showNewPwd}
-                  setVisibility={()=>setShowNewPwd(!showNewPwd)}
+                  setVisibility={() => setShowNewPwd(!showNewPwd)}
                   setInput={setPwd}
                 />
               </Box>
@@ -208,14 +225,24 @@ const Profile = (): JSX.Element => {
                 <InputField input={confirmPwd}
                   label="Confirm New Password"
                   visiblity={showConfirmPwd}
-                  setVisibility={()=>setShowConfirmPwd(!showConfirmPwd)}
+                  setVisibility={() => setShowConfirmPwd(!showConfirmPwd)}
                   setInput={setConfirmPwd}
                 />
               </Box>
             </Box>
           </Modal>
-        </Box>
-      </KeyboardAvoidingView>
+
+          {/* Delete password */}
+          <Modal
+            visible={delAcctModal}
+            setVisible={setDelAcctModal}
+            modalColor={"darkTheme.50"}
+            confirm={()=>{console.log("account deleted")}}
+          >
+            <></>
+          </Modal>
+        </KeyboardAvoidingView>
+      </ScrollView>
     </SafeAreaView>
   )
 }

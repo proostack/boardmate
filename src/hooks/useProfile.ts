@@ -26,6 +26,7 @@ const useProfile = () => {
   const [showOldPwd,setShowOldPwd]=useState(true)
   const [showNewPwd,setShowNewPwd]=useState(true)
   const [showConfirmPwd,setShowConfirmPwd]=useState(true)
+  const [delAcctModal,setDelAcctModal]=useState<boolean>(false)
   // profile details
   const inputForms = [
     {
@@ -57,8 +58,6 @@ const useProfile = () => {
       }
     },[editedPwd.loading,editedPwd.data])
 
-  
-
   return ({
     userDetails, setUserDetails,
     defaultUsers,userName,
@@ -77,7 +76,8 @@ const useProfile = () => {
     changePassword,editedPwd,
     oldPwd,setOldPwd,clearMsg,
     pwdUpdateStat,showOldPwd,showNewPwd,
-    showConfirmPwd,setShowOldPwd,setShowNewPwd,setShowConfirmPwd
+    showConfirmPwd,setShowOldPwd,setShowNewPwd,setShowConfirmPwd,
+    delAcctModal,setDelAcctModal
   })
 }
 

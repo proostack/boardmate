@@ -12,7 +12,8 @@ const ShowUserProfile = ({
   pwdError,
   pwdSuccess,
   pwdUpdateStat,
-  pwdLoader
+  pwdLoader,
+  setDelAcctModal
 }: IUserProps): JSX.Element => {
 
   return (
@@ -65,6 +66,18 @@ const ShowUserProfile = ({
         </Button>
       )
       }
+       <Button onPress={() => setDelAcctModal(true)}
+          variant={"unstyled"}
+          bgColor="red.500"
+          mt="15px"
+        >
+          <Text color="white"
+            textTransform={"uppercase"}
+            fontFamily='ReadexProBold'
+          >
+            Delete Account
+          </Text>
+        </Button>
     </Box>
   )
 }

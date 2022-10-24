@@ -16,6 +16,8 @@ const Username = ({
   const [username, setUsername] = React.useState<string>("");
   const email = route.params?.email
   const password = route.params?.password
+  // const phoneNumber = route.params?.phoneNumber
+  // const country = route.params?.phoneNumber
   const navigateUser = () => {
     navigation.navigate("Login")
   }
@@ -51,6 +53,8 @@ const Username = ({
                   email,
                   password,
                   username
+                  // country,
+                  // phoneNumber
                 }
               })
             }}

@@ -10,6 +10,9 @@ import ChallengeWorld from '../screens/dashboard/WagerAmount';
 import WagerAmount from '../screens/dashboard/WagerAmount';
 import Dashboard from "../screens/ProfileMenu/Dashboard"
 import Board from '../screens/games/chess/Board';
+import Wallet from '../screens/dashboard/Wallet';
+import Conversion from '../screens/dashboard/Conversion';
+import Transaction from '../screens/dashboard/Transaction';
 const Stack=createNativeStackNavigator<DashboardRoutes>()
 
 

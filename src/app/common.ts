@@ -22,6 +22,7 @@ const icons = {
   bishop: require("../../assets/images/chessGame/purpleBishop.png"),
   rook: require("../../assets/images/chessGame/rookPurple.png"),
   wallet:require("../../assets/images/navigation/Wallet.png"),
+  wallet2:require("../../assets/images/wallet.png"),
   user2:require("../../assets/images/navigation/user2.png"),
   user:require("../../assets/images/navigation/user.png"),
   home2:require("../../assets/images/navigation/home2.png"),

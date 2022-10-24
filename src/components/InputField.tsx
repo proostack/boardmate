@@ -1,6 +1,7 @@
 import React from 'react'
-import { Box, Icon, Input, Text } from "native-base";
+import { Box, Icon, Input, NumberInput, NumberInputField, Text } from "native-base";
 import { MaterialIcons } from '@expo/vector-icons';
+import { NumberInputContext } from 'native-base/lib/typescript/components/composites/NumberInput';
 
 interface Props {
   label: string;
@@ -8,21 +9,35 @@ interface Props {
   input: string;
   visibility?: boolean;
   setVisibilty?: () => void;
-  bgColor?: string
+  bgColor?: string;
+  labelColor?: string;
+  placeholder?: string;
+  keysType?: string
 }
-const InputField = ({ label, getInput, input, visibility, setVisibilty, bgColor }: Props): JSX.Element => {
+const InputField = ({ keysType, label, getInput, input, visibility, setVisibilty, bgColor, labelColor, placeholder }: Props): JSX.Element => {
   return (
     <Box>
-      <Text fontSize={16} fontFamily="ReadexProBold" color="#393939" mb={13}>
+      <Text fontSize={16}
+        fontFamily="ReadexProBold"
+        color={labelColor ? labelColor : "#393939"}
+        mb={13}
+      >
         {label.includes('Search') ? "" : label}
       </Text>
       <Input
+
+        isDisabled={label === 'Cash Equivalent' && true}
+        keyboardType={keysType === 'number' ? 'number-pad' : "default"}
         bgColor={
           bgColor ? bgColor : "#F9F9FA"
         }
-        value={input} onChangeText={getInput} variant="unstyled" w="100%" h="66" fontSize={16}
+        value={input}
+        onChangeText={getInput}
+        variant="unstyled"
+        w="100%" h="66"
+        fontSize={"16px"}
         placeholder={
-          label === "Confirm Password" ? "Confirm Password" : `${label}`
+          placeholder ? placeholder : `${label}`
         }
         InputRightElement={
           <Icon as={(label.includes("Password")) && <MaterialIcons
@@ -31,7 +46,19 @@ const InputField = ({ label, getInput, input, visibility, setVisibilty, bgColor 
           />}
             size={5} mr={5}
           />}
-        type={visibility ? "password" : "text"} />
+
+        InputLeftElement={
+          label === 'Username' ? <Text color="accent_bg.50"
+            mx="10px"
+            fontSize="40px"
+          >
+            @
+          </Text>
+            :
+            undefined
+        }
+        type={visibility ? "password" : "text"}
+      />
     </Box>
   )
 }
